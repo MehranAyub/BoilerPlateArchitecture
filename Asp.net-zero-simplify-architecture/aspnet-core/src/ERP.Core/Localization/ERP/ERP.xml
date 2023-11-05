@@ -1,6 +1,22 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>
+  <texts>    <text name="Entities">Entities</text>
+    <text name="ERP.Entities.Property">Property</text>
+    <text name="PropertySpecs">Property specs</text>
+    <text name="Description">Description</text>
+    <text name="WholeSalePrice">Whole sale price</text>
+    <text name="EstimatedARV">Estimated a r v</text>
+    <text name="EstimatedRehab">Estimated rehab</text>
+    <text name="ViewingDescription">Viewing description</text>
+    <text name="EMDRequirement">E m d requirement</text>
+    <text name="ViewingContact">Viewing contact</text>
+    <text name="OfferContact">Offer contact</text>
+    <text name="PropertiesHeaderInfo">Properties header info</text>
+    <text name="CreateNewProperty">Create new property</text>
+    <text name="EditProperty">Edit property</text>
+    <text name="DeleteProperty">Delete property</text>
+    <text name="Properties">Properties</text>
+
     <text name="AccountGroup">Account group</text>
     <text name="GLACGRP">Account group</text>
     <text name="ACCTGRPCOD">Account group</text>

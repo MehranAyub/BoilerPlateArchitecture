@@ -1,7 +1,11 @@
-import { CommonModule } from '@angular/common';
+﻿import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppCommonModule } from '@app/shared/common/app-common.module';
+import { PropertiesComponent } from './entities/properties/properties.component';
+import { ViewPropertyComponent } from './entities/properties/view-property.component';
+import { CreateOrEditPropertyComponent } from './entities/properties/create-or-edit-property.component';
+
 import { AutoCompleteModule } from 'primeng/primeng';
 import { PaginatorModule } from 'primeng/primeng';
 import { EditorModule } from 'primeng/primeng';
@@ -43,7 +47,11 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         BsDropdownModule.forRoot(),
         PopoverModule.forRoot()
     ],
-    declarations: [ 
+    declarations: [
+		PropertiesComponent,
+
+		ViewPropertyComponent,
+		CreateOrEditPropertyComponent, 
         DashboardComponent
     ],
     providers: [

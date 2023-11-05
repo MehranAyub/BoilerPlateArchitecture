@@ -915,42 +915,6 @@ namespace ERP.Migrations
                     b.ToTable("AbpOrganizationUnitRoles");
                 });
 
-            modelBuilder.Entity("ERP.AccountGroup.GLACGRP", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ACCTGRPCOD")
-                        .IsRequired();
-
-                    b.Property<string>("ACCTGRPDES")
-                        .IsRequired();
-
-                    b.Property<DateTime>("AUDTDATE");
-
-                    b.Property<string>("AUDTORG")
-                        .IsRequired();
-
-                    b.Property<string>("AUDTTIME")
-                        .IsRequired();
-
-                    b.Property<string>("AUDTUSER")
-                        .IsRequired();
-
-                    b.Property<short>("GRPCOD");
-
-                    b.Property<string>("SORTCODE")
-                        .IsRequired();
-
-                    b.Property<int?>("TenantId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TenantId");
-
-                    b.ToTable("GLACGRP");
-                });
-
             modelBuilder.Entity("ERP.Authorization.Roles.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -1114,36 +1078,6 @@ namespace ERP.Migrations
                     b.ToTable("AbpUsers");
                 });
 
-            modelBuilder.Entity("ERP.Books.GLBOOKS", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BookID");
-
-                    b.Property<string>("BookName")
-                        .IsRequired();
-
-                    b.Property<int?>("DbID");
-
-                    b.Property<bool>("Integrated");
-
-                    b.Property<int>("NormalEntry");
-
-                    b.Property<short?>("Restricted");
-
-                    b.Property<decimal?>("SysDate");
-
-                    b.Property<int?>("TenantId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TenantId");
-
-                    b.ToTable("GLBOOKS");
-                });
-
             modelBuilder.Entity("ERP.Chat.ChatMessage", b =>
                 {
                     b.Property<long>("Id")
@@ -1185,6 +1119,52 @@ namespace ERP.Migrations
                     b.ToTable("AppChatMessages");
                 });
 
+            modelBuilder.Entity("ERP.Entities.Property", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address")
+                        .IsRequired();
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<long?>("CreatorUserId");
+
+                    b.Property<long?>("DeleterUserId");
+
+                    b.Property<DateTime?>("DeletionTime");
+
+                    b.Property<string>("Description")
+                        .IsRequired();
+
+                    b.Property<long>("EMDRequirement");
+
+                    b.Property<long?>("EstimatedARV");
+
+                    b.Property<long?>("EstimatedRehab");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModificationTime");
+
+                    b.Property<long?>("LastModifierUserId");
+
+                    b.Property<string>("OfferContact");
+
+                    b.Property<string>("PropertySpecs");
+
+                    b.Property<string>("ViewingContact");
+
+                    b.Property<string>("ViewingDescription");
+
+                    b.Property<long>("WholeSalePrice");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Properties");
+                });
+
             modelBuilder.Entity("ERP.Friendships.Friendship", b =>
                 {
                     b.Property<long>("Id")
@@ -1222,27 +1202,6 @@ namespace ERP.Migrations
                     b.HasIndex("TenantId", "UserId");
 
                     b.ToTable("AppFriendships");
-                });
-
-            modelBuilder.Entity("ERP.GLCostCenter.GLCstCent", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("CostCenterID");
-
-                    b.Property<string>("CCStructID")
-                        .IsRequired();
-
-                    b.Property<string>("CostCenter")
-                        .IsRequired();
-
-                    b.Property<int?>("TenantId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TenantId");
-
-                    b.ToTable("GLCstCent");
                 });
 
             modelBuilder.Entity("ERP.MultiTenancy.Accounting.Invoice", b =>
@@ -1388,30 +1347,6 @@ namespace ERP.Migrations
                     b.HasIndex("TenancyName");
 
                     b.ToTable("AbpTenants");
-                });
-
-            modelBuilder.Entity("ERP.SourceCode.GLSRCE", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("SRCEDESC")
-                        .IsRequired();
-
-                    b.Property<string>("SRCELEDGER")
-                        .IsRequired();
-
-                    b.Property<string>("SRCETYPE")
-                        .IsRequired();
-
-                    b.Property<int?>("TenantId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("TenantId");
-
-                    b.ToTable("GLSRCE");
                 });
 
             modelBuilder.Entity("ERP.Storage.BinaryObject", b =>

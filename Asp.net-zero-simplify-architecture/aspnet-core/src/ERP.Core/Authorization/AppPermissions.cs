@@ -1,17 +1,21 @@
-namespace ERP.Authorization
+﻿namespace ERP.Authorization
 {
     /// <summary>
     /// Defines string constants for application's permission names.
     /// <see cref="AppAuthorizationProvider"/> for permission definitions.
     /// </summary>
     public static class AppPermissions
-    { 
-          
+    {
+        public const string Pages_Properties = "Pages.Properties";
+        public const string Pages_Properties_Create = "Pages.Properties.Create";
+        public const string Pages_Properties_Edit = "Pages.Properties.Edit";
+        public const string Pages_Properties_Delete = "Pages.Properties.Delete";
+
         //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 
         public const string Pages = "Pages";
 
-        public const string Pages_DemoUiComponents= "Pages.DemoUiComponents";
+        public const string Pages_DemoUiComponents = "Pages.DemoUiComponents";
         public const string Pages_Administration = "Pages.Administration";
 
         public const string Pages_Administration_Roles = "Pages.Administration.Roles";

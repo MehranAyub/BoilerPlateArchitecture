@@ -135,3 +135,4 @@ src/ERP.Web.Public/wwwroot/view-resources/Views/_Bundles
 src/ERP.Web.Public/wwwroot/view-resources/**/*.min.*
 src/ERP.Web.Public/wwwroot/Common/**/*.min.*
 src/ERP.Web.Public/node_modules
+/AspNetZeroRadTool

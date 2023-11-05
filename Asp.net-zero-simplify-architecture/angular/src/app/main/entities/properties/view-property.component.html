@@ -1,0 +1,77 @@
+﻿<div [@routerTransition]>
+  
+  
+  
+                <div class="kt-subheader kt-grid__item">
+                  
+                    <div class="kt-subheader__main">
+                        <h3 class="kt-subheader__title">
+            				<span>{{l("Entity_Name_Plural_Here")}} {{l("Details")}}</span>
+            			</h3>
+            			<span class="kt-subheader__separator kt-subheader__separator--v"></span>
+            			<div class="kt-subheader__breadcrumbs">
+            				<a [routerLink]="['/app/main/entities/properties']"
+            					class="kt-subheader__breadcrumbs-home"><i
+            						class="flaticon2-shelter"></i>{{l("Property")}}</a>
+            				<span class="kt-subheader__breadcrumbs-separator"></span>
+            				<a 
+            					class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">
+            					<span>{{l("Details")}}</span>
+            				</a>
+            			</div>
+                    </div>
+                  
+                </div>
+             
+    <div class="kt-content">
+        <div class="kt-portlet kt-portlet--mobile">
+            <div class="kt-portlet__body">
+                <div class="row align-items-center">
+                                     <div class="col-6 mb-3">
+                        <h6>{{l("Address")}} :</h6>
+                        {{ item.property.address }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("PropertySpecs")}} :</h6>
+                        {{ item.property.propertySpecs }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("Description")}} :</h6>
+                        {{ item.property.description }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("WholeSalePrice")}} :</h6>
+                        {{ item.property.wholeSalePrice }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("EstimatedARV")}} :</h6>
+                        {{ item.property.estimatedARV }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("EstimatedRehab")}} :</h6>
+                        {{ item.property.estimatedRehab }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ViewingDescription")}} :</h6>
+                        {{ item.property.viewingDescription }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("EMDRequirement")}} :</h6>
+                        {{ item.property.emdRequirement }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("ViewingContact")}} :</h6>
+                        {{ item.property.viewingContact }}
+                    </div>
+                    <div class="col-6 mb-3">
+                        <h6>{{l("OfferContact")}} :</h6>
+                        {{ item.property.offerContact }}
+                    </div>
+
+                 
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</div>

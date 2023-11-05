@@ -1,5 +1,5 @@
 ﻿(function ($) {
-    app.modals.{{NP_Foreign_Entity_Name_Here}}LookupTableModal = function () {
+    app.modals.{{Master_Detail_Child_Prefix_Here}}{{NP_Foreign_Entity_Name_Here}}LookupTableModal = function () {
 
         var _modalManager;
 
@@ -9,7 +9,6 @@
         this.init = function (modalManager) {
             _modalManager = modalManager;
         };
-
 
         var dataTable = _${{nP_Foreign_Entity_Name_Here}}Table.DataTable({
             paging: true,
@@ -59,12 +58,11 @@
             e.preventDefault();
         });
 
-        $(document).keypress(function (e) {
-            if (e.which === 13) {
+        $('#{{NP_Foreign_Entity_Name_Here}}TableFilter').keypress(function (e) {
+            if (e.which === 13 && e.target.tagName.toLocaleLowerCase() != 'textarea') {
                 get{{NP_Foreign_Entity_Name_Here}}();
             }
         });
 
     };
 })(jQuery);
-

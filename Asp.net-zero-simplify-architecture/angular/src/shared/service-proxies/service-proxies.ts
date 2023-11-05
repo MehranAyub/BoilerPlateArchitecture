@@ -6326,6 +6326,333 @@ export class ProfileServiceProxy {
 }
 
 @Injectable()
+export class PropertiesServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param addressFilter (optional) 
+     * @param propertySpecsFilter (optional) 
+     * @param descriptionFilter (optional) 
+     * @param maxWholeSalePriceFilter (optional) 
+     * @param minWholeSalePriceFilter (optional) 
+     * @param maxEstimatedARVFilter (optional) 
+     * @param minEstimatedARVFilter (optional) 
+     * @param maxEstimatedRehabFilter (optional) 
+     * @param minEstimatedRehabFilter (optional) 
+     * @param viewingDescriptionFilter (optional) 
+     * @param maxEMDRequirementFilter (optional) 
+     * @param minEMDRequirementFilter (optional) 
+     * @param viewingContactFilter (optional) 
+     * @param offerContactFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | null | undefined, addressFilter: string | null | undefined, propertySpecsFilter: string | null | undefined, descriptionFilter: string | null | undefined, maxWholeSalePriceFilter: number | null | undefined, minWholeSalePriceFilter: number | null | undefined, maxEstimatedARVFilter: number | null | undefined, minEstimatedARVFilter: number | null | undefined, maxEstimatedRehabFilter: number | null | undefined, minEstimatedRehabFilter: number | null | undefined, viewingDescriptionFilter: string | null | undefined, maxEMDRequirementFilter: number | null | undefined, minEMDRequirementFilter: number | null | undefined, viewingContactFilter: string | null | undefined, offerContactFilter: string | null | undefined, sorting: string | null | undefined, skipCount: number | null | undefined, maxResultCount: number | null | undefined): Observable<PagedResultDtoOfGetPropertyForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/Properties/GetAll?";
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (addressFilter !== undefined)
+            url_ += "AddressFilter=" + encodeURIComponent("" + addressFilter) + "&"; 
+        if (propertySpecsFilter !== undefined)
+            url_ += "PropertySpecsFilter=" + encodeURIComponent("" + propertySpecsFilter) + "&"; 
+        if (descriptionFilter !== undefined)
+            url_ += "DescriptionFilter=" + encodeURIComponent("" + descriptionFilter) + "&"; 
+        if (maxWholeSalePriceFilter !== undefined)
+            url_ += "MaxWholeSalePriceFilter=" + encodeURIComponent("" + maxWholeSalePriceFilter) + "&"; 
+        if (minWholeSalePriceFilter !== undefined)
+            url_ += "MinWholeSalePriceFilter=" + encodeURIComponent("" + minWholeSalePriceFilter) + "&"; 
+        if (maxEstimatedARVFilter !== undefined)
+            url_ += "MaxEstimatedARVFilter=" + encodeURIComponent("" + maxEstimatedARVFilter) + "&"; 
+        if (minEstimatedARVFilter !== undefined)
+            url_ += "MinEstimatedARVFilter=" + encodeURIComponent("" + minEstimatedARVFilter) + "&"; 
+        if (maxEstimatedRehabFilter !== undefined)
+            url_ += "MaxEstimatedRehabFilter=" + encodeURIComponent("" + maxEstimatedRehabFilter) + "&"; 
+        if (minEstimatedRehabFilter !== undefined)
+            url_ += "MinEstimatedRehabFilter=" + encodeURIComponent("" + minEstimatedRehabFilter) + "&"; 
+        if (viewingDescriptionFilter !== undefined)
+            url_ += "ViewingDescriptionFilter=" + encodeURIComponent("" + viewingDescriptionFilter) + "&"; 
+        if (maxEMDRequirementFilter !== undefined)
+            url_ += "MaxEMDRequirementFilter=" + encodeURIComponent("" + maxEMDRequirementFilter) + "&"; 
+        if (minEMDRequirementFilter !== undefined)
+            url_ += "MinEMDRequirementFilter=" + encodeURIComponent("" + minEMDRequirementFilter) + "&"; 
+        if (viewingContactFilter !== undefined)
+            url_ += "ViewingContactFilter=" + encodeURIComponent("" + viewingContactFilter) + "&"; 
+        if (offerContactFilter !== undefined)
+            url_ += "OfferContactFilter=" + encodeURIComponent("" + offerContactFilter) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetPropertyForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetPropertyForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetPropertyForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfGetPropertyForViewDto.fromJS(resultData200) : new PagedResultDtoOfGetPropertyForViewDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetPropertyForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getPropertyForView(id: string | null | undefined): Observable<GetPropertyForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/Properties/GetPropertyForView?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPropertyForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPropertyForView(<any>response_);
+                } catch (e) {
+                    return <Observable<GetPropertyForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetPropertyForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPropertyForView(response: HttpResponseBase): Observable<GetPropertyForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? GetPropertyForViewDto.fromJS(resultData200) : new GetPropertyForViewDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetPropertyForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getPropertyForEdit(id: string | null | undefined): Observable<GetPropertyForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Properties/GetPropertyForEdit?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPropertyForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPropertyForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetPropertyForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetPropertyForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPropertyForEdit(response: HttpResponseBase): Observable<GetPropertyForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? GetPropertyForEditOutput.fromJS(resultData200) : new GetPropertyForEditOutput();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetPropertyForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param input (optional) 
+     * @return Success
+     */
+    createOrEdit(input: CreateOrEditPropertyDto | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Properties/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: string | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Properties/Delete?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
 export class RoleServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -16573,6 +16900,278 @@ export class ChangeUserLanguageDto implements IChangeUserLanguageDto {
 
 export interface IChangeUserLanguageDto {
     languageName: string;
+}
+
+export class PagedResultDtoOfGetPropertyForViewDto implements IPagedResultDtoOfGetPropertyForViewDto {
+    totalCount!: number | undefined;
+    items!: GetPropertyForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetPropertyForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(GetPropertyForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetPropertyForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetPropertyForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfGetPropertyForViewDto {
+    totalCount: number | undefined;
+    items: GetPropertyForViewDto[] | undefined;
+}
+
+export class GetPropertyForViewDto implements IGetPropertyForViewDto {
+    property!: PropertyDto | undefined;
+
+    constructor(data?: IGetPropertyForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.property = data["property"] ? PropertyDto.fromJS(data["property"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetPropertyForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetPropertyForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["property"] = this.property ? this.property.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetPropertyForViewDto {
+    property: PropertyDto | undefined;
+}
+
+export class PropertyDto implements IPropertyDto {
+    address!: string | undefined;
+    propertySpecs!: string | undefined;
+    description!: string | undefined;
+    wholeSalePrice!: number | undefined;
+    estimatedARV!: number | undefined;
+    estimatedRehab!: number | undefined;
+    viewingDescription!: string | undefined;
+    emdRequirement!: number | undefined;
+    viewingContact!: string | undefined;
+    offerContact!: string | undefined;
+    id!: string | undefined;
+
+    constructor(data?: IPropertyDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.address = data["address"];
+            this.propertySpecs = data["propertySpecs"];
+            this.description = data["description"];
+            this.wholeSalePrice = data["wholeSalePrice"];
+            this.estimatedARV = data["estimatedARV"];
+            this.estimatedRehab = data["estimatedRehab"];
+            this.viewingDescription = data["viewingDescription"];
+            this.emdRequirement = data["emdRequirement"];
+            this.viewingContact = data["viewingContact"];
+            this.offerContact = data["offerContact"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): PropertyDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PropertyDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["address"] = this.address;
+        data["propertySpecs"] = this.propertySpecs;
+        data["description"] = this.description;
+        data["wholeSalePrice"] = this.wholeSalePrice;
+        data["estimatedARV"] = this.estimatedARV;
+        data["estimatedRehab"] = this.estimatedRehab;
+        data["viewingDescription"] = this.viewingDescription;
+        data["emdRequirement"] = this.emdRequirement;
+        data["viewingContact"] = this.viewingContact;
+        data["offerContact"] = this.offerContact;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IPropertyDto {
+    address: string | undefined;
+    propertySpecs: string | undefined;
+    description: string | undefined;
+    wholeSalePrice: number | undefined;
+    estimatedARV: number | undefined;
+    estimatedRehab: number | undefined;
+    viewingDescription: string | undefined;
+    emdRequirement: number | undefined;
+    viewingContact: string | undefined;
+    offerContact: string | undefined;
+    id: string | undefined;
+}
+
+export class GetPropertyForEditOutput implements IGetPropertyForEditOutput {
+    property!: CreateOrEditPropertyDto | undefined;
+
+    constructor(data?: IGetPropertyForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.property = data["property"] ? CreateOrEditPropertyDto.fromJS(data["property"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetPropertyForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetPropertyForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["property"] = this.property ? this.property.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetPropertyForEditOutput {
+    property: CreateOrEditPropertyDto | undefined;
+}
+
+export class CreateOrEditPropertyDto implements ICreateOrEditPropertyDto {
+    address!: string;
+    propertySpecs!: string | undefined;
+    description!: string;
+    wholeSalePrice!: number | undefined;
+    estimatedARV!: number | undefined;
+    estimatedRehab!: number | undefined;
+    viewingDescription!: string | undefined;
+    emdRequirement!: number | undefined;
+    viewingContact!: string | undefined;
+    offerContact!: string | undefined;
+    id!: string | undefined;
+
+    constructor(data?: ICreateOrEditPropertyDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.address = data["address"];
+            this.propertySpecs = data["propertySpecs"];
+            this.description = data["description"];
+            this.wholeSalePrice = data["wholeSalePrice"];
+            this.estimatedARV = data["estimatedARV"];
+            this.estimatedRehab = data["estimatedRehab"];
+            this.viewingDescription = data["viewingDescription"];
+            this.emdRequirement = data["emdRequirement"];
+            this.viewingContact = data["viewingContact"];
+            this.offerContact = data["offerContact"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditPropertyDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditPropertyDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["address"] = this.address;
+        data["propertySpecs"] = this.propertySpecs;
+        data["description"] = this.description;
+        data["wholeSalePrice"] = this.wholeSalePrice;
+        data["estimatedARV"] = this.estimatedARV;
+        data["estimatedRehab"] = this.estimatedRehab;
+        data["viewingDescription"] = this.viewingDescription;
+        data["emdRequirement"] = this.emdRequirement;
+        data["viewingContact"] = this.viewingContact;
+        data["offerContact"] = this.offerContact;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditPropertyDto {
+    address: string;
+    propertySpecs: string | undefined;
+    description: string;
+    wholeSalePrice: number | undefined;
+    estimatedARV: number | undefined;
+    estimatedRehab: number | undefined;
+    viewingDescription: string | undefined;
+    emdRequirement: number | undefined;
+    viewingContact: string | undefined;
+    offerContact: string | undefined;
+    id: string | undefined;
 }
 
 export class ListResultDtoOfRoleListDto implements IListResultDtoOfRoleListDto {

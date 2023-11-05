@@ -1,0 +1,112 @@
+﻿<div [@routerTransition]>
+  
+  
+  
+                <div class="kt-subheader kt-grid__item">
+                  
+                    <div class="kt-subheader__main">
+                        <h3 class="kt-subheader__title">
+            				<span *ngIf="active && property.id">{{"EditProperty" }}</span>
+            				<span *ngIf="active && !property.id">{{l("CreateProperty")}}</span>
+            			</h3>
+            			<span class="kt-subheader__separator kt-subheader__separator--v"></span>
+            			<div class="kt-subheader__breadcrumbs">
+            				<a [routerLink]="['/app/main/entities/properties']"
+            					class="kt-subheader__breadcrumbs-home"><i
+            						class="flaticon2-shelter"></i>{{l("Property")}}</a>
+            				<span class="kt-subheader__breadcrumbs-separator"></span>
+            				<a 
+            					class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">
+            					<span *ngIf="active && property.id">{{l("Edit")}}</span>
+            					<span *ngIf="active && !property.id">{{l("Create")}}</span>
+            				</a>
+            			</div>
+                    </div>
+                  
+                </div>
+            
+    
+    <div class="kt-content">
+        <div class="kt-portlet kt-portlet--mobile">
+            <div class="kt-portlet__body">              
+                
+                
+								<div class="form-group">
+									<label for="Property_Address">{{l("Address")}} *</label>
+									<input type="text" #Property_Address="ngModel" id="Property_Address" class="form-control" [(ngModel)]="property.address" name="Address"     required/>
+								    <validation-messages [formCtrl]="Property_Address"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="Property_PropertySpecs">{{l("PropertySpecs")}}</label>
+									<input type="text" #Property_PropertySpecs="ngModel" id="Property_PropertySpecs" class="form-control" [(ngModel)]="property.propertySpecs" name="PropertySpecs"    />
+								    <validation-messages [formCtrl]="Property_PropertySpecs"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="Property_Description">{{l("Description")}} *</label>
+									<input type="text" #Property_Description="ngModel" id="Property_Description" class="form-control" [(ngModel)]="property.description" name="Description"     required/>
+								    <validation-messages [formCtrl]="Property_Description"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="Property_WholeSalePrice">{{l("WholeSalePrice")}}</label>
+									<input type="number" #Property_WholeSalePrice="ngModel" id="Property_WholeSalePrice" class="form-control" [(ngModel)]="property.wholeSalePrice" name="WholeSalePrice"   />
+								    <validation-messages [formCtrl]="Property_WholeSalePrice"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="Property_EstimatedARV">{{l("EstimatedARV")}}</label>
+									<input type="number" #Property_EstimatedARV="ngModel" id="Property_EstimatedARV" class="form-control" [(ngModel)]="property.estimatedARV" name="EstimatedARV"   />
+								    <validation-messages [formCtrl]="Property_EstimatedARV"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="Property_EstimatedRehab">{{l("EstimatedRehab")}}</label>
+									<input type="number" #Property_EstimatedRehab="ngModel" id="Property_EstimatedRehab" class="form-control" [(ngModel)]="property.estimatedRehab" name="EstimatedRehab"   />
+								    <validation-messages [formCtrl]="Property_EstimatedRehab"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="Property_ViewingDescription">{{l("ViewingDescription")}}</label>
+									<input type="text" #Property_ViewingDescription="ngModel" id="Property_ViewingDescription" class="form-control" [(ngModel)]="property.viewingDescription" name="ViewingDescription"    />
+								    <validation-messages [formCtrl]="Property_ViewingDescription"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="Property_EMDRequirement">{{l("EMDRequirement")}}</label>
+									<input type="number" #Property_EMDRequirement="ngModel" id="Property_EMDRequirement" class="form-control" [(ngModel)]="property.emdRequirement" name="EMDRequirement"   />
+								    <validation-messages [formCtrl]="Property_EMDRequirement"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="Property_ViewingContact">{{l("ViewingContact")}}</label>
+									<input type="text" #Property_ViewingContact="ngModel" id="Property_ViewingContact" class="form-control" [(ngModel)]="property.viewingContact" name="ViewingContact"    />
+								    <validation-messages [formCtrl]="Property_ViewingContact"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="Property_OfferContact">{{l("OfferContact")}}</label>
+									<input type="text" #Property_OfferContact="ngModel" id="Property_OfferContact" class="form-control" [(ngModel)]="property.offerContact" name="OfferContact"    />
+								    <validation-messages [formCtrl]="Property_OfferContact"></validation-messages>
+								</div>
+					
+                
+            </div>
+              <div class="kt-portlet__foot">
+				<div class="col-lg-12">
+					<button (click)="save()" class="btn btn-primary blue float-right"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> 
+                        <span>{{l("Save")}}</span>
+                    </button>
+                    <button *ngIf="!this.property.id" (click)="saveAndNew()" class="btn btn-primary blue float-right"
+                        [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> 
+                        <span>{{l("SaveAndNew")}}</span>
+                    </button>
+				</div>
+		    </div>
+        </div>
+    </div>
+  
+  
+</div>
