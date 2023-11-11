@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AFAA0841-BD93-466F-B8F4-FB4EEC86F1FC}"
 EndProject
@@ -38,7 +38,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP.GraphQL", "src\ERP.Grap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP.GraphQL.Tests", "test\ERP.GraphQL.Tests\ERP.GraphQL.Tests.csproj", "{E09101B3-F77E-4C72-8465-7B430FA93AD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ERP.Test.Base", "test\ERP.Test.Base\ERP.Test.Base.csproj", "{62EC592B-CC95-43C2-9736-0EC6E46B01FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP.Test.Base", "test\ERP.Test.Base\ERP.Test.Base.csproj", "{62EC592B-CC95-43C2-9736-0EC6E46B01FA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ERP.Application.Client", "src\ERP.Application.Client\ERP.Application.Client.csproj", "{587F415F-1A2D-4B94-BFCB-3E8314E7F0F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -102,6 +104,10 @@ Global
 		{62EC592B-CC95-43C2-9736-0EC6E46B01FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62EC592B-CC95-43C2-9736-0EC6E46B01FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62EC592B-CC95-43C2-9736-0EC6E46B01FA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{587F415F-1A2D-4B94-BFCB-3E8314E7F0F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{587F415F-1A2D-4B94-BFCB-3E8314E7F0F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{587F415F-1A2D-4B94-BFCB-3E8314E7F0F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{587F415F-1A2D-4B94-BFCB-3E8314E7F0F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -121,6 +127,7 @@ Global
 		{06BE6AD3-3D14-4D0B-935A-4228C7904A9D} = {AFAA0841-BD93-466F-B8F4-FB4EEC86F1FC}
 		{E09101B3-F77E-4C72-8465-7B430FA93AD1} = {F10AA149-2626-486E-85BB-9CD5365F3016}
 		{62EC592B-CC95-43C2-9736-0EC6E46B01FA} = {F10AA149-2626-486E-85BB-9CD5365F3016}
+		{587F415F-1A2D-4B94-BFCB-3E8314E7F0F1} = {AFAA0841-BD93-466F-B8F4-FB4EEC86F1FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {23CD4D4B-B131-473D-9ECB-5DD96E739671}

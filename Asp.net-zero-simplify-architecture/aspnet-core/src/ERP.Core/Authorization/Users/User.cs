@@ -29,6 +29,7 @@ namespace ERP.Authorization.Users
         {
             IsLockoutEnabled = true;
             IsTwoFactorEnabled = true;
+            IsEmailConfirmed = true;
         }
 
         /// <summary>

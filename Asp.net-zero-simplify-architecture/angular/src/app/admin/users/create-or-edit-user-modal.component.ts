@@ -144,7 +144,8 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
                 _.filter(this.roles, { isAssigned: true }), role => role.roleName
             );
 
-        input.organizationUnits = this.organizationUnitTree.getSelectedOrganizations();
+        // input.organizationUnits = this.organizationUnitTree.getSelectedOrganizations();
+        input.organizationUnits = [];
 
         this.saving = true;
         this._userService.createOrUpdateUser(input)

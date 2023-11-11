@@ -18,12 +18,12 @@
                             {{"Refresh" | localize}}
                         </span>
                     </button>
-                    <a href="javascript:;" #DashboardDateRangePicker class="btn btn-primary dashboard-report-range" (click)="dateRangePicker.toggle()">
+                    <!-- <a href="javascript:;" #DashboardDateRangePicker class="btn btn-primary dashboard-report-range" (click)="dateRangePicker.toggle()">
                         <i class="la la-calendar" [attr.aria-label]="l('Expand')"></i>
                         <span class="d-none d-sm-inline-block">
                             {{selectedDateRange[0] | momentFormat: 'LL'}} - {{selectedDateRange[1] | momentFormat: 'LL'}}
                         </span>
-                    </a>
+                    </a> -->
                     <input type="text"
                            class="btn btn-primary date-range-filter"
                            #dateRangePicker="bsDaterangepicker"
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </div>
-        <div class="kt-content kt-grid__item kt-grid__item--fluid">
+        <!-- <div class="kt-content kt-grid__item kt-grid__item--fluid">
             <div class="kt-portlet kt-portlet--height-fluid">
                 <div class="kt-portlet__body  kt-portlet__body--fit">
                     <div class="row row-no-padding row-col-separator-xl">
@@ -361,6 +361,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
