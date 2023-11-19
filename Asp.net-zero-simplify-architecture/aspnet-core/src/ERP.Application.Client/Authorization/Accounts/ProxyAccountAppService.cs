@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
+using Abp.Application.Services.Dto;
 using ERP.Authorization.Accounts.Dto;
+using ERP.Authorization.Roles.Dto;
 
 namespace ERP.Authorization.Accounts
 {
@@ -53,6 +55,11 @@ namespace ERP.Authorization.Accounts
         public async Task<SwitchToLinkedAccountOutput> SwitchToLinkedAccount(SwitchToLinkedAccountInput input)
         {
             return await ApiClient.PostAnonymousAsync<SwitchToLinkedAccountOutput>(GetEndpoint(nameof(SwitchToLinkedAccount)));
+        }
+
+        public async Task<ListResultDto<RoleListDto>> GetDefaultRoles()
+        {
+            return await ApiClient.PostAnonymousAsync<ListResultDto<RoleListDto>>(GetEndpoint(nameof(GetDefaultRoles)));
         }
     }
 }

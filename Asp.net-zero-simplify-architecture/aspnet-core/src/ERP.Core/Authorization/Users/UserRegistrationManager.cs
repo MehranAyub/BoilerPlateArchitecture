@@ -15,6 +15,9 @@ using ERP.Configuration;
 using ERP.Debugging;
 using ERP.MultiTenancy;
 using ERP.Notifications;
+using Abp.Application.Services.Dto;
+using ERP.Authorization.Roles.Dto;
+using Microsoft.EntityFrameworkCore;
 
 namespace ERP.Authorization.Users
 {
@@ -53,7 +56,7 @@ namespace ERP.Authorization.Users
             AsyncQueryableExecuter = NullAsyncQueryableExecuter.Instance;
         }
 
-        public async Task<User> RegisterAsync(string name, string surname, string emailAddress, string userName, string plainPassword, bool isEmailConfirmed, string emailActivationLink)
+        public async Task<User> RegisterAsync(string name, string surname, string emailAddress, string userName, string plainPassword, bool isEmailConfirmed, string emailActivationLink,int? roleId=0)
         {
             //CheckForTenant();
             CheckSelfRegistrationIsEnabled();
@@ -69,20 +72,26 @@ namespace ERP.Authorization.Users
                 Name = name,
                 Surname = surname,
                 EmailAddress = emailAddress,
-                IsActive = isNewRegisteredUserActiveByDefault,
+                //IsActive = isNewRegisteredUserActiveByDefault,
+                IsActive = true,
                 UserName = userName,
                 IsEmailConfirmed = isEmailConfirmed,
                 Roles = new List<UserRole>()
             };
 
             user.SetNormalizedNames();
-
-            var defaultRoles = await AsyncQueryableExecuter.ToListAsync(_roleManager.Roles.Where(r => r.IsDefault));
-            foreach (var defaultRole in defaultRoles)
+            if (roleId > 0)
             {
-                user.Roles.Add(new UserRole(null, user.Id, defaultRole.Id));
+                user.Roles.Add(new UserRole(null, user.Id, Convert.ToInt32(roleId)));
             }
-
+            else
+            {
+                var defaultRoles = await AsyncQueryableExecuter.ToListAsync(_roleManager.Roles.Where(r => r.IsDefault));
+                foreach (var defaultRole in defaultRoles)
+                {
+                    user.Roles.Add(new UserRole(null, user.Id, defaultRole.Id));
+                }
+            }
             await _userManager.InitializeOptionsAsync(AbpSession.TenantId);
             CheckErrors(await _userManager.CreateAsync(user, plainPassword));
             await CurrentUnitOfWork.SaveChangesAsync();
@@ -94,7 +103,7 @@ namespace ERP.Authorization.Users
             }
 
             //Notifications
-            await _notificationSubscriptionManager.SubscribeToAllAvailableNotificationsAsync(user.ToUserIdentifier());
+            //await _notificationSubscriptionManager.SubscribeToAllAvailableNotificationsAsync(user.ToUserIdentifier());
             await _appNotifier.WelcomeToTheApplicationAsync(user);
             await _appNotifier.NewUserRegisteredAsync(user);
 
@@ -156,6 +165,18 @@ namespace ERP.Authorization.Users
         protected virtual void CheckErrors(IdentityResult identityResult)
         {
             identityResult.CheckErrors(LocalizationManager);
+        }
+
+        public async Task<ListResultDto<RoleListDto>> GetDefaultRoles()
+        {
+            var query = _roleManager.Roles;
+
+
+            query = query.Where(r => r.IsDefault);
+
+            var roles = await query.ToListAsync();
+
+            return new ListResultDto<RoleListDto>(ObjectMapper.Map<List<RoleListDto>>(roles));
         }
     }
 }

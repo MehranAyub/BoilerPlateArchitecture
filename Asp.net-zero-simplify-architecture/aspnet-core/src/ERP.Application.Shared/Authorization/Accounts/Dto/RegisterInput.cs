@@ -33,7 +33,9 @@ namespace ERP.Authorization.Accounts.Dto
         public string Password { get; set; }
 
         [DisableAuditing]
-        public string CaptchaResponse { get; set; }
+        public string CaptchaResponse { get; set; } 
+
+        public int? RoleId { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

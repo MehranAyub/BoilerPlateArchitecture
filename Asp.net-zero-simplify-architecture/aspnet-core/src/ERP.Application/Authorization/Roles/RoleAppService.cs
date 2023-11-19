@@ -129,5 +129,7 @@ namespace ERP.Authorization.Roles
             var grantedPermissions = PermissionManager.GetPermissionsFromNamesByValidating(grantedPermissionNames);
             await _roleManager.SetGrantedPermissionsAsync(role, grantedPermissions);
         }
+
+
     }
 }

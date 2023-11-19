@@ -17,6 +17,8 @@ using ERP.Debugging;
 using ERP.MultiTenancy;
 using ERP.Security.Recaptcha;
 using ERP.Url;
+using Abp.Application.Services.Dto;
+using ERP.Authorization.Roles.Dto;
 
 namespace ERP.Authorization.Accounts
 {
@@ -100,8 +102,9 @@ namespace ERP.Authorization.Accounts
                 input.EmailAddress,
                 input.UserName,
                 input.Password,
-                false,
-                AppUrlService.CreateEmailActivationUrlFormat(AbpSession.TenantId)
+                true,
+                AppUrlService.CreateEmailActivationUrlFormat(AbpSession.TenantId),
+                input.RoleId
             );
 
             var isEmailConfirmationRequiredForLogin = await SettingManager.GetSettingValueAsync<bool>(AbpZeroSettingNames.UserManagement.IsEmailConfirmationRequiredForLogin);
@@ -242,6 +245,12 @@ namespace ERP.Authorization.Accounts
             }
 
             return user;
+        }
+
+        public async Task<ListResultDto<RoleListDto>> GetDefaultRoles()
+        {
+          var res= await this._userRegistrationManager.GetDefaultRoles();
+         return res;
         }
     }
 }

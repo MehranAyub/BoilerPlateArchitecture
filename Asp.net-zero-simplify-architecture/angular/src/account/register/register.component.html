@@ -59,14 +59,20 @@
                     <li [hidden]="PasswordRepeat.valid">{{"PasswordsDontMatch" | localize}}</li>
                 </ul>
             </div>
-
-            <p *ngIf="useCaptcha" class="mt-2 form-text text-muted">
+            <div class="form-group">
+                <!-- <label>{{"Role" | localize}}</label> -->
+                <select name="Role" class="form-control" required [(ngModel)]="model.roleId">
+                    <option [value]="0">{{"Select Role" | localize}}</option>
+                    <option *ngFor="let item of this.roleListDto" [value]="item.id">{{item.displayName}}</option>
+                </select>
+            </div>
+            <!-- <p *ngIf="useCaptcha" class="mt-2 form-text text-muted">
                 {{"Captha_Hint" | localize}}
             </p>
 
             <div *ngIf="useCaptcha" class="form-group mt-2 captcha-container">
                 <re-captcha #recaptchaRef (resolved)="captchaResolved($event)" [siteKey]="recaptchaSiteKey"></re-captcha>
-            </div>
+            </div> -->
 
             <div class="kt-login__actions">
                 <button [disabled]="saving" routerLink="/account/login" type="button" class="btn btn-light btn-elevate kt-login__btn-secondary"><i class="fa fa-arrow-left"></i> {{"Back" | localize}}</button>

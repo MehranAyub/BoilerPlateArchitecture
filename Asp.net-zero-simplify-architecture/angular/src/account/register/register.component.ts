@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AppConsts } from '@shared/AppConsts';
 import { accountModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from '@shared/common/app-component-base';
-import { AccountServiceProxy, PasswordComplexitySetting, ProfileServiceProxy, RegisterOutput } from '@shared/service-proxies/service-proxies';
+import { AccountServiceProxy, ListResultDtoOfRoleListDto, PasswordComplexitySetting, ProfileServiceProxy, RegisterOutput, RoleListDto, RoleServiceProxy } from '@shared/service-proxies/service-proxies';
 import { LoginService } from '../login/login.service';
 import { RegisterModel } from './register.model';
 import { finalize, catchError } from 'rxjs/operators';
@@ -19,7 +19,7 @@ export class RegisterComponent extends AppComponentBase implements OnInit {
     model: RegisterModel = new RegisterModel();
     passwordComplexitySetting: PasswordComplexitySetting = new PasswordComplexitySetting();
     recaptchaSiteKey: string = AppConsts.recaptchaSiteKey;
-
+    roleListDto:RoleListDto[]=[];
     saving = false;
 
     constructor(
@@ -27,7 +27,8 @@ export class RegisterComponent extends AppComponentBase implements OnInit {
         private _accountService: AccountServiceProxy,
         private _router: Router,
         private readonly _loginService: LoginService,
-        private _profileService: ProfileServiceProxy
+        private _profileService: ProfileServiceProxy,
+        private _roleServiceProxy:RoleServiceProxy
     ) {
         super(injector);
     }
@@ -42,6 +43,11 @@ export class RegisterComponent extends AppComponentBase implements OnInit {
         this._profileService.getPasswordComplexitySetting().subscribe(result => {
             this.passwordComplexitySetting = result.setting;
         });
+        this._accountService.getDefaultRoles().subscribe((res)=>{
+            this.roleListDto=res.items;
+            console.log("roleListDto",this.roleListDto);
+        });
+        this.model.roleId=0;
     }
 
     get useCaptcha(): boolean {
@@ -49,11 +55,14 @@ export class RegisterComponent extends AppComponentBase implements OnInit {
     }
 
     save(): void {
-        if (this.useCaptcha && !this.model.captchaResponse) {
-            this.message.warn(this.l('CaptchaCanNotBeEmpty'));
+        // if (this.useCaptcha && !this.model.captchaResponse) {
+        //     this.message.warn(this.l('CaptchaCanNotBeEmpty'));
+        //     return;
+        // }
+        if(!(this.model.roleId>0)){
+            this.message.warn("Please select role");
             return;
         }
-
         this.saving = true;
         this._accountService.register(this.model)
             .pipe(finalize(() => { this.saving = false; }))

@@ -16,6 +16,6 @@ namespace ERP.Authorization.Roles
 
         Task CreateOrUpdateRole(CreateOrUpdateRoleInput input);
 
-        Task DeleteRole(EntityDto input);
+        Task DeleteRole(EntityDto input); 
     }
 }

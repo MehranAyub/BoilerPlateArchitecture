@@ -329,7 +329,7 @@ namespace ERP.Authorization.Users
             await CurrentUnitOfWork.SaveChangesAsync(); //To get new user's Id.
 
             //Notifications
-            await _notificationSubscriptionManager.SubscribeToAllAvailableNotificationsAsync(user.ToUserIdentifier());
+            //await _notificationSubscriptionManager.SubscribeToAllAvailableNotificationsAsync(user.ToUserIdentifier());
             await _appNotifier.WelcomeToTheApplicationAsync(user);
 
             //Organization Units

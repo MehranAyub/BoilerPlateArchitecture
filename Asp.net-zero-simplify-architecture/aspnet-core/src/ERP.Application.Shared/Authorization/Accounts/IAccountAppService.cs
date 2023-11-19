@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Abp.Application.Services;
+using Abp.Application.Services.Dto;
 using ERP.Authorization.Accounts.Dto;
+using ERP.Authorization.Roles.Dto;
 
 namespace ERP.Authorization.Accounts
 {
@@ -25,5 +27,6 @@ namespace ERP.Authorization.Accounts
         Task<ImpersonateOutput> BackToImpersonator();
 
         Task<SwitchToLinkedAccountOutput> SwitchToLinkedAccount(SwitchToLinkedAccountInput input);
+        Task<ListResultDto<RoleListDto>> GetDefaultRoles();
     }
 }

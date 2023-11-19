@@ -39,6 +39,7 @@
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.5.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ERP.Application.Shared\ERP.Application.Shared.csproj" />
     <ProjectReference Include="..\ERP.Core.Shared\ERP.Core.Shared.csproj" />
   </ItemGroup>
 </Project>
