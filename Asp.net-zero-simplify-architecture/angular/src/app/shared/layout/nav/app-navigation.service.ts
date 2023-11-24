@@ -23,7 +23,9 @@ export class AppNavigationService {
             // new AppMenuItem('Tenants', 'Pages.Tenants', 'flaticon-list-3', '/app/admin/tenants'),
             //
             new AppMenuItem('Properties', 'Pages.Properties', 'flaticon-more', '/app/main/entities/properties'),
-            //  new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
+            // 
+            new AppMenuItem('PropertyFileses', 'Pages.PropertyFileses', 'flaticon-more', '/app/main/entities/propertyFileses'),
+             new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
 
            
             // new AppMenuItem('GLSRCE', 'Pages.GLSRCE', 'flaticon-more', '/app/main/sourceCode/glsrce'),

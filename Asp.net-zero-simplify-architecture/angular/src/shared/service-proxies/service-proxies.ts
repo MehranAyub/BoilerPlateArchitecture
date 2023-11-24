@@ -6604,7 +6604,7 @@ export class PropertiesServiceProxy {
      * @param input (optional) 
      * @return Success
      */
-    createOrEdit(input: CreateOrEditPropertyDto | null | undefined): Observable<void> {
+    createOrEdit(input: CreateOrEditPropertyDto | null | undefined): Observable<string> {
         let url_ = this.baseUrl + "/api/services/app/Properties/CreateOrEdit";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -6616,6 +6616,7 @@ export class PropertiesServiceProxy {
             responseType: "blob",
             headers: new HttpHeaders({
                 "Content-Type": "application/json", 
+                "Accept": "application/json"
             })
         };
 
@@ -6626,14 +6627,14 @@ export class PropertiesServiceProxy {
                 try {
                     return this.processCreateOrEdit(<any>response_);
                 } catch (e) {
-                    return <Observable<void>><any>_observableThrow(e);
+                    return <Observable<string>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<void>><any>_observableThrow(response_);
+                return <Observable<string>><any>_observableThrow(response_);
         }));
     }
 
-    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<string> {
         const status = response.status;
         const responseBlob = 
             response instanceof HttpResponse ? response.body : 
@@ -6642,14 +6643,17 @@ export class PropertiesServiceProxy {
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
         if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            return _observableOf<void>(<any>null);
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 !== undefined ? resultData200 : <any>null;
+            return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return throwException("An unexpected server error occurred.", status, _responseText, _headers);
             }));
         }
-        return _observableOf<void>(<any>null);
+        return _observableOf<string>(<any>null);
     }
 
     /**
@@ -6700,6 +6704,303 @@ export class PropertiesServiceProxy {
             }));
         }
         return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
+export class PropertyFilesesServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param propertyId (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | null | undefined, propertyId: string | null | undefined, sorting: string | null | undefined, skipCount: number | null | undefined, maxResultCount: number | null | undefined): Observable<PagedResultDtoOfGetPropertyFilesForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/PropertyFileses/GetAll?";
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (propertyId !== undefined)
+            url_ += "PropertyId=" + encodeURIComponent("" + propertyId) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetPropertyFilesForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetPropertyFilesForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetPropertyFilesForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfGetPropertyFilesForViewDto.fromJS(resultData200) : new PagedResultDtoOfGetPropertyFilesForViewDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetPropertyFilesForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getPropertyFilesForEdit(id: number | null | undefined): Observable<GetPropertyFilesForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/PropertyFileses/GetPropertyFilesForEdit?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPropertyFilesForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPropertyFilesForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetPropertyFilesForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetPropertyFilesForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPropertyFilesForEdit(response: HttpResponseBase): Observable<GetPropertyFilesForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? GetPropertyFilesForEditOutput.fromJS(resultData200) : new GetPropertyFilesForEditOutput();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetPropertyFilesForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param input (optional) 
+     * @return Success
+     */
+    createOrEdit(input: CreateOrEditPropertyFilesDto | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/PropertyFileses/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: number | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/PropertyFileses/Delete?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllPropertyForLookupTable(filter: string | null | undefined, sorting: string | null | undefined, skipCount: number | null | undefined, maxResultCount: number | null | undefined): Observable<PagedResultDtoOfPropertyFilesPropertyLookupTableDto> {
+        let url_ = this.baseUrl + "/api/services/app/PropertyFileses/GetAllPropertyForLookupTable?";
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllPropertyForLookupTable(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllPropertyForLookupTable(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfPropertyFilesPropertyLookupTableDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfPropertyFilesPropertyLookupTableDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllPropertyForLookupTable(response: HttpResponseBase): Observable<PagedResultDtoOfPropertyFilesPropertyLookupTableDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfPropertyFilesPropertyLookupTableDto.fromJS(resultData200) : new PagedResultDtoOfPropertyFilesPropertyLookupTableDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfPropertyFilesPropertyLookupTableDto>(<any>null);
     }
 }
 
@@ -17327,6 +17628,322 @@ export interface ICreateOrEditPropertyDto {
     viewingContact: string | undefined;
     offerContact: string | undefined;
     id: string | undefined;
+}
+
+export class PagedResultDtoOfGetPropertyFilesForViewDto implements IPagedResultDtoOfGetPropertyFilesForViewDto {
+    totalCount!: number | undefined;
+    items!: GetPropertyFilesForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetPropertyFilesForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(GetPropertyFilesForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetPropertyFilesForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetPropertyFilesForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfGetPropertyFilesForViewDto {
+    totalCount: number | undefined;
+    items: GetPropertyFilesForViewDto[] | undefined;
+}
+
+export class GetPropertyFilesForViewDto implements IGetPropertyFilesForViewDto {
+    propertyFiles!: PropertyFilesDto | undefined;
+    propertyPropertySpecs!: string | undefined;
+
+    constructor(data?: IGetPropertyFilesForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.propertyFiles = data["propertyFiles"] ? PropertyFilesDto.fromJS(data["propertyFiles"]) : <any>undefined;
+            this.propertyPropertySpecs = data["propertyPropertySpecs"];
+        }
+    }
+
+    static fromJS(data: any): GetPropertyFilesForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetPropertyFilesForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["propertyFiles"] = this.propertyFiles ? this.propertyFiles.toJSON() : <any>undefined;
+        data["propertyPropertySpecs"] = this.propertyPropertySpecs;
+        return data; 
+    }
+}
+
+export interface IGetPropertyFilesForViewDto {
+    propertyFiles: PropertyFilesDto | undefined;
+    propertyPropertySpecs: string | undefined;
+}
+
+export class PropertyFilesDto implements IPropertyFilesDto {
+    fileName!: string | undefined;
+    propertyId!: string | undefined;
+    imageBytes!: string | undefined;
+    id!: number | undefined;
+
+    constructor(data?: IPropertyFilesDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.fileName = data["fileName"];
+            this.propertyId = data["propertyId"];
+            this.imageBytes = data["imageBytes"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): PropertyFilesDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PropertyFilesDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["fileName"] = this.fileName;
+        data["propertyId"] = this.propertyId;
+        data["imageBytes"] = this.imageBytes;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IPropertyFilesDto {
+    fileName: string | undefined;
+    propertyId: string | undefined;
+    imageBytes: string | undefined;
+    id: number | undefined;
+}
+
+export class GetPropertyFilesForEditOutput implements IGetPropertyFilesForEditOutput {
+    propertyFiles!: CreateOrEditPropertyFilesDto | undefined;
+    propertyPropertySpecs!: string | undefined;
+
+    constructor(data?: IGetPropertyFilesForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.propertyFiles = data["propertyFiles"] ? CreateOrEditPropertyFilesDto.fromJS(data["propertyFiles"]) : <any>undefined;
+            this.propertyPropertySpecs = data["propertyPropertySpecs"];
+        }
+    }
+
+    static fromJS(data: any): GetPropertyFilesForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetPropertyFilesForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["propertyFiles"] = this.propertyFiles ? this.propertyFiles.toJSON() : <any>undefined;
+        data["propertyPropertySpecs"] = this.propertyPropertySpecs;
+        return data; 
+    }
+}
+
+export interface IGetPropertyFilesForEditOutput {
+    propertyFiles: CreateOrEditPropertyFilesDto | undefined;
+    propertyPropertySpecs: string | undefined;
+}
+
+export class CreateOrEditPropertyFilesDto implements ICreateOrEditPropertyFilesDto {
+    fileName!: string | undefined;
+    imageBytes!: string | undefined;
+    fileType!: string | undefined;
+    propertyId!: string | undefined;
+    id!: number | undefined;
+
+    constructor(data?: ICreateOrEditPropertyFilesDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.fileName = data["fileName"];
+            this.imageBytes = data["imageBytes"];
+            this.fileType = data["fileType"];
+            this.propertyId = data["propertyId"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditPropertyFilesDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditPropertyFilesDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["fileName"] = this.fileName;
+        data["imageBytes"] = this.imageBytes;
+        data["fileType"] = this.fileType;
+        data["propertyId"] = this.propertyId;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditPropertyFilesDto {
+    fileName: string | undefined;
+    imageBytes: string | undefined;
+    fileType: string | undefined;
+    propertyId: string | undefined;
+    id: number | undefined;
+}
+
+export class PagedResultDtoOfPropertyFilesPropertyLookupTableDto implements IPagedResultDtoOfPropertyFilesPropertyLookupTableDto {
+    totalCount!: number | undefined;
+    items!: PropertyFilesPropertyLookupTableDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfPropertyFilesPropertyLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(PropertyFilesPropertyLookupTableDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfPropertyFilesPropertyLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfPropertyFilesPropertyLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfPropertyFilesPropertyLookupTableDto {
+    totalCount: number | undefined;
+    items: PropertyFilesPropertyLookupTableDto[] | undefined;
+}
+
+export class PropertyFilesPropertyLookupTableDto implements IPropertyFilesPropertyLookupTableDto {
+    id!: string | undefined;
+    displayName!: string | undefined;
+
+    constructor(data?: IPropertyFilesPropertyLookupTableDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.id = data["id"];
+            this.displayName = data["displayName"];
+        }
+    }
+
+    static fromJS(data: any): PropertyFilesPropertyLookupTableDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PropertyFilesPropertyLookupTableDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["displayName"] = this.displayName;
+        return data; 
+    }
+}
+
+export interface IPropertyFilesPropertyLookupTableDto {
+    id: string | undefined;
+    displayName: string | undefined;
 }
 
 export class GetRoleForEditOutput implements IGetRoleForEditOutput {

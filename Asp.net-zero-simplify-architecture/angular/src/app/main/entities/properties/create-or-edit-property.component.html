@@ -87,13 +87,14 @@
                     <label for="Property_WholeSalePrice">{{
                         l("WholeSalePrice")
                     }}</label>
-                    <input
-                        type="number"
+                    <input 
                         #Property_WholeSalePrice="ngModel"
                         id="Property_WholeSalePrice"
                         class="form-control"
                         [(ngModel)]="property.wholeSalePrice"
                         name="WholeSalePrice"
+                        pattern="\d*"
+                        maxlength="10"
                     />
                     <validation-messages
                         [formCtrl]="Property_WholeSalePrice"
@@ -104,13 +105,14 @@
                     <label for="Property_EstimatedARV">{{
                         l("EstimatedARV")
                     }}</label>
-                    <input
-                        type="number"
+                    <input 
                         #Property_EstimatedARV="ngModel"
                         id="Property_EstimatedARV"
                         class="form-control"
                         [(ngModel)]="property.estimatedARV"
                         name="EstimatedARV"
+                        pattern="\d*"
+                        maxlength="10"
                     />
                     <validation-messages
                         [formCtrl]="Property_EstimatedARV"
@@ -121,13 +123,14 @@
                     <label for="Property_EstimatedRehab">{{
                         l("EstimatedRehab")
                     }}</label>
-                    <input
-                        type="number"
+                    <input 
                         #Property_EstimatedRehab="ngModel"
                         id="Property_EstimatedRehab"
                         class="form-control"
                         [(ngModel)]="property.estimatedRehab"
                         name="EstimatedRehab"
+                        pattern="\d*"
+                        maxlength="10"
                     />
                     <validation-messages
                         [formCtrl]="Property_EstimatedRehab"
@@ -156,12 +159,13 @@
                         l("EMDRequirement")
                     }}</label>
                     <input
-                        type="number"
                         #Property_EMDRequirement="ngModel"
                         id="Property_EMDRequirement"
                         class="form-control"
                         [(ngModel)]="property.emdRequirement"
                         name="EMDRequirement"
+                        pattern="\d*"
+                        maxlength="10"
                     />
                     <validation-messages
                         [formCtrl]="Property_EMDRequirement"
@@ -202,6 +206,13 @@
                     ></validation-messages>
                 </div>
             </div>
+            <ng-container *ngIf="!isEditMode">
+            <app-file-upload [Id]="propertyId"></app-file-upload> 
+            </ng-container>
+
+            <ng-container *ngIf="this.propertyId && !!isEditMode">
+            <app-uploaded-files [PropertyId]="this.propertyId"></app-uploaded-files>
+            </ng-container>
             <div class="kt-portlet__foot">
                 <div class="col-lg-12">
                     <button
@@ -213,7 +224,7 @@
                         <i class="fa fa-save"></i>
                         <span>{{ l("Save") }}</span>
                     </button>
-                    <button
+                    <!-- <button
                         *ngIf="!this.property.id"
                         (click)="saveAndNew()"
                         class="btn btn-primary blue float-right"
@@ -222,7 +233,7 @@
                     >
                         <i class="fa fa-save"></i>
                         <span>{{ l("SaveAndNew") }}</span>
-                    </button>
+                    </button> -->
                 </div>
             </div>
         </div>

@@ -1,0 +1,51 @@
+﻿<div bsModal #createOrEditModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="createOrEditModal" aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form *ngIf="active" #propertyFilesForm="ngForm" novalidate (ngSubmit)="save()" autocomplete="off">
+                <div class="modal-header">
+                    <h4 class="modal-title">
+                        <span *ngIf="propertyFiles.id">{{l("EditPropertyFiles")}}</span>
+                        <span *ngIf="!propertyFiles.id">{{l("CreateNewPropertyFiles")}}</span>
+                    </h4>                    
+                    
+                <button type="button" class="close" (click)="close()" aria-label="Close" [disabled]="saving">
+                     <span aria-hidden="true">&times;</span>
+                </button>
+             
+                    
+                </div>
+                <div class="modal-body">
+                 
+
+
+
+								<div class="form-group">
+									<label for="PropertyFiles_FileName">{{l("FileName")}}</label>
+									<input type="text" #PropertyFiles_FileName="ngModel" id="PropertyFiles_FileName" class="form-control" [(ngModel)]="propertyFiles.fileName" name="FileName"    />
+								    <validation-messages [formCtrl]="PropertyFiles_FileName"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="PropertyFiles_ImageBytes">{{l("ImageBytes")}}</label>
+									<input type="number" #PropertyFiles_ImageBytes="ngModel" id="PropertyFiles_ImageBytes" class="form-control" [(ngModel)]="propertyFiles.imageBytes" name="ImageBytes"    />
+									<validation-messages [formCtrl]="PropertyFiles_ImageBytes"></validation-messages>
+								</div>
+					
+								<div class="form-group">
+									<label for="PropertyFiles_FileType">{{l("FileType")}}</label>
+									<input type="text" #PropertyFiles_FileType="ngModel" id="PropertyFiles_FileType" class="form-control" [(ngModel)]="propertyFiles.fileType" name="FileType"    />
+								    <validation-messages [formCtrl]="PropertyFiles_FileType"></validation-messages>
+								</div>
+					
+
+
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default" (click)="close()">{{l("Cancel")}}</button>
+                    <button type="submit" class="btn btn-primary blue" [disabled]="!propertyFilesForm.form.valid" [buttonBusy]="saving" [busyText]="l('SavingWithThreeDot')"><i class="fa fa-save"></i> <span>{{l("Save")}}</span></button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

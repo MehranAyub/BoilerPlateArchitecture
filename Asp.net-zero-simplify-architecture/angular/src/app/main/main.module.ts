@@ -2,6 +2,9 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppCommonModule } from '@app/shared/common/app-common.module';
+import { PropertyFilesesComponent } from './entities/propertyFileses/propertyFileses.component';
+import { CreateOrEditPropertyFilesModalComponent } from './entities/propertyFileses/create-or-edit-propertyFiles-modal.component';
+
 import { PropertiesComponent } from './entities/properties/properties.component';
 import { ViewPropertyComponent } from './entities/properties/view-property.component';
 import { CreateOrEditPropertyComponent } from './entities/properties/create-or-edit-property.component';
@@ -9,9 +12,10 @@ import { CreateOrEditPropertyComponent } from './entities/properties/create-or-e
 import { AutoCompleteModule } from 'primeng/primeng';
 import { PaginatorModule } from 'primeng/primeng';
 import { EditorModule } from 'primeng/primeng';
-import { InputMaskModule } from 'primeng/primeng';import { FileUploadModule } from 'primeng/primeng';
+import { InputMaskModule } from 'primeng/primeng';
+// import { FileUploadModule } from 'primeng/primeng';
 import { TableModule } from 'primeng/table';
-
+import { FileUploadModule } from 'ng2-file-upload';
 import { UtilsModule } from '@shared/utils/utils.module';
 import { CountoModule } from 'angular2-counto';
 import { ModalModule, TabsModule, TooltipModule, BsDropdownModule, PopoverModule } from 'ngx-bootstrap';
@@ -21,7 +25,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import { BsDatepickerModule, BsDatepickerConfig, BsDaterangepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { NgxBootstrapDatePickerConfigService } from 'assets/ngx-bootstrap/ngx-bootstrap-datepicker-config.service';
-import { from } from 'rxjs';
+import { from } from 'rxjs';;
+import { FileUploadComponent } from './entities/file-upload/file-upload.component'
+;
 
 NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
 
@@ -31,8 +37,8 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
 		AutoCompleteModule,
 		PaginatorModule,
 		EditorModule,
-		InputMaskModule,		TableModule,
-
+		InputMaskModule,		
+        TableModule,
         CommonModule,
         FormsModule,
         ModalModule,
@@ -45,14 +51,19 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         NgxChartsModule,
         BsDatepickerModule.forRoot(),
         BsDropdownModule.forRoot(),
-        PopoverModule.forRoot()
+        PopoverModule.forRoot(),
+        FileUploadModule
     ],
     declarations: [
+		PropertyFilesesComponent,
+
+		CreateOrEditPropertyFilesModalComponent,
 		PropertiesComponent,
 
 		ViewPropertyComponent,
 		CreateOrEditPropertyComponent, 
-        DashboardComponent
+        DashboardComponent,
+        FileUploadComponent 
     ],
     providers: [
         { provide: BsDatepickerConfig, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerConfig },

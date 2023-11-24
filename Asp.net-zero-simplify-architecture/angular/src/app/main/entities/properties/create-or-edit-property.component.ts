@@ -20,8 +20,8 @@ import {Observable} from "@node_modules/rxjs";
 export class CreateOrEditPropertyComponent extends AppComponentBase implements OnInit {
     active = false;
     saving = false;
-    
-    
+    propertyId:string;
+    isEditMode:boolean=false;
     property: CreateOrEditPropertyDto = new CreateOrEditPropertyDto();
 
 
@@ -44,17 +44,17 @@ export class CreateOrEditPropertyComponent extends AppComponentBase implements O
     }
 
     show(propertyId?: string): void {
-
+        this.propertyId=propertyId;
         if (!propertyId) {
             this.property = new CreateOrEditPropertyDto();
             this.property.id = propertyId;
-
+            this.isEditMode=false;
 
             this.active = true;
         } else {
             this._propertiesServiceProxy.getPropertyForEdit(propertyId).subscribe(result => {
                 this.property = result.property;
-
+                this.isEditMode=true;
 
 
                 this.active = true;
@@ -65,32 +65,36 @@ export class CreateOrEditPropertyComponent extends AppComponentBase implements O
     }
     
     save(): void {
-        this.saving = true;
-        
+        this.saving = true; 
         this._propertiesServiceProxy.createOrEdit(this.property)
             .pipe(finalize(() => {
                 this.saving = false;
             }))
             .subscribe(x => {
+                this.propertyId=x;
                  this.saving = false;               
                  this.notify.info(this.l('SavedSuccessfully'));
+                //  this.message.success("Property record saved successfully");
+                 setTimeout(() => {
                  this._router.navigate( ['/app/main/entities/properties']);
+                 }, 1500);
             })
     }
     
-    saveAndNew(): void {
-        this.saving = true;
+    // saveAndNew(): void {
+    //     this.saving = true;
         
-        this._propertiesServiceProxy.createOrEdit(this.property)
-            .pipe(finalize(() => {
-                this.saving = false;
-            }))
-            .subscribe(x => {
-                this.saving = false;               
-                this.notify.info(this.l('SavedSuccessfully'));
-                this.property = new CreateOrEditPropertyDto();
-            });
-    }
+    //     this._propertiesServiceProxy.createOrEdit(this.property)
+    //         .pipe(finalize(() => {
+    //             this.saving = false;
+    //         }))
+    //         .subscribe(x => {
+    //             this.propertyId=x;
+    //             this.saving = false;               
+    //             this.notify.info(this.l('SavedSuccessfully'));
+    //             this.property = new CreateOrEditPropertyDto();
+    //         });
+    // }
 
 
 

@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_PropertyFileses = "Pages.PropertyFileses";
+        public const string Pages_PropertyFileses_Create = "Pages.PropertyFileses.Create";
+        public const string Pages_PropertyFileses_Edit = "Pages.PropertyFileses.Edit";
+        public const string Pages_PropertyFileses_Delete = "Pages.PropertyFileses.Delete";
+
         public const string Pages_Properties = "Pages.Properties";
         public const string Pages_Properties_Create = "Pages.Properties.Create";
         public const string Pages_Properties_Edit = "Pages.Properties.Edit";

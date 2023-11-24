@@ -124,33 +124,35 @@ namespace ERP.Entities
             return output;
         }
 
-        public virtual async Task CreateOrEdit(CreateOrEditPropertyDto input)
-        {
+        public virtual async Task<Guid> CreateOrEdit(CreateOrEditPropertyDto input)
+        { 
+
             if (input.Id == null)
             {
-                await Create(input);
+              return  await Create(input);
             }
             else
             {
-                await Update(input);
+                return await Update(input);
             }
         }
 
         [AbpAuthorize(AppPermissions.Pages_Properties_Create)]
-        protected virtual async Task Create(CreateOrEditPropertyDto input)
+        protected virtual async Task<Guid> Create(CreateOrEditPropertyDto input)
         {
             var property = ObjectMapper.Map<Property>(input);
 
-            await _propertyRepository.InsertAsync(property);
+          var Id=  await _propertyRepository.InsertAndGetIdAsync(property);
+            return Id;
 
         }
 
         [AbpAuthorize(AppPermissions.Pages_Properties_Edit)]
-        protected virtual async Task Update(CreateOrEditPropertyDto input)
+        protected virtual async Task<Guid> Update(CreateOrEditPropertyDto input)
         {
             var property = await _propertyRepository.FirstOrDefaultAsync((Guid)input.Id);
             ObjectMapper.Map(input, property);
-
+            return property.Id;
         }
 
         [AbpAuthorize(AppPermissions.Pages_Properties_Delete)]

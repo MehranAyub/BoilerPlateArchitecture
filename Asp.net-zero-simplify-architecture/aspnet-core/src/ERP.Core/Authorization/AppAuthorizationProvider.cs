@@ -30,6 +30,11 @@ namespace ERP.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var propertyFileses = pages.CreateChildPermission(AppPermissions.Pages_PropertyFileses, L("PropertyFileses"), multiTenancySides: MultiTenancySides.Host);
+            propertyFileses.CreateChildPermission(AppPermissions.Pages_PropertyFileses_Create, L("CreateNewPropertyFiles"), multiTenancySides: MultiTenancySides.Host);
+            propertyFileses.CreateChildPermission(AppPermissions.Pages_PropertyFileses_Edit, L("EditPropertyFiles"), multiTenancySides: MultiTenancySides.Host);
+            propertyFileses.CreateChildPermission(AppPermissions.Pages_PropertyFileses_Delete, L("DeletePropertyFiles"), multiTenancySides: MultiTenancySides.Host);
+
             var properties = pages.CreateChildPermission(AppPermissions.Pages_Properties, L("Properties"), multiTenancySides: MultiTenancySides.Host);
             properties.CreateChildPermission(AppPermissions.Pages_Properties_Create, L("CreateNewProperty"), multiTenancySides: MultiTenancySides.Host);
             properties.CreateChildPermission(AppPermissions.Pages_Properties_Edit, L("EditProperty"), multiTenancySides: MultiTenancySides.Host);
@@ -55,7 +60,7 @@ namespace ERP.Authorization
             //glsrce.CreateChildPermission(AppPermissions.Pages_GLSRCE_Edit, L("EditGLSRCE"));
             //glsrce.CreateChildPermission(AppPermissions.Pages_GLSRCE_Delete, L("DeleteGLSRCE"));
 
-           // pages.CreateChildPermission(AppPermissions.Pages_DemoUiComponents, L("DemoUiComponents"));
+            // pages.CreateChildPermission(AppPermissions.Pages_DemoUiComponents, L("DemoUiComponents"));
 
             var administration = pages.CreateChildPermission(AppPermissions.Pages_Administration, L("Administration"));
 
@@ -90,7 +95,7 @@ namespace ERP.Authorization
 
             pages.CreateChildPermission(AppPermissions.Pages_Tenant_Dashboard, L("Dashboard"), multiTenancySides: MultiTenancySides.Tenant);
 
-           // administration.CreateChildPermission(AppPermissions.Pages_Administration_Tenant_Settings, L("Settings"), multiTenancySides: MultiTenancySides.Tenant);
+            // administration.CreateChildPermission(AppPermissions.Pages_Administration_Tenant_Settings, L("Settings"), multiTenancySides: MultiTenancySides.Tenant);
             //administration.CreateChildPermission(AppPermissions.Pages_Administration_Tenant_SubscriptionManagement, L("Subscription"), multiTenancySides: MultiTenancySides.Tenant);
 
             //HOST-SPECIFIC PERMISSIONS

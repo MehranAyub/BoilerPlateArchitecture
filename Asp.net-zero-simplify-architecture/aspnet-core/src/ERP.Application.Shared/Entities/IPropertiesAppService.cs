@@ -15,7 +15,7 @@ namespace ERP.Entities
 
         Task<GetPropertyForEditOutput> GetPropertyForEdit(EntityDto<Guid> input);
 
-        Task CreateOrEdit(CreateOrEditPropertyDto input);
+        Task<Guid> CreateOrEdit(CreateOrEditPropertyDto input);
 
         Task Delete(EntityDto<Guid> input);
 
