@@ -70,7 +70,6 @@ export class HostDashboardComponent extends AppComponentBase implements OnInit {
             )
             .subscribe(result => {
                 this.hostDashboardData = result;
-
                 this.incomeStatisticsData = this.normalizeIncomeStatisticsData(result.incomeStatistics);
                 this.incomeStatisticsHasData = _.filter(this.incomeStatisticsData[0].series, data => data.value > 0).length > 0;
 

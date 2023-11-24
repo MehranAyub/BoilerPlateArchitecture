@@ -24,8 +24,8 @@ export class AppNavigationService {
             //
             new AppMenuItem('Properties', 'Pages.Properties', 'flaticon-more', '/app/main/entities/properties'),
             // 
-            new AppMenuItem('PropertyFileses', 'Pages.PropertyFileses', 'flaticon-more', '/app/main/entities/propertyFileses'),
-             new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
+            // new AppMenuItem('PropertyFileses', 'Pages.PropertyFileses', 'flaticon-more', '/app/main/entities/propertyFileses'),
+            //  new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
 
            
             // new AppMenuItem('GLSRCE', 'Pages.GLSRCE', 'flaticon-more', '/app/main/sourceCode/glsrce'),
@@ -45,7 +45,7 @@ export class AppNavigationService {
                 // new AppMenuItem('Subscription', 'Pages.Administration.Tenant.SubscriptionManagement', 'flaticon-refresh', '/app/admin/subscription-management'),
                  new AppMenuItem('VisualSettings', 'Pages.Administration.UiCustomization', 'flaticon-medical', '/app/admin/ui-customization'),
                 new AppMenuItem('Settings', 'Pages.Administration.Host.Settings', 'flaticon-settings', '/app/admin/hostSettings'),
-                 new AppMenuItem('Settings', 'Pages.Administration.Tenant.Settings', 'flaticon-settings', '/app/admin/tenantSettings')
+                //  new AppMenuItem('Settings', 'Pages.Administration.Tenant.Settings', 'flaticon-settings', '/app/admin/tenantSettings')
             ]),
             // new AppMenuItem('DemoUiComponents', 'Pages.DemoUiComponents', 'flaticon-shapes', '/app/admin/demo-ui-components')
         ]);
