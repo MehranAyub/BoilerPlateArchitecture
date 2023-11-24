@@ -1,81 +1,82 @@
 ﻿<div [@routerTransition]>
-  
-  
-  
-                <div class="kt-subheader kt-grid__item">
-                  
-                    <div class="kt-subheader__main">
-                        <h3 class="kt-subheader__title">
-            				<span>View</span>
-            			</h3>
-            			<span class="kt-subheader__separator kt-subheader__separator--v"></span>
-            			<div class="kt-subheader__breadcrumbs">
-            				<a [routerLink]="['/app/main/entities/properties']"
-            					class="kt-subheader__breadcrumbs-home"><i
-            						class="flaticon2-shelter"></i> &nbsp;{{l("Property")}}</a>
-            				<span class="kt-subheader__breadcrumbs-separator"></span>
-            				<a 
-            					class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">
-            					<span>Details</span>
-            				</a>
-            			</div>
-                    </div>
-                  
-                </div>
-             
+    <div class="kt-subheader kt-grid__item">
+        <div class="kt-subheader__main">
+            <h3 class="kt-subheader__title">
+                <span>View</span>
+            </h3>
+            <span
+                class="kt-subheader__separator kt-subheader__separator--v"
+            ></span>
+            <div class="kt-subheader__breadcrumbs">
+                <a
+                    [routerLink]="['/app/main/entities/properties']"
+                    class="kt-subheader__breadcrumbs-home"
+                    ><i class="flaticon2-shelter"></i> &nbsp;{{
+                        l("Property")
+                    }}</a
+                >
+                <span class="kt-subheader__breadcrumbs-separator"></span>
+                <a
+                    class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active"
+                >
+                    <span>Details</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
     <div class="kt-content">
         <div class="kt-portlet kt-portlet--mobile">
             <div class="kt-portlet__body">
                 <div class="row align-items-center">
-                                     <div class="col-6 mb-3">
-                        <h6>{{l("Address")}} :</h6>
+                    <div class="col-6 mb-3">
+                        <h6>{{ l("Address") }} :</h6>
                         {{ item.property.address }}
                     </div>
                     <div class="col-6 mb-3">
-                        <h6>{{l("PropertySpecs")}} :</h6>
+                        <h6>Property Specs :</h6>
                         {{ item.property.propertySpecs }}
                     </div>
                     <div class="col-6 mb-3">
-                        <h6>{{l("Description")}} :</h6>
+                        <h6>{{ l("Description") }} :</h6>
                         {{ item.property.description }}
                     </div>
                     <div class="col-6 mb-3">
-                        <h6>{{l("WholeSalePrice")}} :</h6>
+                        <h6>WholeSale Price :</h6>
                         {{ item.property.wholeSalePrice }}
                     </div>
                     <div class="col-6 mb-3">
-                        <h6>{{l("EstimatedARV")}} :</h6>
+                        <h6>Estimated ARV :</h6>
                         {{ item.property.estimatedARV }}
                     </div>
                     <div class="col-6 mb-3">
-                        <h6>{{l("EstimatedRehab")}} :</h6>
+                        <h6>Estimated Rehab :</h6>
                         {{ item.property.estimatedRehab }}
                     </div>
                     <div class="col-6 mb-3">
-                        <h6>{{l("ViewingDescription")}} :</h6>
+                        <h6>Viewing Description :</h6>
                         {{ item.property.viewingDescription }}
                     </div>
                     <div class="col-6 mb-3">
-                        <h6>{{l("EMDRequirement")}} :</h6>
+                        <h6>EMD Requirement :</h6>
                         {{ item.property.emdRequirement }}
                     </div>
                     <div class="col-6 mb-3">
-                        <h6>{{l("ViewingContact")}} :</h6>
+                        <h6>Viewing Contact :</h6>
                         {{ item.property.viewingContact }}
                     </div>
                     <div class="col-6 mb-3">
-                        <h6>{{l("OfferContact")}} :</h6>
+                        <h6>Offer Contact :</h6>
                         {{ item.property.offerContact }}
                     </div>
-
-                 
                 </div>
 
                 <ng-container *ngIf="item.property.id">
-                    <app-uploaded-files [PropertyId]="item.property.id"></app-uploaded-files>
+                    <app-uploaded-files
+                        [PropertyId]="item.property.id"
+                    ></app-uploaded-files>
                 </ng-container>
             </div>
         </div>
     </div>
-  
 </div>

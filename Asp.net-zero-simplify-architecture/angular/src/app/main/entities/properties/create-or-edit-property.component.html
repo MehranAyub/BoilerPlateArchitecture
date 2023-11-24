@@ -14,7 +14,8 @@
                 <a
                     [routerLink]="['/app/main/entities/properties']"
                     class="kt-subheader__breadcrumbs-home"
-                    ><i class="flaticon2-shelter"></i> &nbsp; {{ l("Property") }}</a
+                    ><i class="flaticon2-shelter"></i> &nbsp;
+                    {{ l("Property") }}</a
                 >
                 <span class="kt-subheader__breadcrumbs-separator"></span>
                 <a
@@ -84,10 +85,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="Property_WholeSalePrice">{{
-                        l("WholeSalePrice")
-                    }}</label>
-                    <input 
+                    <label for="Property_WholeSalePrice">Wholesale Price</label>
+                    <input
                         #Property_WholeSalePrice="ngModel"
                         id="Property_WholeSalePrice"
                         class="form-control"
@@ -102,10 +101,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="Property_EstimatedARV">{{
-                        l("EstimatedARV")
-                    }}</label>
-                    <input 
+                    <label for="Property_EstimatedARV">Estimated ARV</label>
+                    <input
                         #Property_EstimatedARV="ngModel"
                         id="Property_EstimatedARV"
                         class="form-control"
@@ -120,10 +117,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="Property_EstimatedRehab">{{
-                        l("EstimatedRehab")
-                    }}</label>
-                    <input 
+                    <label for="Property_EstimatedRehab">Estimated Rehab</label>
+                    <input
                         #Property_EstimatedRehab="ngModel"
                         id="Property_EstimatedRehab"
                         class="form-control"
@@ -138,9 +133,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="Property_ViewingDescription">{{
-                        l("ViewingDescription")
-                    }}</label>
+                    <label for="Property_ViewingDescription"
+                        >Viewing Description</label
+                    >
                     <input
                         type="text"
                         #Property_ViewingDescription="ngModel"
@@ -155,9 +150,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="Property_EMDRequirement">{{
-                        l("EMDRequirement")
-                    }}</label>
+                    <label for="Property_EMDRequirement">EMD Requirement</label>
                     <input
                         #Property_EMDRequirement="ngModel"
                         id="Property_EMDRequirement"
@@ -173,9 +166,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="Property_ViewingContact">{{
-                        l("ViewingContact")
-                    }}</label>
+                    <label for="Property_ViewingContact">Viewing Contact</label>
                     <input
                         type="text"
                         #Property_ViewingContact="ngModel"
@@ -190,9 +181,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="Property_OfferContact">{{
-                        l("OfferContact")
-                    }}</label>
+                    <label for="Property_OfferContact">Offer Contact</label>
                     <input
                         type="text"
                         #Property_OfferContact="ngModel"
@@ -207,11 +196,13 @@
                 </div>
             </div>
             <ng-container *ngIf="!isEditMode">
-            <app-file-upload [Id]="propertyId"></app-file-upload> 
+                <app-file-upload [Id]="propertyId"></app-file-upload>
             </ng-container>
 
             <ng-container *ngIf="this.propertyId && !!isEditMode">
-            <app-uploaded-files [PropertyId]="this.propertyId"></app-uploaded-files>
+                <app-uploaded-files
+                    [PropertyId]="this.propertyId"
+                ></app-uploaded-files>
             </ng-container>
             <div class="kt-portlet__foot">
                 <div class="col-lg-12">
