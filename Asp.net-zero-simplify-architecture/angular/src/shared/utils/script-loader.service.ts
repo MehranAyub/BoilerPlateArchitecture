@@ -11,6 +11,11 @@ export class ScriptLoaderService {
 
     loadScript(name: string) {
         return new Promise((resolve, reject) => {
+                 // Check if script is already loaded
+            if ((window as any)[name] === true) {
+                resolve({});
+                return;
+            }
             let script = (document.createElement('script') as any);
             script.type = 'text/javascript';
             script.src = name;

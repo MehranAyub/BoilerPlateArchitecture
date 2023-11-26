@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { NavigationEnd, Router, RouterModule, Routes } from '@angular/router';
 import { AppUiCustomizationService } from '@shared/common/ui/app-ui-customization.service';
+import { ClientGuard } from 'client/services/client.guard';
 
 const routes: Routes = [
-    { path: '', redirectTo: '/app/main/dashboard', pathMatch: 'full' },
+    { path: '', redirectTo: '/client/home', pathMatch: 'full' },
     {
         path: 'account',
         loadChildren: () => import('account/account.module').then(m => m.AccountModule), //Lazy load account module
@@ -12,6 +13,7 @@ const routes: Routes = [
     {
         path: 'client',
         loadChildren: () => import('client/client.module').then(m => m.ClientModule), //Lazy load client module
+        canActivate:[ClientGuard],
         data: { preload: true }
     }
 ];

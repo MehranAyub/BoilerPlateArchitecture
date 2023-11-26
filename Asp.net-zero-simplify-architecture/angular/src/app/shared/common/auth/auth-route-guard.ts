@@ -50,13 +50,13 @@ export class AppRouteGuard implements CanActivate, CanActivateChild, CanLoad {
 
     selectBestRoute(): string {
 
-        // if (!this._sessionService.user) {
-        //     return '/account/login';
-        // }
+        if (!this._sessionService.user) {
+            return '/account/login';
+        }
 
-        // if (this._permissionChecker.isGranted('Pages.Administration.Host.Dashboard')) {
-        //     return '/app/admin/hostDashboard';
-        // }
+        if (this._permissionChecker.isGranted('Pages.Administration.Host.Dashboard')) {
+            return '/app/admin/hostDashboard';
+        }
 
         // if (this._permissionChecker.isGranted('Pages.Tenant.Dashboard')) {
         //     return '/app/main/dashboard';
