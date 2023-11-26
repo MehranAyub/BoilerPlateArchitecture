@@ -8,6 +8,11 @@ const routes: Routes = [
         path: 'account',
         loadChildren: () => import('account/account.module').then(m => m.AccountModule), //Lazy load account module
         data: { preload: true }
+    },
+    {
+        path: 'client',
+        loadChildren: () => import('client/client.module').then(m => m.ClientModule), //Lazy load client module
+        data: { preload: true }
     }
 ];
 
