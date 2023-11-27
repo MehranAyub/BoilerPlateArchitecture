@@ -20,7 +20,7 @@
             "assets": [
               "src/assets",
               "src/metronic",
-              "src/favicon.ico",
+              "src/favicon.png",
               {
                 "glob": "abp.signalr-client.js",
                 "input": "node_modules/abp-web-resources/Abp/Framework/scripts/libs",
@@ -50,7 +50,7 @@
               "src/assets/ngx-bootstrap/bs-datepicker.css",
 
               "src/assets/metronic/vendors/global/vendors.bundle.css",
-              
+
               "src/app/shared/core.less",
               "src/app/shared/layout/layout.less",
               "src/styles.css"
@@ -155,7 +155,7 @@
               "src/assets/ngx-bootstrap/bs-datepicker.css",
 
               "src/assets/metronic/vendors/global/vendors.bundle.css",
-              
+
               "src/app/shared/core.less",
               "src/app/shared/layout/layout.less",
               "src/styles.css"
@@ -194,9 +194,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.json"
-            ],
+            "tsConfig": ["src/tsconfig.json"],
             "exclude": []
           }
         }
@@ -217,9 +215,7 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "e2e/tsconfig.json"
-            ],
+            "tsConfig": ["e2e/tsconfig.json"],
             "exclude": []
           }
         }
