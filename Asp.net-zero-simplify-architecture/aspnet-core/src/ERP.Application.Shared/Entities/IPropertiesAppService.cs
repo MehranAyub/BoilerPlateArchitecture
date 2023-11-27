@@ -18,6 +18,7 @@ namespace ERP.Entities
         Task<Guid> CreateOrEdit(CreateOrEditPropertyDto input);
 
         Task Delete(EntityDto<Guid> input);
-
+        Task<PagedResultDto<GetPropertyWithImageForViewDto>> GetAllPropertiesWithImages(GetAllPropertiesWithImagesInput input);
+        Task<GetPropertyForDetailOutput> GetPropertyForDetail(EntityDto<Guid> input);
     }
 }

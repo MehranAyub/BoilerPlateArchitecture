@@ -1,7 +1,7 @@
 ﻿import {AppConsts} from '@shared/AppConsts';
 import { Component, Injector, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute , Router} from '@angular/router';
-import { PropertiesServiceProxy, PropertyDto  } from '@shared/service-proxies/service-proxies';
+import { PropertiesServiceProxy, PropertyDto, PropertyStatusDto  } from '@shared/service-proxies/service-proxies';
 import { NotifyService } from '@abp/notify/notify.service';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { TokenAuthServiceProxy } from '@shared/service-proxies/service-proxies';
@@ -53,7 +53,9 @@ export class PropertiesComponent extends AppComponentBase {
 		minEMDRequirementFilterEmpty : number;
     viewingContactFilter = '';
     offerContactFilter = '';
-
+    IsFeatured:boolean=false;
+    PropertyStatusFilter:PropertyStatusDto=PropertyStatusDto.IsForRent;
+    PropertyStatus=PropertyStatusDto;
 
 
 
@@ -97,7 +99,7 @@ export class PropertiesComponent extends AppComponentBase {
             this.maxEMDRequirementFilter == null ? this.maxEMDRequirementFilterEmpty: this.maxEMDRequirementFilter,
             this.minEMDRequirementFilter == null ? this.minEMDRequirementFilterEmpty: this.minEMDRequirementFilter,
             this.viewingContactFilter,
-            this.offerContactFilter,
+            this.offerContactFilter,this.PropertyStatusFilter,this.IsFeatured,
             this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getSkipCount(this.paginator, event),
             this.primengTableHelper.getMaxResultCount(this.paginator, event)
@@ -154,6 +156,8 @@ export class PropertiesComponent extends AppComponentBase {
 		this.minEMDRequirementFilter = this.maxEMDRequirementFilterEmpty;
     this.viewingContactFilter = '';
     this.offerContactFilter = '';
+    this.IsFeatured=false;
+    this.PropertyStatusFilter=PropertyStatusDto.IsForRent;
 
         this.getProperties();
     }

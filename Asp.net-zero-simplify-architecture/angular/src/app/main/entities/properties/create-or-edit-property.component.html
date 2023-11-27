@@ -194,6 +194,41 @@
                         [formCtrl]="Property_OfferContact"
                     ></validation-messages>
                 </div>
+
+                <div class="form-group">
+                    <label for="propertyStatusForRent">
+                    <input
+                        type="radio" 
+                        id="propertyStatusForRent" 
+                        [(ngModel)]="property.propertyStatus"
+                        name="propertyStatus" [value]="PropertyStatus.IsForRent"
+                    /> 
+                  <span class="ml-1"> For Rent</span> 
+                    </label>
+
+                    <label class="ml-5" for="propertyStatusForSale">
+                        <input
+                            type="radio" 
+                            id="propertyStatusForSale" 
+                            [(ngModel)]="property.propertyStatus"
+                            name="propertyStatus" [value]="PropertyStatus.IsForSale"
+                        /> 
+                       <span class="ml-1">For Sale</span> 
+                        </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="Property_isFeatured">Is Featured</label>
+                    <input
+                        type="checkbox" 
+                        id="Property_isFeatured" 
+                        [(ngModel)]="property.isFeatured"
+                        name="isFeatured"
+                        class="ml-3"
+                    /> 
+                </div>
+
+                
             </div>
             <ng-container *ngIf="!isEditMode">
                 <app-file-upload [Id]="propertyId"></app-file-upload>

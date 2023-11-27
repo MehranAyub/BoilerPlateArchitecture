@@ -1,7 +1,7 @@
 ﻿import { Component, ViewChild, Injector, Output, EventEmitter, OnInit, ElementRef} from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { finalize } from 'rxjs/operators';
-import { PropertiesServiceProxy, CreateOrEditPropertyDto } from '@shared/service-proxies/service-proxies';
+import { PropertiesServiceProxy, CreateOrEditPropertyDto, PropertyStatusDto } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -23,7 +23,7 @@ export class CreateOrEditPropertyComponent extends AppComponentBase implements O
     propertyId:string;
     isEditMode:boolean=false;
     property: CreateOrEditPropertyDto = new CreateOrEditPropertyDto();
-
+    PropertyStatus=PropertyStatusDto;
 
 
 

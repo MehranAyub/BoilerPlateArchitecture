@@ -6403,12 +6403,13 @@ export class PropertiesServiceProxy {
      * @param minEMDRequirementFilter (optional) 
      * @param viewingContactFilter (optional) 
      * @param offerContactFilter (optional) 
+     * @param isFeatured (optional) 
      * @param sorting (optional) 
      * @param skipCount (optional) 
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAll(filter: string | null | undefined, addressFilter: string | null | undefined, propertySpecsFilter: string | null | undefined, descriptionFilter: string | null | undefined, maxWholeSalePriceFilter: number | null | undefined, minWholeSalePriceFilter: number | null | undefined, maxEstimatedARVFilter: number | null | undefined, minEstimatedARVFilter: number | null | undefined, maxEstimatedRehabFilter: number | null | undefined, minEstimatedRehabFilter: number | null | undefined, viewingDescriptionFilter: string | null | undefined, maxEMDRequirementFilter: number | null | undefined, minEMDRequirementFilter: number | null | undefined, viewingContactFilter: string | null | undefined, offerContactFilter: string | null | undefined, sorting: string | null | undefined, skipCount: number | null | undefined, maxResultCount: number | null | undefined): Observable<PagedResultDtoOfGetPropertyForViewDto> {
+    getAll(filter: string | null | undefined, addressFilter: string | null | undefined, propertySpecsFilter: string | null | undefined, descriptionFilter: string | null | undefined, maxWholeSalePriceFilter: number | null | undefined, minWholeSalePriceFilter: number | null | undefined, maxEstimatedARVFilter: number | null | undefined, minEstimatedARVFilter: number | null | undefined, maxEstimatedRehabFilter: number | null | undefined, minEstimatedRehabFilter: number | null | undefined, viewingDescriptionFilter: string | null | undefined, maxEMDRequirementFilter: number | null | undefined, minEMDRequirementFilter: number | null | undefined, viewingContactFilter: string | null | undefined, offerContactFilter: string | null | undefined, propertyStatus: PropertyStatusDto, isFeatured: boolean | null | undefined, sorting: string | null | undefined, skipCount: number | null | undefined, maxResultCount: number | null | undefined): Observable<PagedResultDtoOfGetPropertyForViewDto> {
         let url_ = this.baseUrl + "/api/services/app/Properties/GetAll?";
         if (filter !== undefined)
             url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
@@ -6440,6 +6441,12 @@ export class PropertiesServiceProxy {
             url_ += "ViewingContactFilter=" + encodeURIComponent("" + viewingContactFilter) + "&"; 
         if (offerContactFilter !== undefined)
             url_ += "OfferContactFilter=" + encodeURIComponent("" + offerContactFilter) + "&"; 
+        if (propertyStatus === undefined || propertyStatus === null)
+            throw new Error("The parameter 'propertyStatus' must be defined and cannot be null.");
+        else
+            url_ += "PropertyStatus=" + encodeURIComponent("" + propertyStatus) + "&"; 
+        if (isFeatured !== undefined)
+            url_ += "IsFeatured=" + encodeURIComponent("" + isFeatured) + "&"; 
         if (sorting !== undefined)
             url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount !== undefined)
@@ -6490,6 +6497,130 @@ export class PropertiesServiceProxy {
             }));
         }
         return _observableOf<PagedResultDtoOfGetPropertyForViewDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param isFeatured (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAllPropertiesWithImages(filter: string | null | undefined, propertyStatus: PropertyStatusDto, isFeatured: boolean | null | undefined, sorting: string | null | undefined, skipCount: number | null | undefined, maxResultCount: number | null | undefined): Observable<PagedResultDtoOfGetPropertyWithImageForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/Properties/GetAllPropertiesWithImages?";
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (propertyStatus === undefined || propertyStatus === null)
+            throw new Error("The parameter 'propertyStatus' must be defined and cannot be null.");
+        else
+            url_ += "PropertyStatus=" + encodeURIComponent("" + propertyStatus) + "&"; 
+        if (isFeatured !== undefined)
+            url_ += "IsFeatured=" + encodeURIComponent("" + isFeatured) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAllPropertiesWithImages(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAllPropertiesWithImages(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetPropertyWithImageForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetPropertyWithImageForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAllPropertiesWithImages(response: HttpResponseBase): Observable<PagedResultDtoOfGetPropertyWithImageForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfGetPropertyWithImageForViewDto.fromJS(resultData200) : new PagedResultDtoOfGetPropertyWithImageForViewDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetPropertyWithImageForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getPropertyForDetail(id: string | null | undefined): Observable<GetPropertyForDetailOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Properties/GetPropertyForDetail?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetPropertyForDetail(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPropertyForDetail(<any>response_);
+                } catch (e) {
+                    return <Observable<GetPropertyForDetailOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetPropertyForDetailOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPropertyForDetail(response: HttpResponseBase): Observable<GetPropertyForDetailOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? GetPropertyForDetailOutput.fromJS(resultData200) : new GetPropertyForDetailOutput();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetPropertyForDetailOutput>(<any>null);
     }
 
     /**
@@ -17358,6 +17489,11 @@ export interface IChangeUserLanguageDto {
     languageName: string;
 }
 
+export enum PropertyStatusDto {
+    IsForRent = 0, 
+    IsForSale = 1, 
+}
+
 export class PagedResultDtoOfGetPropertyForViewDto implements IPagedResultDtoOfGetPropertyForViewDto {
     totalCount!: number | undefined;
     items!: GetPropertyForViewDto[] | undefined;
@@ -17453,6 +17589,8 @@ export class PropertyDto implements IPropertyDto {
     emdRequirement!: number | undefined;
     viewingContact!: string | undefined;
     offerContact!: string | undefined;
+    propertyStatus!: PropertyStatusDto | undefined;
+    isFeatured!: boolean | undefined;
     id!: string | undefined;
 
     constructor(data?: IPropertyDto) {
@@ -17476,6 +17614,8 @@ export class PropertyDto implements IPropertyDto {
             this.emdRequirement = data["emdRequirement"];
             this.viewingContact = data["viewingContact"];
             this.offerContact = data["offerContact"];
+            this.propertyStatus = data["propertyStatus"];
+            this.isFeatured = data["isFeatured"];
             this.id = data["id"];
         }
     }
@@ -17499,6 +17639,8 @@ export class PropertyDto implements IPropertyDto {
         data["emdRequirement"] = this.emdRequirement;
         data["viewingContact"] = this.viewingContact;
         data["offerContact"] = this.offerContact;
+        data["propertyStatus"] = this.propertyStatus;
+        data["isFeatured"] = this.isFeatured;
         data["id"] = this.id;
         return data; 
     }
@@ -17515,6 +17657,276 @@ export interface IPropertyDto {
     emdRequirement: number | undefined;
     viewingContact: string | undefined;
     offerContact: string | undefined;
+    propertyStatus: PropertyStatusDto | undefined;
+    isFeatured: boolean | undefined;
+    id: string | undefined;
+}
+
+export class PagedResultDtoOfGetPropertyWithImageForViewDto implements IPagedResultDtoOfGetPropertyWithImageForViewDto {
+    totalCount!: number | undefined;
+    items!: GetPropertyWithImageForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetPropertyWithImageForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(GetPropertyWithImageForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetPropertyWithImageForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetPropertyWithImageForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfGetPropertyWithImageForViewDto {
+    totalCount: number | undefined;
+    items: GetPropertyWithImageForViewDto[] | undefined;
+}
+
+export class GetPropertyWithImageForViewDto implements IGetPropertyWithImageForViewDto {
+    property!: PropertyDto | undefined;
+    imageDto!: PropertyFilesDto | undefined;
+
+    constructor(data?: IGetPropertyWithImageForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.property = data["property"] ? PropertyDto.fromJS(data["property"]) : <any>undefined;
+            this.imageDto = data["imageDto"] ? PropertyFilesDto.fromJS(data["imageDto"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetPropertyWithImageForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetPropertyWithImageForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["property"] = this.property ? this.property.toJSON() : <any>undefined;
+        data["imageDto"] = this.imageDto ? this.imageDto.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetPropertyWithImageForViewDto {
+    property: PropertyDto | undefined;
+    imageDto: PropertyFilesDto | undefined;
+}
+
+export class PropertyFilesDto implements IPropertyFilesDto {
+    fileName!: string | undefined;
+    propertyId!: string | undefined;
+    imageBytes!: string | undefined;
+    id!: number | undefined;
+
+    constructor(data?: IPropertyFilesDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.fileName = data["fileName"];
+            this.propertyId = data["propertyId"];
+            this.imageBytes = data["imageBytes"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): PropertyFilesDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PropertyFilesDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["fileName"] = this.fileName;
+        data["propertyId"] = this.propertyId;
+        data["imageBytes"] = this.imageBytes;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IPropertyFilesDto {
+    fileName: string | undefined;
+    propertyId: string | undefined;
+    imageBytes: string | undefined;
+    id: number | undefined;
+}
+
+export class GetPropertyForDetailOutput implements IGetPropertyForDetailOutput {
+    property!: CreateOrEditPropertyDto | undefined;
+    propertyFiles!: PropertyFilesDto[] | undefined;
+
+    constructor(data?: IGetPropertyForDetailOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.property = data["property"] ? CreateOrEditPropertyDto.fromJS(data["property"]) : <any>undefined;
+            if (data["propertyFiles"] && data["propertyFiles"].constructor === Array) {
+                this.propertyFiles = [] as any;
+                for (let item of data["propertyFiles"])
+                    this.propertyFiles!.push(PropertyFilesDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): GetPropertyForDetailOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetPropertyForDetailOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["property"] = this.property ? this.property.toJSON() : <any>undefined;
+        if (this.propertyFiles && this.propertyFiles.constructor === Array) {
+            data["propertyFiles"] = [];
+            for (let item of this.propertyFiles)
+                data["propertyFiles"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IGetPropertyForDetailOutput {
+    property: CreateOrEditPropertyDto | undefined;
+    propertyFiles: PropertyFilesDto[] | undefined;
+}
+
+export class CreateOrEditPropertyDto implements ICreateOrEditPropertyDto {
+    address!: string;
+    propertySpecs!: string | undefined;
+    description!: string;
+    wholeSalePrice!: number | undefined;
+    estimatedARV!: number | undefined;
+    estimatedRehab!: number | undefined;
+    viewingDescription!: string | undefined;
+    emdRequirement!: number | undefined;
+    viewingContact!: string | undefined;
+    offerContact!: string | undefined;
+    propertyStatus!: PropertyStatusDto | undefined;
+    isFeatured!: boolean | undefined;
+    id!: string | undefined;
+
+    constructor(data?: ICreateOrEditPropertyDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.address = data["address"];
+            this.propertySpecs = data["propertySpecs"];
+            this.description = data["description"];
+            this.wholeSalePrice = data["wholeSalePrice"];
+            this.estimatedARV = data["estimatedARV"];
+            this.estimatedRehab = data["estimatedRehab"];
+            this.viewingDescription = data["viewingDescription"];
+            this.emdRequirement = data["emdRequirement"];
+            this.viewingContact = data["viewingContact"];
+            this.offerContact = data["offerContact"];
+            this.propertyStatus = data["propertyStatus"];
+            this.isFeatured = data["isFeatured"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditPropertyDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditPropertyDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["address"] = this.address;
+        data["propertySpecs"] = this.propertySpecs;
+        data["description"] = this.description;
+        data["wholeSalePrice"] = this.wholeSalePrice;
+        data["estimatedARV"] = this.estimatedARV;
+        data["estimatedRehab"] = this.estimatedRehab;
+        data["viewingDescription"] = this.viewingDescription;
+        data["emdRequirement"] = this.emdRequirement;
+        data["viewingContact"] = this.viewingContact;
+        data["offerContact"] = this.offerContact;
+        data["propertyStatus"] = this.propertyStatus;
+        data["isFeatured"] = this.isFeatured;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditPropertyDto {
+    address: string;
+    propertySpecs: string | undefined;
+    description: string;
+    wholeSalePrice: number | undefined;
+    estimatedARV: number | undefined;
+    estimatedRehab: number | undefined;
+    viewingDescription: string | undefined;
+    emdRequirement: number | undefined;
+    viewingContact: string | undefined;
+    offerContact: string | undefined;
+    propertyStatus: PropertyStatusDto | undefined;
+    isFeatured: boolean | undefined;
     id: string | undefined;
 }
 
@@ -17552,82 +17964,6 @@ export class GetPropertyForEditOutput implements IGetPropertyForEditOutput {
 
 export interface IGetPropertyForEditOutput {
     property: CreateOrEditPropertyDto | undefined;
-}
-
-export class CreateOrEditPropertyDto implements ICreateOrEditPropertyDto {
-    address!: string;
-    propertySpecs!: string | undefined;
-    description!: string;
-    wholeSalePrice!: number | undefined;
-    estimatedARV!: number | undefined;
-    estimatedRehab!: number | undefined;
-    viewingDescription!: string | undefined;
-    emdRequirement!: number | undefined;
-    viewingContact!: string | undefined;
-    offerContact!: string | undefined;
-    id!: string | undefined;
-
-    constructor(data?: ICreateOrEditPropertyDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.address = data["address"];
-            this.propertySpecs = data["propertySpecs"];
-            this.description = data["description"];
-            this.wholeSalePrice = data["wholeSalePrice"];
-            this.estimatedARV = data["estimatedARV"];
-            this.estimatedRehab = data["estimatedRehab"];
-            this.viewingDescription = data["viewingDescription"];
-            this.emdRequirement = data["emdRequirement"];
-            this.viewingContact = data["viewingContact"];
-            this.offerContact = data["offerContact"];
-            this.id = data["id"];
-        }
-    }
-
-    static fromJS(data: any): CreateOrEditPropertyDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new CreateOrEditPropertyDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["address"] = this.address;
-        data["propertySpecs"] = this.propertySpecs;
-        data["description"] = this.description;
-        data["wholeSalePrice"] = this.wholeSalePrice;
-        data["estimatedARV"] = this.estimatedARV;
-        data["estimatedRehab"] = this.estimatedRehab;
-        data["viewingDescription"] = this.viewingDescription;
-        data["emdRequirement"] = this.emdRequirement;
-        data["viewingContact"] = this.viewingContact;
-        data["offerContact"] = this.offerContact;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface ICreateOrEditPropertyDto {
-    address: string;
-    propertySpecs: string | undefined;
-    description: string;
-    wholeSalePrice: number | undefined;
-    estimatedARV: number | undefined;
-    estimatedRehab: number | undefined;
-    viewingDescription: string | undefined;
-    emdRequirement: number | undefined;
-    viewingContact: string | undefined;
-    offerContact: string | undefined;
-    id: string | undefined;
 }
 
 export class PagedResultDtoOfGetPropertyFilesForViewDto implements IPagedResultDtoOfGetPropertyFilesForViewDto {
@@ -17716,54 +18052,6 @@ export class GetPropertyFilesForViewDto implements IGetPropertyFilesForViewDto {
 export interface IGetPropertyFilesForViewDto {
     propertyFiles: PropertyFilesDto | undefined;
     propertyPropertySpecs: string | undefined;
-}
-
-export class PropertyFilesDto implements IPropertyFilesDto {
-    fileName!: string | undefined;
-    propertyId!: string | undefined;
-    imageBytes!: string | undefined;
-    id!: number | undefined;
-
-    constructor(data?: IPropertyFilesDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.fileName = data["fileName"];
-            this.propertyId = data["propertyId"];
-            this.imageBytes = data["imageBytes"];
-            this.id = data["id"];
-        }
-    }
-
-    static fromJS(data: any): PropertyFilesDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new PropertyFilesDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["fileName"] = this.fileName;
-        data["propertyId"] = this.propertyId;
-        data["imageBytes"] = this.imageBytes;
-        data["id"] = this.id;
-        return data; 
-    }
-}
-
-export interface IPropertyFilesDto {
-    fileName: string | undefined;
-    propertyId: string | undefined;
-    imageBytes: string | undefined;
-    id: number | undefined;
 }
 
 export class GetPropertyFilesForEditOutput implements IGetPropertyFilesForEditOutput {

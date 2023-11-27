@@ -1,10 +1,19 @@
 ﻿using Abp.Application.Services.Dto;
+using Castle.Core;
 using System;
+using System.Collections.Generic;
+using static ERP.Entities.Dtos.Enums;
 
 namespace ERP.Entities.Dtos
 {
     public class GetAllPropertiesInput : PagedAndSortedResultRequestDto
     {
+        public GetAllPropertiesInput()
+        {
+            this.PropertyStatus = PropertyStatusDto.IsForRent; // Default value
+
+            this.IsFeatured = false; // Default value
+        }
         public string Filter { get; set; }
 
         public string AddressFilter { get; set; }
@@ -30,6 +39,8 @@ namespace ERP.Entities.Dtos
         public string ViewingContactFilter { get; set; }
 
         public string OfferContactFilter { get; set; }
+        public virtual PropertyStatusDto PropertyStatus { get; set; }
+        public virtual Boolean IsFeatured { get; set; }
 
     }
 }

@@ -1,11 +1,18 @@
 ﻿using System;
 using Abp.Application.Services.Dto;
 using System.ComponentModel.DataAnnotations;
+using static ERP.Entities.Dtos.Enums;
 
 namespace ERP.Entities.Dtos
 {
     public class CreateOrEditPropertyDto : EntityDto<Guid?>
     {
+        public CreateOrEditPropertyDto()
+        {
+            this.PropertyStatus = PropertyStatusDto.IsForRent; // Default value
+
+            this.IsFeatured = false; // Default value
+        }
 
         [Required]
         public string Address { get; set; }
@@ -28,6 +35,8 @@ namespace ERP.Entities.Dtos
         public string ViewingContact { get; set; }
 
         public string OfferContact { get; set; }
+        public virtual PropertyStatusDto PropertyStatus { get; set; }
+        public virtual Boolean IsFeatured { get; set; }
 
     }
 }

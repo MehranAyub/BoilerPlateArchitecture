@@ -14,18 +14,19 @@ using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using ERP.Storage;
+using static ERP.Entities.Dtos.Enums;
 
 namespace ERP.Entities
-{
-    [AbpAuthorize(AppPermissions.Pages_Properties)]
+{ 
     public class PropertiesAppService : ERPAppServiceBase, IPropertiesAppService
     {
         private readonly IRepository<Property, Guid> _propertyRepository;
+        private readonly IRepository<PropertyFiles> _propertyFilesRepository;
 
-        public PropertiesAppService(IRepository<Property, Guid> propertyRepository)
+        public PropertiesAppService(IRepository<Property, Guid> propertyRepository, IRepository<PropertyFiles> propertyFilesRepository)
         {
             _propertyRepository = propertyRepository;
-
+            _propertyFilesRepository = propertyFilesRepository; 
         }
 
         public virtual async Task<PagedResultDto<GetPropertyForViewDto>> GetAll(GetAllPropertiesInput input)
@@ -66,6 +67,8 @@ namespace ERP.Entities
                                  o.EMDRequirement,
                                  o.ViewingContact,
                                  o.OfferContact,
+                                 o.PropertyStatus,
+                                 o.IsFeatured,
                                  Id = o.Id
                              };
 
@@ -91,6 +94,8 @@ namespace ERP.Entities
                         EMDRequirement = o.EMDRequirement,
                         ViewingContact = o.ViewingContact,
                         OfferContact = o.OfferContact,
+                        PropertyStatus=(PropertyStatusDto)o.PropertyStatus,
+                        IsFeatured=o.IsFeatured,
                         Id = o.Id,
                     }
                 };
@@ -105,6 +110,81 @@ namespace ERP.Entities
 
         }
 
+
+        public virtual async Task<PagedResultDto<GetPropertyWithImageForViewDto>> GetAllPropertiesWithImages(GetAllPropertiesWithImagesInput input)
+        {
+            var filteredProperties= _propertyRepository.GetAll();
+            if (input.IsFeatured)
+            {
+                 filteredProperties = _propertyRepository.GetAll().Where(x=>x.IsFeatured==true).Include(x => x.PropertyFiles);
+            }
+            else
+            {
+                 filteredProperties = _propertyRepository.GetAll().Where(x=>x.IsFeatured==false && x.PropertyStatus==(PropertyStatus)input.PropertyStatus).Include(x => x.PropertyFiles);
+            }
+
+            var pagedAndFilteredProperties = filteredProperties
+                .OrderBy(input.Sorting ?? "id asc")
+                .PageBy(input);
+
+            var properties = from o in pagedAndFilteredProperties
+                             select new
+                             {
+                                 PropertyData=o,
+                                 ImageData=o.PropertyFiles.FirstOrDefault()
+                             };
+
+            var totalCount = await filteredProperties.CountAsync();
+
+            var dbList = await properties.ToListAsync();
+
+            var results = new List<GetPropertyWithImageForViewDto>();
+
+            foreach (var o in dbList)
+            {
+                var res = new GetPropertyWithImageForViewDto()
+                {
+                    Property = new PropertyDto
+                    {
+
+                        Address = o?.PropertyData?.Address,
+                        PropertySpecs = o?.PropertyData?.PropertySpecs,
+                        Description = o?.PropertyData?.Description,
+                        WholeSalePrice = o?.PropertyData?.WholeSalePrice,
+                        EstimatedARV = o?.PropertyData?.EstimatedARV,
+                        EstimatedRehab = o?.PropertyData?.EstimatedRehab,
+                        ViewingDescription = o?.PropertyData?.ViewingDescription,
+                        EMDRequirement = o?.PropertyData?.EMDRequirement,
+                        ViewingContact = o?.PropertyData?.ViewingContact,
+                        OfferContact = o?.PropertyData?.OfferContact,
+                        PropertyStatus = (PropertyStatusDto)o?.PropertyData?.PropertyStatus,
+                        IsFeatured = (Boolean)o?.PropertyData?.IsFeatured,
+                        Id = o.PropertyData.Id,
+                    },
+                    ImageDto=new PropertyFilesDto
+                    {
+                        ImageBytes=o?.ImageData?.ImageBytes
+                    }
+                };
+
+                results.Add(res);
+            }
+
+            return new PagedResultDto<GetPropertyWithImageForViewDto>(
+                totalCount,
+                results
+            );
+
+        }
+         
+        public virtual async Task<GetPropertyForDetailOutput> GetPropertyForDetail(EntityDto<Guid> input)
+        {
+            var property = await _propertyRepository.FirstOrDefaultAsync(input.Id);
+            var propertyFiles=await _propertyFilesRepository.GetAll().Where(x=>x.PropertyId== input.Id).ToListAsync();
+            var output = new GetPropertyForDetailOutput { Property = ObjectMapper.Map<CreateOrEditPropertyDto>(property),PropertyFiles= ObjectMapper.Map<List<PropertyFilesDto>>(propertyFiles )};
+
+            return output;
+        }
         public virtual async Task<GetPropertyForViewDto> GetPropertyForView(Guid id)
         {
             var property = await _propertyRepository.GetAsync(id);

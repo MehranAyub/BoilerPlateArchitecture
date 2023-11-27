@@ -263,6 +263,48 @@
                                 </div>
                             </div>
 
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="IsFeatured"> Is Featured</label>
+                                    <input
+                                        type="checkbox" 
+                                        id="IsFeatured"
+                                        name="IsFeatured"
+                                        [(ngModel)]="IsFeatured"
+                                        class="ml-3"
+                                    />
+                                </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="IsForRent"> 
+                                    <input
+                                        type="radio" 
+                                        id="IsForRent"
+                                        name="propertyStatus"
+                                        [(ngModel)]="PropertyStatusFilter"
+                                        name="propertyStatus" 
+                                        [value]="PropertyStatus.IsForRent"
+                                    />
+                                   <span class="ml-3">For Rent</span> 
+                                </label>
+
+                                <label class="ml-3" for="IsForSale"> 
+                                    <input
+                                        type="radio" 
+                                        id="IsForSale"
+                                        name="propertyStatus"
+                                        [(ngModel)]="PropertyStatusFilter"
+                                        name="propertyStatus" 
+                                        [value]="PropertyStatus.IsForSale"
+                                    />
+                                    <span class="ml-3">For Sale</span> 
+                                </label>
+                                </div>
+                            </div>
+
+
                             <div class="col-md-12 mt-5">
                                 <button
                                     (click)="resetFilters()"
