@@ -12,10 +12,11 @@ import { OurTeamComponent } from './components/our-team/our-team.component';
 import { SalePropertiesComponent } from './components/sale-properties/sale-properties.component';
 import { RentPropertiesComponent } from './components/rent-properties/rent-properties.component';
 import { FeaturedPropertiesComponent } from './components/featured-properties/featured-properties.component';
+import { PropertyDetailComponent } from './pages/property-detail/property-detail.component';
 
 
 @NgModule({
-  declarations: [ClientComponent, HomeComponent, ClientHeaderComponent, ClientFooterComponent, OurTeamComponent, SalePropertiesComponent, RentPropertiesComponent, FeaturedPropertiesComponent],
+  declarations: [ClientComponent, HomeComponent, ClientHeaderComponent, ClientFooterComponent, OurTeamComponent, SalePropertiesComponent, RentPropertiesComponent, FeaturedPropertiesComponent, PropertyDetailComponent],
   imports: [
     CommonModule,
     FormsModule,
