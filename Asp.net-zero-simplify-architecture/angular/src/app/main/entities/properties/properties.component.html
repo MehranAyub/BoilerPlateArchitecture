@@ -267,7 +267,7 @@
                                 <div class="form-group">
                                     <label for="IsFeatured"> Is Featured</label>
                                     <input
-                                        type="checkbox" 
+                                        type="checkbox"
                                         id="IsFeatured"
                                         name="IsFeatured"
                                         [(ngModel)]="IsFeatured"
@@ -278,32 +278,31 @@
 
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="IsForRent"> 
-                                    <input
-                                        type="radio" 
-                                        id="IsForRent"
-                                        name="propertyStatus"
-                                        [(ngModel)]="PropertyStatusFilter"
-                                        name="propertyStatus" 
-                                        [value]="PropertyStatus.IsForRent"
-                                    />
-                                   <span class="ml-3">For Rent</span> 
-                                </label>
+                                    <label for="IsForRent">
+                                        <input
+                                            type="radio"
+                                            id="IsForRent"
+                                            name="propertyStatus"
+                                            [(ngModel)]="PropertyStatusFilter"
+                                            name="propertyStatus"
+                                            [value]="PropertyStatus.IsForRent"
+                                        />
+                                        <span class="ml-3">For Rent</span>
+                                    </label>
 
-                                <label class="ml-3" for="IsForSale"> 
-                                    <input
-                                        type="radio" 
-                                        id="IsForSale"
-                                        name="propertyStatus"
-                                        [(ngModel)]="PropertyStatusFilter"
-                                        name="propertyStatus" 
-                                        [value]="PropertyStatus.IsForSale"
-                                    />
-                                    <span class="ml-3">For Sale</span> 
-                                </label>
+                                    <label class="ml-3" for="IsForSale">
+                                        <input
+                                            type="radio"
+                                            id="IsForSale"
+                                            name="propertyStatus"
+                                            [(ngModel)]="PropertyStatusFilter"
+                                            name="propertyStatus"
+                                            [value]="PropertyStatus.IsForSale"
+                                        />
+                                        <span class="ml-3">For Sale</span>
+                                    </label>
                                 </div>
                             </div>
-
 
                             <div class="col-md-12 mt-5">
                                 <button
@@ -556,15 +555,37 @@
                                             </ul>
                                         </div>
                                     </td>
-                                    <td style="width: 150px"> 
-                                        {{ record.property.address | slice:0:20 }}{{ record.property.address.length > 20 ? '...' : '' }}
+                                    <td style="width: 150px">
+                                        {{
+                                            record.property.address
+                                                | slice : 0 : 20
+                                        }}{{
+                                            record.property.address.length > 20
+                                                ? "..."
+                                                : ""
+                                        }}
                                     </td>
                                     <td style="width: 150px">
-                                        {{ record.property.propertySpecs }}
+                                        {{
+                                            record.property.propertySpecs
+                                                | slice : 0 : 20
+                                        }}{{
+                                            record.property.propertySpecs
+                                                .length > 20
+                                                ? "..."
+                                                : ""
+                                        }}
                                     </td>
-                                    <td style="width: 150px"> 
-                                        {{ record.property.description | slice:0:20 }}{{ record.property.description.length > 20 ? '...' : '' }}
-                                        
+                                    <td style="width: 150px">
+                                        {{
+                                            record.property.description
+                                                | slice : 0 : 20
+                                        }}{{
+                                            record.property.description.length >
+                                            20
+                                                ? "..."
+                                                : ""
+                                        }}
                                     </td>
                                     <td style="width: 150px">
                                         {{ record.property.wholeSalePrice }}
@@ -575,8 +596,16 @@
                                     <td style="width: 150px">
                                         {{ record.property.estimatedRehab }}
                                     </td>
-                                    <td style="width: 150px"> 
-                                        {{ record.property.viewingDescription | slice:0:20 }}{{ record.property.viewingDescription.length > 20 ? '...' : '' }}
+                                    <td style="width: 150px">
+                                        {{
+                                            record.property.viewingDescription
+                                                | slice : 0 : 20
+                                        }}{{
+                                            record.property.viewingDescription
+                                                .length > 20
+                                                ? "..."
+                                                : ""
+                                        }}
                                     </td>
                                     <td style="width: 150px">
                                         {{ record.property.emdRequirement }}
