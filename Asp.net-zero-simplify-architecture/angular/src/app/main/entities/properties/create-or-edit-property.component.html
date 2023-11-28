@@ -28,6 +28,19 @@
             <div class="kt-portlet__body">
                 <div class="row">
                     <div class="form-group col-md-6">
+                        <select #languageCombobox
+                                name="languageName"
+                                class="form-control"
+                                [(ngModel)]="property.propertyTypeId"
+                                required>
+                            <option [value]="'' || null">Select Property Type</option>
+                            <option *ngFor="let item of propertyTypeLookupList" [value]="item.id">{{item.displayName}}</option>
+                        </select>
+                        <validation-messages [formCtrl]="languageCombobox"></validation-messages>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
                         <label for="Property_Address">{{ l("Address") }} *</label>
                         <input type="text" #Property_Address="ngModel" id="Property_Address" class="form-control"
                             [(ngModel)]="property.address" name="Address" required />

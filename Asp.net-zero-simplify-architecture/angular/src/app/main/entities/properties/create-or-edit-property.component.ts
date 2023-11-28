@@ -1,7 +1,7 @@
 ﻿import { Component, ViewChild, Injector, Output, EventEmitter, OnInit, ElementRef} from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { finalize } from 'rxjs/operators';
-import { PropertiesServiceProxy, CreateOrEditPropertyDto, PropertyStatusDto } from '@shared/service-proxies/service-proxies';
+import { PropertiesServiceProxy, CreateOrEditPropertyDto, PropertyStatusDto, PropertyPropertyTypeLookupTableDto } from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -40,6 +40,7 @@ export class CreateOrEditPropertyComponent extends AppComponentBase implements O
 
     ngOnInit(): void {
         this.show(this._activatedRoute.snapshot.queryParams['id']);
+        this.getPropertyTypes();
         
     }
 
@@ -80,7 +81,12 @@ export class CreateOrEditPropertyComponent extends AppComponentBase implements O
                  }, 1500);
             })
     }
-    
+    propertyTypeLookupList:PropertyPropertyTypeLookupTableDto[]=[];
+    getPropertyTypes():void{
+        this._propertiesServiceProxy.getAllPropertyTypeForTableDropdown().subscribe((result)=>{
+            this.propertyTypeLookupList=result;
+        });
+    }
     // saveAndNew(): void {
     //     this.saving = true;
         

@@ -99,7 +99,7 @@ export class PropertiesComponent extends AppComponentBase {
             this.maxEMDRequirementFilter == null ? this.maxEMDRequirementFilterEmpty: this.maxEMDRequirementFilter,
             this.minEMDRequirementFilter == null ? this.minEMDRequirementFilterEmpty: this.minEMDRequirementFilter,
             this.viewingContactFilter,
-            this.offerContactFilter,this.PropertyStatusFilter,this.IsFeatured,
+            this.offerContactFilter,this.PropertyStatusFilter,this.IsFeatured,'',
             this.primengTableHelper.getSorting(this.dataTable),
             this.primengTableHelper.getSkipCount(this.paginator, event),
             this.primengTableHelper.getMaxResultCount(this.paginator, event)
