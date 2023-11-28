@@ -57,59 +57,59 @@ export class AppNavigationService {
                 new AppMenuItem(
                     "Users",
                     "Pages.Administration.Users",
-                    "flaticon-users",
+                    "fas fa-users",
                     "/app/admin/users"
                 ),
                 // new AppMenuItem('Languages', 'Pages.Administration.Languages', 'flaticon-tabs', '/app/admin/languages'),
                 // new AppMenuItem('AuditLogs', 'Pages.Administration.AuditLogs', 'flaticon-folder-1', '/app/admin/auditLogs'),
                 // new AppMenuItem('Maintenance', 'Pages.Administration.Host.Maintenance', 'flaticon-lock', '/app/admin/maintenance'),
                 // new AppMenuItem('Subscription', 'Pages.Administration.Tenant.SubscriptionManagement', 'flaticon-refresh', '/app/admin/subscription-management'),
-                new AppMenuItem(
-                    "VisualSettings",
-                    "Pages.Administration.UiCustomization",
-                    "flaticon-medical",
-                    "/app/admin/ui-customization"
-                ),
+                // new AppMenuItem(
+                //     "VisualSettings",
+                //     "Pages.Administration.UiCustomization",
+                //     "flaticon-medical",
+                //     "/app/admin/ui-customization"
+                // ),
                 new AppMenuItem(
                     "Settings",
                     "Pages.Administration.Host.Settings",
-                    "flaticon-settings",
+                    "fa fa-gear",
                     "/app/admin/hostSettings"
                 ),
                 //  new AppMenuItem('Settings', 'Pages.Administration.Tenant.Settings', 'flaticon-settings', '/app/admin/tenantSettings')
             ]),
             // new AppMenuItem('DemoUiComponents', 'Pages.DemoUiComponents', 'flaticon-shapes', '/app/admin/demo-ui-components')
-            new AppMenuItem("Tables", "Pages.PropertyFileses", "fas fa-th", ""),
-            new AppMenuItem(
-                "Example",
-                "Pages.PropertyFileses",
-                "flaticon-app",
-                ""
-            ),
-            new AppMenuItem(
-                "Charts",
-                "Pages.PropertyFileses",
-                "fas fa-chart-pie",
-                ""
-            ),
-            new AppMenuItem(
-                "Components",
-                "Pages.PropertyFileses",
-                "fas fa-tree",
-                ""
-            ),
-            new AppMenuItem(
-                "Gallery",
-                "Pages.PropertyFileses",
-                "far fa-image",
-                ""
-            ),
-            new AppMenuItem(
-                "Land Record",
-                "Pages.PropertyFileses",
-                "far fa-plus-square",
-                ""
-            ),
+            // new AppMenuItem("Tables", "Pages.PropertyFileses", "fas fa-th", ""),
+            // new AppMenuItem(
+            //     "Example",
+            //     "Pages.PropertyFileses",
+            //     "flaticon-app",
+            //     ""
+            // ),
+            // new AppMenuItem(
+            //     "Charts",
+            //     "Pages.PropertyFileses",
+            //     "fas fa-chart-pie",
+            //     ""
+            // ),
+            // new AppMenuItem(
+            //     "Components",
+            //     "Pages.PropertyFileses",
+            //     "fas fa-tree",
+            //     ""
+            // ),
+            // new AppMenuItem(
+            //     "Gallery",
+            //     "Pages.PropertyFileses",
+            //     "far fa-image",
+            //     ""
+            // ),
+            // new AppMenuItem(
+            //     "Land Record",
+            //     "Pages.PropertyFileses",
+            //     "far fa-plus-square",
+            //     ""
+            // ),
         ]);
     }
 
