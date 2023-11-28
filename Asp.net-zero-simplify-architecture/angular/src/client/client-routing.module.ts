@@ -11,7 +11,7 @@ const routes: Routes = [
         children: [
             { path: "", redirectTo: "home" },
             { path: "home", component: HomeComponent },
-            { path: "property-detail", component: PropertyDetailComponent },
+            { path: "detail/:id", component: PropertyDetailComponent },
         ],
     },
 ];

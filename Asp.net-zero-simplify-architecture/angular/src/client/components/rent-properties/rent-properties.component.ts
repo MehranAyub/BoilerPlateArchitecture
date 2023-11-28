@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GetPropertyWithImageForViewDto, PropertiesServiceProxy } from '@shared/service-proxies/service-proxies';
+import { GetPropertyWithImageForViewDto, PropertiesServiceProxy, PropertyStatusDto } from '@shared/service-proxies/service-proxies';
 
 @Component({
   selector: 'app-rent-properties',
@@ -11,7 +11,7 @@ export class RentPropertiesComponent implements OnInit {
   constructor(private _propertiesServiceProxy:PropertiesServiceProxy) { }
 
   ngOnInit() {
-    this._propertiesServiceProxy.getAllPropertiesWithImages('', 'id',0,12).subscribe((res)=>{
+    this._propertiesServiceProxy.getAllPropertiesWithImages('',PropertyStatusDto.IsForRent,false, 'id',0,20).subscribe((res)=>{
       this.items =res.items;
       this.items.forEach((x)=>{
         x.imageDto.imageBytes = 'data:image/png;base64,' + x.imageDto.imageBytes; 
