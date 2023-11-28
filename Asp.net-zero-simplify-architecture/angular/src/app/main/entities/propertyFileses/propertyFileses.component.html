@@ -33,9 +33,9 @@
                                      [resizableColumns]="primengTableHelper.resizableColumns">
                             <ng-template pTemplate="header">
                                 <tr>
-                                    <th style="width: 150px"></th>
+                                    <th style="width: 150px">Actions</th>
                                     <th style="width: 150px" pSortableColumn="propertyFk.propertySpecs">
-                                        Image 
+                                        Image
                                     </th>
                                     <th style="width: 150px" pSortableColumn="fileName">
                                         {{l('FileName')}}
@@ -46,7 +46,7 @@
                             </ng-template>                           
 							<ng-template pTemplate="body" let-record="$implicit" let-i="rowIndex">
                                 <tr>
-                                    <td style="width: 130px"
+                                    <td style="width: 8rem"
                                         [hidden]="!isGrantedAny('Pages.PropertyFileses.Edit', 'Pages.PropertyFileses.Delete')">
                                        <div class="btn-group dropdown" dropdown container="body">
                                             <button class="dropdown-toggle btn btn-sm btn-primary" dropdownToggle>
@@ -60,10 +60,10 @@
                                             </ul>
                                         </div>
                                     </td>
-                                    <td style="width:150px">
-                                        <img [src]="record.propertyFiles?.imageBytes" style="width: 10rem;" /> 
+                                    <td style="width:8rem">
+                                        <img [src]="record.propertyFiles?.imageBytes" style="width: 5rem;" /> 
                                     </td> 
-                                    <td style="width:150px">
+                                    <td style="width:8rem">
 											<span class="ui-column-title"> {{l('FileName')}}</span>
 											{{record.propertyFiles.fileName}}
 										</td>

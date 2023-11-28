@@ -4784,6 +4784,7 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
 .feat_property.home7 .thumb{
   border-radius: 8px 8px 0 0;
   margin: 0;
+  max-height: 230px;
 }
 .feat_property.home7.agent .thumb{
   background-color: #ffffff;
