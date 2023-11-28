@@ -22,11 +22,13 @@ namespace ERP.Entities
     {
         private readonly IRepository<Property, Guid> _propertyRepository;
         private readonly IRepository<PropertyFiles> _propertyFilesRepository;
+        private readonly IRepository<PropertyType, int> _lookup_propertyTypeRepository;
 
-        public PropertiesAppService(IRepository<Property, Guid> propertyRepository, IRepository<PropertyFiles> propertyFilesRepository)
+        public PropertiesAppService(IRepository<Property, Guid> propertyRepository, IRepository<PropertyFiles> propertyFilesRepository, IRepository<PropertyType, int> lookup_propertyTypeRepository)
         {
             _propertyRepository = propertyRepository;
-            _propertyFilesRepository = propertyFilesRepository; 
+            _propertyFilesRepository = propertyFilesRepository;
+            _lookup_propertyTypeRepository = lookup_propertyTypeRepository;
         }
 
         public virtual async Task<PagedResultDto<GetPropertyForViewDto>> GetAll(GetAllPropertiesInput input)
@@ -47,13 +49,17 @@ namespace ERP.Entities
                         .WhereIf(input.MinEMDRequirementFilter != null, e => e.EMDRequirement >= input.MinEMDRequirementFilter)
                         .WhereIf(input.MaxEMDRequirementFilter != null, e => e.EMDRequirement <= input.MaxEMDRequirementFilter)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.ViewingContactFilter), e => e.ViewingContact.Contains(input.ViewingContactFilter))
-                        .WhereIf(!string.IsNullOrWhiteSpace(input.OfferContactFilter), e => e.OfferContact.Contains(input.OfferContactFilter));
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.OfferContactFilter), e => e.OfferContact.Contains(input.OfferContactFilter))
+                        .WhereIf(!string.IsNullOrWhiteSpace(input.PropertyTypeNameFilter), e => e.PropertyTypeFk != null && e.PropertyTypeFk.Name == input.PropertyTypeNameFilter);
 
             var pagedAndFilteredProperties = filteredProperties
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);
+             
 
             var properties = from o in pagedAndFilteredProperties
+                             join o1 in _lookup_propertyTypeRepository.GetAll() on o.PropertyTypeId equals o1.Id into j1
+                             from s1 in j1.DefaultIfEmpty()
                              select new
                              {
 
@@ -69,7 +75,8 @@ namespace ERP.Entities
                                  o.OfferContact,
                                  o.PropertyStatus,
                                  o.IsFeatured,
-                                 Id = o.Id
+                                 Id = o.Id, 
+                                 PropertyTypeName = s1 == null || s1.Name == null ? "" : s1.Name.ToString()
                              };
 
             var totalCount = await filteredProperties.CountAsync();
@@ -97,7 +104,8 @@ namespace ERP.Entities
                         PropertyStatus=(PropertyStatusDto)o.PropertyStatus,
                         IsFeatured=o.IsFeatured,
                         Id = o.Id,
-                    }
+                    },
+                    PropertyTypeName = o.PropertyTypeName
                 };
 
                 results.Add(res);
@@ -191,18 +199,33 @@ namespace ERP.Entities
 
             var output = new GetPropertyForViewDto { Property = ObjectMapper.Map<PropertyDto>(property) };
 
+            if (output.Property.PropertyTypeId != null)
+            {
+                var _lookupPropertyType = await _lookup_propertyTypeRepository.FirstOrDefaultAsync((int)output.Property.PropertyTypeId);
+                output.PropertyTypeName = _lookupPropertyType?.Name?.ToString();
+            }
+
             return output;
         }
 
-        [AbpAuthorize(AppPermissions.Pages_Properties_Edit)]
+
+
+        [AbpAuthorize(AppPermissions.Pages_Properties_Edit)] 
         public virtual async Task<GetPropertyForEditOutput> GetPropertyForEdit(EntityDto<Guid> input)
         {
             var property = await _propertyRepository.FirstOrDefaultAsync(input.Id);
 
             var output = new GetPropertyForEditOutput { Property = ObjectMapper.Map<CreateOrEditPropertyDto>(property) };
 
+            if (output.Property.PropertyTypeId != null)
+            {
+                var _lookupPropertyType = await _lookup_propertyTypeRepository.FirstOrDefaultAsync((int)output.Property.PropertyTypeId);
+                output.PropertyTypeName = _lookupPropertyType?.Name?.ToString();
+            }
+
             return output;
         }
+
 
         public virtual async Task<Guid> CreateOrEdit(CreateOrEditPropertyDto input)
         { 
@@ -239,6 +262,16 @@ namespace ERP.Entities
         public virtual async Task Delete(EntityDto<Guid> input)
         {
             await _propertyRepository.DeleteAsync(input.Id);
+        }
+
+        public async Task<List<PropertyPropertyTypeLookupTableDto>> GetAllPropertyTypeForTableDropdown()
+        {
+            return await _lookup_propertyTypeRepository.GetAll()
+                .Select(propertyType => new PropertyPropertyTypeLookupTableDto
+                {
+                    Id = propertyType.Id,
+                    DisplayName = propertyType == null || propertyType.Name == null ? "" : propertyType.Name.ToString()
+                }).ToListAsync();
         }
 
     }

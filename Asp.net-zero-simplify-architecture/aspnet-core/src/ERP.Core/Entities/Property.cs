@@ -40,7 +40,13 @@ namespace ERP.Entities
         public virtual string OfferContact { get; set; }
         public virtual PropertyStatus PropertyStatus { get; set; }
         public virtual Boolean   IsFeatured { get; set; }
+        public virtual int? PropertyTypeId { get; set; }
+
+        [ForeignKey("PropertyTypeId")]
+        public PropertyType PropertyTypeFk { get; set; }
+
         public ICollection<PropertyFiles> PropertyFiles { get; set; }
+
     }
 
        public enum PropertyStatus

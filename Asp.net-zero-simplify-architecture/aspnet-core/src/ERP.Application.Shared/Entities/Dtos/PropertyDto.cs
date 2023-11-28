@@ -28,5 +28,7 @@ namespace ERP.Entities.Dtos
         public virtual PropertyStatusDto PropertyStatus { get; set; }
         public virtual Boolean IsFeatured { get; set; }
 
+        public int? PropertyTypeId { get; set; }
+
     }
 }

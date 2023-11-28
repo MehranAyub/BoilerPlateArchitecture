@@ -8,5 +8,7 @@ namespace ERP.Entities.Dtos
     {
         public CreateOrEditPropertyDto Property { get; set; }
 
+        public string PropertyTypeName { get; set; }
+
     }
 }

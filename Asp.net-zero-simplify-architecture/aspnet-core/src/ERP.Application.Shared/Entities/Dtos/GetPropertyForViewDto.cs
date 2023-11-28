@@ -4,5 +4,7 @@
     {
         public PropertyDto Property { get; set; }
 
+        public string PropertyTypeName { get; set; }
+
     }
 }

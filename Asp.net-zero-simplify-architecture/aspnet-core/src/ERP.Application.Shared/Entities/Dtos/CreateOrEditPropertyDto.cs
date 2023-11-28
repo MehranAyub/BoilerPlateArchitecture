@@ -37,6 +37,7 @@ namespace ERP.Entities.Dtos
         public string OfferContact { get; set; }
         public virtual PropertyStatusDto PropertyStatus { get; set; }
         public virtual Boolean IsFeatured { get; set; }
+        public int? PropertyTypeId { get; set; }
 
     }
 }

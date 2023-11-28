@@ -4,6 +4,7 @@ using Abp.Application.Services;
 using Abp.Application.Services.Dto;
 using ERP.Entities.Dtos;
 using ERP.Dto;
+using System.Collections.Generic;
 
 namespace ERP.Entities
 {
@@ -20,5 +21,6 @@ namespace ERP.Entities
         Task Delete(EntityDto<Guid> input);
         Task<PagedResultDto<GetPropertyWithImageForViewDto>> GetAllPropertiesWithImages(GetAllPropertiesWithImagesInput input);
         Task<GetPropertyForDetailOutput> GetPropertyForDetail(EntityDto<Guid> input);
+        Task<List<PropertyPropertyTypeLookupTableDto>> GetAllPropertyTypeForTableDropdown();
     }
 }
