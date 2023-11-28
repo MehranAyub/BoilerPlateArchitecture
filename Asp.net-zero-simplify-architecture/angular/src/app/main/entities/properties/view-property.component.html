@@ -30,6 +30,11 @@
             <div class="kt-portlet__body">
                 <div class="row align-items-center">
                     <div class="col-6 mb-3">
+                        <h6>Property Type :</h6>
+                        {{ item?.propertyTypeName }}
+                    </div>
+                    
+                    <div class="col-6 mb-3">
                         <h6>{{ l("Address") }} :</h6>
                         {{ item.property.address }}
                     </div>
@@ -69,6 +74,8 @@
                         <h6>Offer Contact :</h6>
                         {{ item.property.offerContact }}
                     </div>
+            
+                    
                 </div>
 
                 <ng-container *ngIf="item.property.id">

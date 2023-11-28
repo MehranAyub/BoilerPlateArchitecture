@@ -34,7 +34,7 @@ namespace ERP.Entities
         public virtual async Task<PagedResultDto<GetPropertyForViewDto>> GetAll(GetAllPropertiesInput input)
         {
 
-            var filteredProperties = _propertyRepository.GetAll()
+            var filteredProperties = _propertyRepository.GetAll().Include(x=>x.PropertyTypeFk)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Address.Contains(input.Filter) || e.PropertySpecs.Contains(input.Filter) || e.Description.Contains(input.Filter) || e.ViewingDescription.Contains(input.Filter) || e.ViewingContact.Contains(input.Filter) || e.OfferContact.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.AddressFilter), e => e.Address.Contains(input.AddressFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PropertySpecsFilter), e => e.PropertySpecs.Contains(input.PropertySpecsFilter))
@@ -124,11 +124,11 @@ namespace ERP.Entities
             var filteredProperties= _propertyRepository.GetAll();
             if (input.IsFeatured)
             {
-                 filteredProperties = _propertyRepository.GetAll().Where(x=>x.IsFeatured==true).Include(x => x.PropertyFiles);
+                 filteredProperties = _propertyRepository.GetAll().Where(x=>x.IsFeatured==true).Include(x => x.PropertyFiles).Include(x=>x.PropertyTypeFk);
             }
             else
             {
-                 filteredProperties = _propertyRepository.GetAll().Where(x=>x.IsFeatured==false && x.PropertyStatus==(PropertyStatus)input.PropertyStatus).Include(x => x.PropertyFiles);
+                 filteredProperties = _propertyRepository.GetAll().Where(x=>x.IsFeatured==false && x.PropertyStatus==(PropertyStatus)input.PropertyStatus).Include(x => x.PropertyFiles).Include(x => x.PropertyTypeFk);
             }
 
             var pagedAndFilteredProperties = filteredProperties
@@ -168,6 +168,7 @@ namespace ERP.Entities
                         PropertyStatus = (PropertyStatusDto)o?.PropertyData?.PropertyStatus,
                         IsFeatured = (Boolean)o?.PropertyData?.IsFeatured,
                         Id = o.PropertyData.Id,
+                        PropertyTypeName=o?.PropertyData?.PropertyTypeFk?.Name
                     },
                     ImageDto=new PropertyFilesDto
                     {
@@ -190,7 +191,11 @@ namespace ERP.Entities
             var property = await _propertyRepository.FirstOrDefaultAsync(input.Id);
             var propertyFiles=await _propertyFilesRepository.GetAll().Where(x=>x.PropertyId== input.Id).ToListAsync();
             var output = new GetPropertyForDetailOutput { Property = ObjectMapper.Map<CreateOrEditPropertyDto>(property),PropertyFiles= ObjectMapper.Map<List<PropertyFilesDto>>(propertyFiles )};
-
+            if (output.Property.PropertyTypeId != null)
+            {
+                var _lookupPropertyType = await _lookup_propertyTypeRepository.FirstOrDefaultAsync((int)output.Property.PropertyTypeId);
+                output.PropertyTypeName = _lookupPropertyType?.Name?.ToString();
+            }
             return output;
         }
         public virtual async Task<GetPropertyForViewDto> GetPropertyForView(Guid id)

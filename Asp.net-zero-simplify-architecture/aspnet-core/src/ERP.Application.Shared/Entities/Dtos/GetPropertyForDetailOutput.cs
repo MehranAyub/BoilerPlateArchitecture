@@ -8,6 +8,7 @@ namespace ERP.Entities.Dtos
     public class GetPropertyForDetailOutput
     {
         public CreateOrEditPropertyDto Property { get; set; }
+        public string PropertyTypeName { get; set; }
         public List<PropertyFilesDto> PropertyFiles { get; set; }
 
 
