@@ -556,14 +556,15 @@
                                             </ul>
                                         </div>
                                     </td>
-                                    <td style="width: 150px">
-                                        {{ record.property.address }}
+                                    <td style="width: 150px"> 
+                                        {{ record.property.address | slice:0:20 }}{{ record.property.address.length > 20 ? '...' : '' }}
                                     </td>
                                     <td style="width: 150px">
                                         {{ record.property.propertySpecs }}
                                     </td>
-                                    <td style="width: 150px">
-                                        {{ record.property.description }}
+                                    <td style="width: 150px"> 
+                                        {{ record.property.description | slice:0:20 }}{{ record.property.description.length > 20 ? '...' : '' }}
+                                        
                                     </td>
                                     <td style="width: 150px">
                                         {{ record.property.wholeSalePrice }}
@@ -574,8 +575,8 @@
                                     <td style="width: 150px">
                                         {{ record.property.estimatedRehab }}
                                     </td>
-                                    <td style="width: 150px">
-                                        {{ record.property.viewingDescription }}
+                                    <td style="width: 150px"> 
+                                        {{ record.property.viewingDescription | slice:0:20 }}{{ record.property.viewingDescription.length > 20 ? '...' : '' }}
                                     </td>
                                     <td style="width: 150px">
                                         {{ record.property.emdRequirement }}
