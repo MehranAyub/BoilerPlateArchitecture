@@ -9,19 +9,35 @@
                         #fileUploadForm="ngForm"
                         (ngSubmit)="save()"
                     >
-                        <div class="mb-3"> 
-                            <input
-                                type="file"
-                                ng2FileSelect
-                                [uploader]="uploader"
-                                multiple
-                            />
+                        <div class="mb-3">
+                            <label for="property-images">
+                                <input
+                                    #fileInput
+                                    style="display: none"
+                                    type="file"
+                                    name="property-images"
+                                    id="property-images"
+                                    ng2FileSelect
+                                    [uploader]="uploader"
+                                    multiple
+                                />
+                                <button
+                                    (click)="fileInput.click()"
+                                    class="btn btn-primary"
+                                >
+                                    <i class="flaticon-photo-camera"></i>
+                                    Upload Images
+                                </button>
+                            </label>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <table class="table" *ngIf="uploader && uploader?.queue?.length>0">
+            <table
+                class="table"
+                *ngIf="uploader && uploader?.queue?.length > 0"
+            >
                 <thead>
                     <tr>
                         <th width="50%">Name</th>
@@ -37,9 +53,7 @@
                             <strong>{{ item?.file?.name }}</strong>
                         </td>
                         <td *ngIf="uploader.options.isHTML5" nowrap>
-                            {{
-                                item?.file?.size / 1024 / 1024 | number : ".2"
-                            }}
+                            {{ item?.file?.size / 1024 / 1024 | number : ".2" }}
                             MB
                         </td>
                         <td *ngIf="uploader.options.isHTML5">
@@ -62,7 +76,7 @@
                                 ><i class="glyphicon glyphicon-remove"></i
                             ></span>
                         </td>
-                        <td nowrap> 
+                        <td nowrap>
                             <button
                                 type="button"
                                 class="btn btn-danger btn-xs"

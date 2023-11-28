@@ -1,52 +1,81 @@
-	<!-- Rent Properties -->
-	<section id="feature-property" class="feature-property bgc-f7 pb30">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 offset-lg-3">
-					<div class="main-title text-center">
-						<h2>For Rent Properties</h2>
-						<p>Handpicked properties by our team.</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6 col-lg-4" *ngFor="let item of items" [routerLink]="['/client/detail', item?.property?.id]">
-					<div class="feat_property home7">
-						<div class="thumb"> 
-							<img class="img-whp" [src]="item?.imageDto?.imageBytes"   (error)="setDefaultImage($event)"/> 
-							<div class="thmb_cntnt">
-								<ul class="tag mb0">
-									<li class="list-inline-item"><a href="#">For Rent</a></li>
-								</ul>
-								<ul class="icon mb0">
-									<li class="list-inline-item"><a ><span class="flaticon-transfer-1"></span></a></li>
-									<li class="list-inline-item"><a ><span class="flaticon-heart"></span></a></li>
-								</ul>
-								<a class="fp_price" href="#">${{item?.property?.wholeSalePrice}}<small>/mo</small></a>
-							</div>
-						</div>
-						<div class="details">
-							<div class="tc_content">
-								<p class="text-thm">{{item?.property?.propertyTypeName}}</p>
-								<h4>{{item?.property?.description}}</h4>
-								<p><span class="flaticon-placeholder"></span> {{item?.property?.address}}</p>
-								<ul class="prop_details mb0">
-									<li class="list-inline-item"><a href="#">Estimated ARV:  {{item?.property?.estimatedARV}}</a></li>
-									<li class="list-inline-item"><a href="#">Estimated Rehab:  {{item?.property?.estimatedRehab}}</a></li>
-									<li class="list-inline-item"><a href="#">EMD Requirement:  {{item?.property?.emdRequirement}}</a></li>
-								</ul>
-							</div>
-							<!-- <div class="fp_footer">
+<!-- Rent Properties -->
+<section id="feature-property" class="feature-property bgc-f7 pb30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3">
+                <div class="main-title text-center">
+                    <h2>For Rent Properties</h2>
+                    <p>Handpicked properties by our team.</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div
+                class="col-md-6 col-lg-4"
+                *ngFor="let item of items"
+                [routerLink]="['/client/detail', item?.property?.id]"
+            >
+                <div class="feat_property home7">
+                    <div class="thumb">
+                        <img
+                            class="img-whp"
+                            [src]="item?.imageDto?.imageBytes"
+                            (error)="setDefaultImage($event)"
+                        />
+                        <div class="thmb_cntnt">
+                            <ul class="tag mb0">
+                                <li class="list-inline-item">
+                                    <a href="#">For Rent</a>
+                                </li>
+                            </ul>
+
+                            <a class="fp_price" href="#"
+                                >${{ item?.property?.wholeSalePrice
+                                }}<small>/mo</small></a
+                            >
+                        </div>
+                    </div>
+                    <div class="details">
+                        <div class="tc_content">
+                            <p class="text-thm">
+                                {{ item?.property?.propertyTypeName }}
+                            </p>
+                            <h4>{{ item?.property?.description }}</h4>
+                            <p>
+                                <span class="flaticon-placeholder"></span>
+                                {{ item?.property?.address }}
+                            </p>
+                            <ul class="prop_details mb0">
+                                <li class="list-inline-item">
+                                    <a href="#"
+                                        >Estimated ARV:
+                                        {{ item?.property?.estimatedARV }}</a
+                                    >
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#"
+                                        >Estimated Rehab:
+                                        {{ item?.property?.estimatedRehab }}</a
+                                    >
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="#"
+                                        >EMD Requirement:
+                                        {{ item?.property?.emdRequirement }}</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- <div class="fp_footer">
 								<ul class="fp_meta float-left mb0">
 									<li class="list-inline-item"><a href="#"><img src="/assets/client/images/property/pposter1.png" alt="pposter1.png"></a></li>
 									<li class="list-inline-item"><a href="#">Ali Tufan</a></li>
 								</ul>
 								<div class="fp_pdate float-right">4 years ago</div>
 							</div> -->
-						</div>
-					</div>
-				</div>
-				 
-			</div>
-		</div>
-	</section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
