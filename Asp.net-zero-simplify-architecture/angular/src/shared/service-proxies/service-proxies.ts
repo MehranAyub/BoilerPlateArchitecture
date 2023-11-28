@@ -17888,6 +17888,7 @@ export class PropertyDto implements IPropertyDto {
     propertyStatus!: PropertyStatusDto | undefined;
     isFeatured!: boolean | undefined;
     propertyTypeId!: number | undefined;
+    propertyTypeName!: string | undefined;
     id!: string | undefined;
 
     constructor(data?: IPropertyDto) {
@@ -17914,6 +17915,7 @@ export class PropertyDto implements IPropertyDto {
             this.propertyStatus = data["propertyStatus"];
             this.isFeatured = data["isFeatured"];
             this.propertyTypeId = data["propertyTypeId"];
+            this.propertyTypeName = data["propertyTypeName"];
             this.id = data["id"];
         }
     }
@@ -17940,6 +17942,7 @@ export class PropertyDto implements IPropertyDto {
         data["propertyStatus"] = this.propertyStatus;
         data["isFeatured"] = this.isFeatured;
         data["propertyTypeId"] = this.propertyTypeId;
+        data["propertyTypeName"] = this.propertyTypeName;
         data["id"] = this.id;
         return data; 
     }
@@ -17959,6 +17962,7 @@ export interface IPropertyDto {
     propertyStatus: PropertyStatusDto | undefined;
     isFeatured: boolean | undefined;
     propertyTypeId: number | undefined;
+    propertyTypeName: string | undefined;
     id: string | undefined;
 }
 
@@ -18100,6 +18104,7 @@ export interface IPropertyFilesDto {
 
 export class GetPropertyForDetailOutput implements IGetPropertyForDetailOutput {
     property!: CreateOrEditPropertyDto | undefined;
+    propertyTypeName!: string | undefined;
     propertyFiles!: PropertyFilesDto[] | undefined;
 
     constructor(data?: IGetPropertyForDetailOutput) {
@@ -18114,6 +18119,7 @@ export class GetPropertyForDetailOutput implements IGetPropertyForDetailOutput {
     init(data?: any) {
         if (data) {
             this.property = data["property"] ? CreateOrEditPropertyDto.fromJS(data["property"]) : <any>undefined;
+            this.propertyTypeName = data["propertyTypeName"];
             if (data["propertyFiles"] && data["propertyFiles"].constructor === Array) {
                 this.propertyFiles = [] as any;
                 for (let item of data["propertyFiles"])
@@ -18132,6 +18138,7 @@ export class GetPropertyForDetailOutput implements IGetPropertyForDetailOutput {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["property"] = this.property ? this.property.toJSON() : <any>undefined;
+        data["propertyTypeName"] = this.propertyTypeName;
         if (this.propertyFiles && this.propertyFiles.constructor === Array) {
             data["propertyFiles"] = [];
             for (let item of this.propertyFiles)
@@ -18143,6 +18150,7 @@ export class GetPropertyForDetailOutput implements IGetPropertyForDetailOutput {
 
 export interface IGetPropertyForDetailOutput {
     property: CreateOrEditPropertyDto | undefined;
+    propertyTypeName: string | undefined;
     propertyFiles: PropertyFilesDto[] | undefined;
 }
 
