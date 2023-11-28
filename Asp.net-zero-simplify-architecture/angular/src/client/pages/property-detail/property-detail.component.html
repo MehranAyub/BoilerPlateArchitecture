@@ -7,14 +7,14 @@
             <div class="col-lg-7 col-xl-8">
                 <div class="single_property_title mt30-767">
                     <h2>Luxury Family Home</h2>
-                    <p>{{ this.detail.property.address }}</p>
+                    <p>{{ this.detail?.property?.address }}</p>
                 </div>
             </div>
             <div class="col-lg-5 col-xl-4">
                 <div class="single_property_social_share mt20">
                     <div class="price text-right tal-400">
                         <h2>
-                            ${{ this.detail.property.wholeSalePrice
+                            ${{ this.detail?.property?.wholeSalePrice
                             }}<small>/mo</small>
                         </h2>
                     </div>
@@ -28,7 +28,7 @@
 <section class="listing-title-area p0">
     <div class="container-fluid">
         <div class="row">
-            <ng-container *ngFor="let item of detail.propertyFiles">
+            <ng-container *ngFor="let item of detail?.propertyFiles">
                 <div class="col-md-6 col-lg-4">
                     <div class="item">
                         <img
@@ -50,30 +50,15 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="listing_single_description">
-                            <div class="lsd_list">
-                                <ul class="mb0">
-                                    <li class="list-inline-item">
-                                        <a href="#">Apartment</a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">Beds: 4</a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">Baths: 2</a>
-                                    </li>
-                                    <li class="list-inline-item">
-                                        <a href="#">Sq Ft: 5280</a>
-                                    </li>
-                                </ul>
-                            </div>
+                         
                             <h4 class="mb30">Description</h4>
                             <p class="mb25">
-                                {{ this.detail.property.description }}
+                                {{ this.detail?.property?.description }}
                             </p>
 
                             <h4 class="mb30">Viewing Descripton</h4>
                             <p class="mb25">
-                                {{ this.detail.property.viewingDescription }}
+                                {{ this.detail?.property?.viewingDescription }}
                             </p>
                         </div>
                     </div>
@@ -93,23 +78,21 @@
                                         <li>
                                             <p>
                                                 <span>{{
-                                                    detail.property.estimatedARV
+                                                    detail?.property?.estimatedARV
                                                 }}</span>
                                             </p>
                                         </li>
                                         <li>
                                             <p>
                                                 <span>{{
-                                                    detail.property
-                                                        .estimatedRehab
+                                                    detail?.property?.estimatedRehab
                                                 }}</span>
                                             </p>
                                         </li>
                                         <li>
                                             <p>
                                                 <span>{{
-                                                    detail.property
-                                                        .emdRequirement
+                                                    detail?.property?.emdRequirement
                                                 }}</span>
                                             </p>
                                         </li>
@@ -124,15 +107,14 @@
                                         <li>
                                             <p>
                                                 <span>{{
-                                                    detail.property.offerContact
+                                                    detail?.property?.offerContact
                                                 }}</span>
                                             </p>
                                         </li>
                                         <li>
                                             <p>
                                                 <span>{{
-                                                    detail.property
-                                                        .viewingContact
+                                                    detail?.property?.viewingContact
                                                 }}</span>
                                             </p>
                                         </li>
@@ -150,8 +132,7 @@
                                         <li>
                                             <p>
                                                 <span>{{
-                                                    detail.property
-                                                        .propertyStatus
+                                                    detail?.property?.propertyStatus==0?'For Rent':'For Sale'
                                                 }}</span>
                                             </p>
                                         </li>
@@ -174,8 +155,7 @@
                                         <li>
                                             <p>
                                                 <span>{{
-                                                    detail.property
-                                                        .propertySpecs
+                                                    detail?.property?.propertySpecs
                                                 }}</span>
                                             </p>
                                         </li>
