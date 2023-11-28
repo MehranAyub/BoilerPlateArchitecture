@@ -30,6 +30,11 @@ namespace ERP.Authorization
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
 
+            var propertyTypes = pages.CreateChildPermission(AppPermissions.Pages_PropertyTypes, L("PropertyTypes"), multiTenancySides: MultiTenancySides.Host);
+            propertyTypes.CreateChildPermission(AppPermissions.Pages_PropertyTypes_Create, L("CreateNewPropertyType"), multiTenancySides: MultiTenancySides.Host);
+            propertyTypes.CreateChildPermission(AppPermissions.Pages_PropertyTypes_Edit, L("EditPropertyType"), multiTenancySides: MultiTenancySides.Host);
+            propertyTypes.CreateChildPermission(AppPermissions.Pages_PropertyTypes_Delete, L("DeletePropertyType"), multiTenancySides: MultiTenancySides.Host);
+
             var propertyFileses = pages.CreateChildPermission(AppPermissions.Pages_PropertyFileses, L("PropertyFileses"), multiTenancySides: MultiTenancySides.Host);
             propertyFileses.CreateChildPermission(AppPermissions.Pages_PropertyFileses_Create, L("CreateNewPropertyFiles"), multiTenancySides: MultiTenancySides.Host);
             propertyFileses.CreateChildPermission(AppPermissions.Pages_PropertyFileses_Edit, L("EditPropertyFiles"), multiTenancySides: MultiTenancySides.Host);

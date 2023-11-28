@@ -43,6 +43,8 @@ namespace ERP
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+            configuration.CreateMap<CreateOrEditPropertyTypeDto, PropertyType>().ReverseMap();
+            configuration.CreateMap<PropertyTypeDto, PropertyType>().ReverseMap();
             configuration.CreateMap<CreateOrEditPropertyFilesDto, PropertyFiles>().ReverseMap();
             configuration.CreateMap<PropertyFilesDto, PropertyFiles>().ReverseMap();
             configuration.CreateMap<CreateOrEditPropertyDto, Property>().ReverseMap();

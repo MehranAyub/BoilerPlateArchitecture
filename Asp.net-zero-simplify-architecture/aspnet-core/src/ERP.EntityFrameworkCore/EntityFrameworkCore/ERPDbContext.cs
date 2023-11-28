@@ -16,6 +16,8 @@ namespace ERP.EntityFrameworkCore
 {
     public class ERPDbContext : AbpZeroDbContext<Tenant, Role, User, ERPDbContext>, IAbpPersistedGrantDbContext
     {
+        public virtual DbSet<PropertyType> PropertyTypes { get; set; }
+
         public virtual DbSet<PropertyFiles> PropertyFileses { get; set; }
 
         public virtual DbSet<Property> Properties { get; set; }

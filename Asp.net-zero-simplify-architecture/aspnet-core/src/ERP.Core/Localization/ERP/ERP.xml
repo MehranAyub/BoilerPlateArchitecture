@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="PropertyFiles">Property files</text>
+  <texts>    <text name="PropertyType">Property type</text>
+    <text name="CreateNewPropertyType">Create new property type</text>
+    <text name="EditPropertyType">Edit property type</text>
+    <text name="DeletePropertyType">Delete property type</text>
+    <text name="PropertyFiles">Property files</text>
     <text name="ERP.Entities.PropertyFiles">PropertyFiles</text>
     <text name="FileName">File name</text>
     <text name="ImageBytes">Image bytes</text>
