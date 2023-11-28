@@ -13,10 +13,11 @@ import { SalePropertiesComponent } from './components/sale-properties/sale-prope
 import { RentPropertiesComponent } from './components/rent-properties/rent-properties.component';
 import { FeaturedPropertiesComponent } from './components/featured-properties/featured-properties.component';
 import { PropertyDetailComponent } from './pages/property-detail/property-detail.component';
+import { ContactUsComponent } from './pages/contact-us/contact-us.component';
 
 
 @NgModule({
-  declarations: [ClientComponent, HomeComponent, ClientHeaderComponent, ClientFooterComponent, OurTeamComponent, SalePropertiesComponent, RentPropertiesComponent, FeaturedPropertiesComponent, PropertyDetailComponent],
+  declarations: [ClientComponent, HomeComponent, ClientHeaderComponent, ClientFooterComponent, OurTeamComponent, SalePropertiesComponent, RentPropertiesComponent, FeaturedPropertiesComponent, PropertyDetailComponent, ContactUsComponent],
   imports: [
     CommonModule,
     FormsModule,
