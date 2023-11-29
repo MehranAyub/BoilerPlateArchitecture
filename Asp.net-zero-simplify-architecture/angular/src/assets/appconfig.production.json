@@ -1,6 +1,6 @@
 {
   "remoteServiceBaseUrl": "https://erpwebhost20231129180745.azurewebsites.net",
-  "appBaseUrl": "http://localhost:4200",
+  "appBaseUrl": "https://offmarketrellc.wmybclient.net",
   "localeMappings": {
     "angular": [
       {

@@ -1,9 +1,15 @@
-.home-one{
-    .home_adv_srch_opt{
-        .nav.nav-pills{
-            .nav-item{
+.home-one {
+    .home_adv_srch_opt {
+        .nav.nav-pills {
+            .nav-item {
                 margin-right: unset;
             }
         }
+    }
+    .property-type-custom {
+        width: 150px;
+        border-radius: 7px;
+        height: 50px;
+        border-color: #ebebeb;
     }
 }
