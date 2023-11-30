@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { GetPropertyForDetailOutput, PropertiesServiceProxy } from '@shared/service-proxies/service-proxies';
 
 @Component({
@@ -11,7 +11,14 @@ export class PropertyDetailComponent implements OnInit {
 
   public detail!:GetPropertyForDetailOutput;
 
-  constructor(private route: ActivatedRoute,private _propertiesServiceProxy:PropertiesServiceProxy) { }
+  constructor(private route: ActivatedRoute,private _propertiesServiceProxy:PropertiesServiceProxy,private router:Router) { 
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        // Scroll to top when navigating to a new page
+        window.scrollTo(0, 0);
+      }
+    });
+  }
 
   ngOnInit() {
     let propertyId = this.route.snapshot.paramMap.get('id');
