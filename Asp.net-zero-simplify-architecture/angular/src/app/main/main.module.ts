@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppCommonModule } from '@app/shared/common/app-common.module';
-import { PropertyFilesesComponent } from './entities/propertyFileses/propertyFileses.component';
+import { ImagesGridComponent } from './entities/propertyFileses/propertyFileses.component';
 import { CreateOrEditPropertyFilesModalComponent } from './entities/propertyFileses/create-or-edit-propertyFiles-modal.component';
 
 import { PropertiesComponent } from './entities/properties/properties.component';
@@ -28,6 +28,7 @@ import { NgxBootstrapDatePickerConfigService } from 'assets/ngx-bootstrap/ngx-bo
 import { from } from 'rxjs';;
 import { FileUploadComponent } from './entities/file-upload/file-upload.component'
 ;
+import { UploadPropertyComponent } from './entities/properties/upload-property.component';
 
 NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
 
@@ -55,7 +56,7 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         FileUploadModule
     ],
     declarations: [
-		PropertyFilesesComponent,
+		ImagesGridComponent,
 
 		CreateOrEditPropertyFilesModalComponent,
 		PropertiesComponent,
@@ -63,7 +64,8 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
 		ViewPropertyComponent,
 		CreateOrEditPropertyComponent, 
         DashboardComponent,
-        FileUploadComponent 
+        FileUploadComponent,
+        UploadPropertyComponent
     ],
     providers: [
         { provide: BsDatepickerConfig, useFactory: NgxBootstrapDatePickerConfigService.getDatepickerConfig },

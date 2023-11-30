@@ -40,16 +40,16 @@
             >
                 <thead>
                     <tr>
-                        <th width="50%">Name</th>
+                        <th colspan="6">Name</th>
                         <th>Size</th>
                         <th>Progress</th>
                         <th>Status</th>
-                        <th>Actions</th>
+                        <th colspan="3">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let item of uploader.queue">
-                        <td>
+                        <td colspan="6">
                             <strong>{{ item?.file?.name }}</strong>
                         </td>
                         <td *ngIf="uploader.options.isHTML5" nowrap>
@@ -76,7 +76,7 @@
                                 ><i class="glyphicon glyphicon-remove"></i
                             ></span>
                         </td>
-                        <td nowrap>
+                        <td nowrap colspan="3">
                             <button
                                 type="button"
                                 class="btn btn-danger btn-xs"
@@ -84,6 +84,18 @@
                             >
                                 <span class="glyphicon glyphicon-trash"></span>
                                 Remove
+                            </button>
+                        </td>
+                    </tr>
+                    <tr *ngIf="(uploader && uploader?.queue?.length > 0) && isShowSaveBtn">
+                        <td colspan="10"></td>
+                        <td colspan="2">
+                            <button
+                                (click)="save()"
+                                class="btn btn-primary blue float-right"
+                            >
+                                <i class="fa fa-save"></i>
+                                <span>{{ l("Save") }}</span>
                             </button>
                         </td>
                     </tr>

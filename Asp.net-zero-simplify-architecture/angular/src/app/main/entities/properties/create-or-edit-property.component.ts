@@ -19,7 +19,8 @@ import { AppComponentBase } from "@shared/common/app-component-base";
 import * as moment from "moment";
 import { ActivatedRoute, Router } from "@angular/router";
 import { appModuleAnimation } from "@shared/animations/routerTransition";
-import { Observable } from "@node_modules/rxjs";
+import { Observable, Subscription, interval, timer } from "@node_modules/rxjs";
+import { PropertyDataService } from "../services/property-data.service";
 
 @Component({
     templateUrl: "./create-or-edit-property.component.html",
@@ -40,7 +41,8 @@ export class CreateOrEditPropertyComponent
         injector: Injector,
         private _activatedRoute: ActivatedRoute,
         private _propertiesServiceProxy: PropertiesServiceProxy,
-        private _router: Router
+        private _router: Router,
+        private propertyDataService:PropertyDataService
     ) {
         super(injector);
     }
@@ -84,9 +86,16 @@ export class CreateOrEditPropertyComponent
                 this.saving = false;
                 this.notify.info(this.l("SavedSuccessfully"));
                 //  this.message.success("Property record saved successfully");
-                setTimeout(() => {
+                // setTimeout(() => {
+                //     this._router.navigate(["/app/main/entities/properties"]);
+                // }, 1500);
+ 
+                let timerSubscription:Subscription = interval(3000).subscribe((x) => {
+                  if(this.propertyDataService.uploader.queue.length==0 || this.propertyDataService.uploader.queue.length==1){
+                    timerSubscription.unsubscribe();
                     this._router.navigate(["/app/main/entities/properties"]);
-                }, 1500);
+                  }
+                });
             });
     }
     propertyTypeLookupList: PropertyPropertyTypeLookupTableDto[] = [];

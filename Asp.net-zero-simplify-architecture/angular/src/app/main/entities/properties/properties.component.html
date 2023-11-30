@@ -552,6 +552,19 @@
                                                         >{{ l("Delete") }}</a
                                                     >
                                                 </li>
+                                                <li>
+                                                    <a 
+                                                        [routerLink]="[
+                                                            '/app/main/entities/properties/upload'
+                                                        ]"
+                                                        [queryParams]="{
+                                                            id: record.property
+                                                                .id
+                                                        }"
+                                                    >
+                                                        Add Images
+                                                    </a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </td>

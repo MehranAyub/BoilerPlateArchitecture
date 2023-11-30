@@ -1,5 +1,6 @@
 import {
     Component,
+    EventEmitter,
     Injector,
     Input,
     OnChanges,
@@ -14,7 +15,7 @@ import { AppConsts } from "@shared/AppConsts";
 import { appModuleAnimation } from "@shared/animations/routerTransition";
 import { TokenService } from "abp-ng2-module/dist/src/auth/token.service";
 import { IAjaxResponse } from "abp-ng2-module/src/abpHttpInterceptor";
-import { EventEmitter } from "events";
+import { PropertyDataService } from "../services/property-data.service";
 @Component({
     selector: "app-file-upload",
     templateUrl: "./file-upload.component.html",
@@ -28,18 +29,19 @@ export class FileUploadComponent
     private _uploaderOptions: FileUploaderOptions = {};
     public description: string;
     @Input() Id: string;
-    @Output() saved: EventEmitter = new EventEmitter();
+    @Input() isShowSaveBtn: boolean = false;
 
-    constructor(injector: Injector, private _tokenService: TokenService) {
+    constructor(
+        injector: Injector,
+        private _tokenService: TokenService,
+        private propertyDataService: PropertyDataService
+    ) {
         super(injector);
     }
 
-    ngOnInit() {
-        console.log(
-            "AppConsts.remoteServiceBaseUrl",
-            AppConsts.remoteServiceBaseUrl
-        );
+    ngOnInit() { 
         this.initFileUploader();
+        this.propertyDataService.uploader=this.uploader;
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -69,6 +71,11 @@ export class FileUploadComponent
             const resp = <IAjaxResponse>JSON.parse(response);
             if (resp.success) {
                 // this.message.success(this.l("FileSavedSuccessfully", response));
+                this.propertyDataService.uploader=this.uploader;
+                if (this.uploader.queue.length == 1) {
+                    this.propertyDataService.refreshImagesGrid$.next(true);
+                }
+                this.propertyDataService.uploader=this.uploader;
             } else {
                 this.message.error(resp.error.message);
             }
@@ -78,9 +85,10 @@ export class FileUploadComponent
     }
 
     save(): void {
-        if (this.uploader) {
+        if (this.uploader && !!this.Id) {
             this.uploader.uploadAll();
         }
+        this.propertyDataService.uploader=this.uploader;
     }
 
     // fileChangeEvent(event: any): void {
