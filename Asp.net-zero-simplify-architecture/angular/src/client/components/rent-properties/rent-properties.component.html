@@ -30,7 +30,7 @@
                             </ul>
 
                             <a class="fp_price" href="#"
-                                >${{ item?.property?.wholeSalePrice
+                                >${{ item?.property?.wholeSalePrice | number
                                 }}<small>/mo</small></a
                             >
                         </div>
@@ -49,19 +49,28 @@
                                 <li class="list-inline-item">
                                     <a href="#"
                                         >Estimated ARV:
-                                        {{ item?.property?.estimatedARV }}</a
+                                        {{
+                                            item?.property?.estimatedARV
+                                                | number
+                                        }}</a
                                     >
                                 </li>
                                 <li class="list-inline-item">
                                     <a href="#"
                                         >Estimated Rehab:
-                                        {{ item?.property?.estimatedRehab }}</a
+                                        {{
+                                            item?.property?.estimatedRehab
+                                                | number
+                                        }}</a
                                     >
                                 </li>
                                 <li class="list-inline-item">
                                     <a href="#"
                                         >EMD Requirement:
-                                        {{ item?.property?.emdRequirement }}</a
+                                        {{
+                                            item?.property?.emdRequirement
+                                                | number
+                                        }}</a
                                     >
                                 </li>
                             </ul>
