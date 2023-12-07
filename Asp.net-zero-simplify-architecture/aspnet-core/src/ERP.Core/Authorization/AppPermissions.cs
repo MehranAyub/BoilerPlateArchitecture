@@ -1,4 +1,4 @@
-﻿namespace ERP.Authorization
+namespace ERP.Authorization
 {
     /// <summary>
     /// Defines string constants for application's permission names.
@@ -6,6 +6,11 @@
     /// </summary>
     public static class AppPermissions
     {
+        public const string Pages_Flips = "Pages.Flips";
+        public const string Pages_Flips_Create = "Pages.Flips.Create";
+        public const string Pages_Flips_Edit = "Pages.Flips.Edit";
+        public const string Pages_Flips_Delete = "Pages.Flips.Delete";
+
         public const string Pages_PropertyTypes = "Pages.PropertyTypes";
         public const string Pages_PropertyTypes_Create = "Pages.PropertyTypes.Create";
         public const string Pages_PropertyTypes_Edit = "Pages.PropertyTypes.Edit";

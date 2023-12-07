@@ -1,4 +1,4 @@
-﻿import { PermissionCheckerService } from "@abp/auth/permission-checker.service";
+import { PermissionCheckerService } from "@abp/auth/permission-checker.service";
 import { AppSessionService } from "@shared/common/session/app-session.service";
 
 import { Injectable } from "@angular/core";
@@ -35,6 +35,7 @@ export class AppNavigationService {
                 "fas fa-home",
                 "/app/main/entities/properties"
             ),
+            new AppMenuItem('Flips', 'Pages.Flips', 'flaticon-more', '/app/main/entities/flips'),
             //
 
             //  new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),

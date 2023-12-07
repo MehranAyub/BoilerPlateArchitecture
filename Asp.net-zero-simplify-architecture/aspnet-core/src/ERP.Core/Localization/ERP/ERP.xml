@@ -1,6 +1,18 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <localizationDictionary culture="en">
-  <texts>    <text name="PropertyType">Property type</text>
+  <texts>    <text name="Flip">Flip</text>
+    <text name="DatePurchased">Date purchased</text>
+    <text name="PricePurchased">Price purchased</text>
+    <text name="AmountRehab">Amount rehab</text>
+    <text name="DateSold">Date sold</text>
+    <text name="AmountSold">Amount sold</text>
+    <text name="FlipsHeaderInfo">Flips header info</text>
+    <text name="CreateNewFlip">Create new flip</text>
+    <text name="EditFlip">Edit flip</text>
+    <text name="DeleteFlip">Delete flip</text>
+    <text name="Flips">Flips</text>
+    <text name="MinMax">Min-Max</text>
+    <text name="PropertyType">Property type</text>
     <text name="CreateNewPropertyType">Create new property type</text>
     <text name="EditPropertyType">Edit property type</text>
     <text name="DeletePropertyType">Delete property type</text>

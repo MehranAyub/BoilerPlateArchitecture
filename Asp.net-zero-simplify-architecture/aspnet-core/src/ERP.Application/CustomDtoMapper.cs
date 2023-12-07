@@ -1,4 +1,4 @@
-﻿using ERP.Entities.Dtos;
+using ERP.Entities.Dtos;
 using ERP.Entities;
 using Abp.Application.Editions;
 using Abp.Application.Features;
@@ -43,6 +43,8 @@ namespace ERP
     {
         public static void CreateMappings(IMapperConfigurationExpression configuration)
         {
+           configuration.CreateMap<CreateOrEditFlipDto, Flip>();
+           configuration.CreateMap<Flip, FlipDto>();
             configuration.CreateMap<CreateOrEditPropertyTypeDto, PropertyType>().ReverseMap();
             configuration.CreateMap<PropertyTypeDto, PropertyType>().ReverseMap();
             configuration.CreateMap<CreateOrEditPropertyFilesDto, PropertyFiles>().ReverseMap();

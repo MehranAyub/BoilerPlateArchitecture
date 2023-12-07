@@ -1,16 +1,15 @@
-﻿import {AppConsts} from "@shared/AppConsts";
-import { Component, ViewChild, Injector, Output, EventEmitter } from '@angular/core';
-{{Import_Modal_Directive_Here}}
+﻿import { Component, ViewChild, Injector, Output, EventEmitter } from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap';
 import { Get{{Entity_Name_Here}}ForViewDto, {{Entity_Name_Here}}Dto {{Enum_Import_After_V060600_Here}}{{Enum_Import_Before_V060600_Here}}} from '@shared/service-proxies/service-proxies';
 import { AppComponentBase } from '@shared/common/app-component-base';
 
 @Component({
-    selector: '{{master_Detail_Child_Prefix_Here}}view{{Entity_Name_Here}}Modal',
-    templateUrl: './{{master_Detail_Child_Prefix_Here}}view-{{entity_Name_Here}}-modal.component.html'
+    selector: 'view{{Entity_Name_Here}}Modal',
+    templateUrl: './view-{{entity_Name_Here}}-modal.component.html'
 })
-export class {{Master_Detail_Child_Prefix_Here}}View{{Entity_Name_Here}}ModalComponent extends AppComponentBase {
+export class View{{Entity_Name_Here}}ModalComponent extends AppComponentBase {
 
-    @ViewChild('createOrEditModal', { static: true }) modal: ModalDirective;
+    @ViewChild('createOrEditModal') modal: ModalDirective;
     @Output() modalSave: EventEmitter<any> = new EventEmitter<any>();
 
     active = false;
@@ -32,8 +31,6 @@ export class {{Master_Detail_Child_Prefix_Here}}View{{Entity_Name_Here}}ModalCom
         this.active = true;
         this.modal.show();
     }
-    
-    {{Get_Download_Url_Here}}
 
     close(): void {
         this.active = false;

@@ -1,4 +1,4 @@
-﻿using Abp.Authorization;
+using Abp.Authorization;
 using Abp.Configuration.Startup;
 using Abp.Localization;
 using Abp.MultiTenancy;
@@ -29,6 +29,13 @@ namespace ERP.Authorization
             //COMMON PERMISSIONS (FOR BOTH OF TENANTS AND HOST)
 
             var pages = context.GetPermissionOrNull(AppPermissions.Pages) ?? context.CreatePermission(AppPermissions.Pages, L("Pages"));
+
+            var flips = pages.CreateChildPermission(AppPermissions.Pages_Flips, L("Flips"), multiTenancySides: MultiTenancySides.Host);
+            flips.CreateChildPermission(AppPermissions.Pages_Flips_Create, L("CreateNewFlip"), multiTenancySides: MultiTenancySides.Host);
+            flips.CreateChildPermission(AppPermissions.Pages_Flips_Edit, L("EditFlip"), multiTenancySides: MultiTenancySides.Host);
+            flips.CreateChildPermission(AppPermissions.Pages_Flips_Delete, L("DeleteFlip"), multiTenancySides: MultiTenancySides.Host);
+
+
 
             var propertyTypes = pages.CreateChildPermission(AppPermissions.Pages_PropertyTypes, L("PropertyTypes"), multiTenancySides: MultiTenancySides.Host);
             propertyTypes.CreateChildPermission(AppPermissions.Pages_PropertyTypes_Create, L("CreateNewPropertyType"), multiTenancySides: MultiTenancySides.Host);

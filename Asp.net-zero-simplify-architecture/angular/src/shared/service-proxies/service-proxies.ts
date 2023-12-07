@@ -2432,6 +2432,324 @@ export class EditionServiceProxy {
 }
 
 @Injectable()
+export class FlipsServiceProxy {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl ? baseUrl : "";
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param addressFilter (optional) 
+     * @param maxDatePurchasedFilter (optional) 
+     * @param minDatePurchasedFilter (optional) 
+     * @param maxPricePurchasedFilter (optional) 
+     * @param minPricePurchasedFilter (optional) 
+     * @param maxAmountRehabFilter (optional) 
+     * @param minAmountRehabFilter (optional) 
+     * @param maxDateSoldFilter (optional) 
+     * @param minDateSoldFilter (optional) 
+     * @param maxAmountSoldFilter (optional) 
+     * @param minAmountSoldFilter (optional) 
+     * @param sorting (optional) 
+     * @param skipCount (optional) 
+     * @param maxResultCount (optional) 
+     * @return Success
+     */
+    getAll(filter: string | null | undefined, addressFilter: string | null | undefined, maxDatePurchasedFilter: moment.Moment | null | undefined, minDatePurchasedFilter: moment.Moment | null | undefined, maxPricePurchasedFilter: number | null | undefined, minPricePurchasedFilter: number | null | undefined, maxAmountRehabFilter: number | null | undefined, minAmountRehabFilter: number | null | undefined, maxDateSoldFilter: moment.Moment | null | undefined, minDateSoldFilter: moment.Moment | null | undefined, maxAmountSoldFilter: number | null | undefined, minAmountSoldFilter: number | null | undefined, sorting: string | null | undefined, skipCount: number | null | undefined, maxResultCount: number | null | undefined): Observable<PagedResultDtoOfGetFlipForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/Flips/GetAll?";
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (addressFilter !== undefined)
+            url_ += "AddressFilter=" + encodeURIComponent("" + addressFilter) + "&"; 
+        if (maxDatePurchasedFilter !== undefined)
+            url_ += "MaxDatePurchasedFilter=" + encodeURIComponent(maxDatePurchasedFilter ? "" + maxDatePurchasedFilter.toJSON() : "") + "&"; 
+        if (minDatePurchasedFilter !== undefined)
+            url_ += "MinDatePurchasedFilter=" + encodeURIComponent(minDatePurchasedFilter ? "" + minDatePurchasedFilter.toJSON() : "") + "&"; 
+        if (maxPricePurchasedFilter !== undefined)
+            url_ += "MaxPricePurchasedFilter=" + encodeURIComponent("" + maxPricePurchasedFilter) + "&"; 
+        if (minPricePurchasedFilter !== undefined)
+            url_ += "MinPricePurchasedFilter=" + encodeURIComponent("" + minPricePurchasedFilter) + "&"; 
+        if (maxAmountRehabFilter !== undefined)
+            url_ += "MaxAmountRehabFilter=" + encodeURIComponent("" + maxAmountRehabFilter) + "&"; 
+        if (minAmountRehabFilter !== undefined)
+            url_ += "MinAmountRehabFilter=" + encodeURIComponent("" + minAmountRehabFilter) + "&"; 
+        if (maxDateSoldFilter !== undefined)
+            url_ += "MaxDateSoldFilter=" + encodeURIComponent(maxDateSoldFilter ? "" + maxDateSoldFilter.toJSON() : "") + "&"; 
+        if (minDateSoldFilter !== undefined)
+            url_ += "MinDateSoldFilter=" + encodeURIComponent(minDateSoldFilter ? "" + minDateSoldFilter.toJSON() : "") + "&"; 
+        if (maxAmountSoldFilter !== undefined)
+            url_ += "MaxAmountSoldFilter=" + encodeURIComponent("" + maxAmountSoldFilter) + "&"; 
+        if (minAmountSoldFilter !== undefined)
+            url_ += "MinAmountSoldFilter=" + encodeURIComponent("" + minAmountSoldFilter) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetAll(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetAll(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfGetFlipForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfGetFlipForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetAll(response: HttpResponseBase): Observable<PagedResultDtoOfGetFlipForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfGetFlipForViewDto.fromJS(resultData200) : new PagedResultDtoOfGetFlipForViewDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfGetFlipForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getFlipForView(id: string | null | undefined): Observable<GetFlipForViewDto> {
+        let url_ = this.baseUrl + "/api/services/app/Flips/GetFlipForView?";
+        if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetFlipForView(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetFlipForView(<any>response_);
+                } catch (e) {
+                    return <Observable<GetFlipForViewDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetFlipForViewDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetFlipForView(response: HttpResponseBase): Observable<GetFlipForViewDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? GetFlipForViewDto.fromJS(resultData200) : new GetFlipForViewDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetFlipForViewDto>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    getFlipForEdit(id: string | null | undefined): Observable<GetFlipForEditOutput> {
+        let url_ = this.baseUrl + "/api/services/app/Flips/GetFlipForEdit?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetFlipForEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetFlipForEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<GetFlipForEditOutput>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<GetFlipForEditOutput>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetFlipForEdit(response: HttpResponseBase): Observable<GetFlipForEditOutput> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? GetFlipForEditOutput.fromJS(resultData200) : new GetFlipForEditOutput();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<GetFlipForEditOutput>(<any>null);
+    }
+
+    /**
+     * @param input (optional) 
+     * @return Success
+     */
+    createOrEdit(input: CreateOrEditFlipDto | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Flips/CreateOrEdit";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(input);
+
+        let options_ : any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json", 
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processCreateOrEdit(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processCreateOrEdit(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processCreateOrEdit(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    /**
+     * @param id (optional) 
+     * @return Success
+     */
+    delete(id: string | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/services/app/Flips/Delete?";
+        if (id !== undefined)
+            url_ += "Id=" + encodeURIComponent("" + id) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return _observableOf<void>(<any>null);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
+@Injectable()
 export class FriendshipServiceProxy {
     private http: HttpClient;
     private baseUrl: string;
@@ -13661,6 +13979,246 @@ export class MoveTenantsToAnotherEditionDto implements IMoveTenantsToAnotherEdit
 export interface IMoveTenantsToAnotherEditionDto {
     sourceEditionId: number | undefined;
     targetEditionId: number | undefined;
+}
+
+export class PagedResultDtoOfGetFlipForViewDto implements IPagedResultDtoOfGetFlipForViewDto {
+    totalCount!: number | undefined;
+    items!: GetFlipForViewDto[] | undefined;
+
+    constructor(data?: IPagedResultDtoOfGetFlipForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.totalCount = data["totalCount"];
+            if (data["items"] && data["items"].constructor === Array) {
+                this.items = [] as any;
+                for (let item of data["items"])
+                    this.items!.push(GetFlipForViewDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): PagedResultDtoOfGetFlipForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new PagedResultDtoOfGetFlipForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["totalCount"] = this.totalCount;
+        if (this.items && this.items.constructor === Array) {
+            data["items"] = [];
+            for (let item of this.items)
+                data["items"].push(item.toJSON());
+        }
+        return data; 
+    }
+}
+
+export interface IPagedResultDtoOfGetFlipForViewDto {
+    totalCount: number | undefined;
+    items: GetFlipForViewDto[] | undefined;
+}
+
+export class GetFlipForViewDto implements IGetFlipForViewDto {
+    flip!: FlipDto | undefined;
+
+    constructor(data?: IGetFlipForViewDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.flip = data["flip"] ? FlipDto.fromJS(data["flip"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetFlipForViewDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetFlipForViewDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["flip"] = this.flip ? this.flip.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetFlipForViewDto {
+    flip: FlipDto | undefined;
+}
+
+export class FlipDto implements IFlipDto {
+    address!: string | undefined;
+    datePurchased!: moment.Moment | undefined;
+    pricePurchased!: number | undefined;
+    amountRehab!: number | undefined;
+    dateSold!: moment.Moment | undefined;
+    amountSold!: number | undefined;
+    id!: string | undefined;
+
+    constructor(data?: IFlipDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.address = data["address"];
+            this.datePurchased = data["datePurchased"] ? moment(data["datePurchased"].toString()) : <any>undefined;
+            this.pricePurchased = data["pricePurchased"];
+            this.amountRehab = data["amountRehab"];
+            this.dateSold = data["dateSold"] ? moment(data["dateSold"].toString()) : <any>undefined;
+            this.amountSold = data["amountSold"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): FlipDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new FlipDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["address"] = this.address;
+        data["datePurchased"] = this.datePurchased ? this.datePurchased.toISOString() : <any>undefined;
+        data["pricePurchased"] = this.pricePurchased;
+        data["amountRehab"] = this.amountRehab;
+        data["dateSold"] = this.dateSold ? this.dateSold.toISOString() : <any>undefined;
+        data["amountSold"] = this.amountSold;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface IFlipDto {
+    address: string | undefined;
+    datePurchased: moment.Moment | undefined;
+    pricePurchased: number | undefined;
+    amountRehab: number | undefined;
+    dateSold: moment.Moment | undefined;
+    amountSold: number | undefined;
+    id: string | undefined;
+}
+
+export class GetFlipForEditOutput implements IGetFlipForEditOutput {
+    flip!: CreateOrEditFlipDto | undefined;
+
+    constructor(data?: IGetFlipForEditOutput) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.flip = data["flip"] ? CreateOrEditFlipDto.fromJS(data["flip"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): GetFlipForEditOutput {
+        data = typeof data === 'object' ? data : {};
+        let result = new GetFlipForEditOutput();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["flip"] = this.flip ? this.flip.toJSON() : <any>undefined;
+        return data; 
+    }
+}
+
+export interface IGetFlipForEditOutput {
+    flip: CreateOrEditFlipDto | undefined;
+}
+
+export class CreateOrEditFlipDto implements ICreateOrEditFlipDto {
+    address!: string | undefined;
+    datePurchased!: moment.Moment | undefined;
+    pricePurchased!: number | undefined;
+    amountRehab!: number | undefined;
+    dateSold!: moment.Moment | undefined;
+    amountSold!: number | undefined;
+    id!: string | undefined;
+
+    constructor(data?: ICreateOrEditFlipDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.address = data["address"];
+            this.datePurchased = data["datePurchased"] ? moment(data["datePurchased"].toString()) : <any>undefined;
+            this.pricePurchased = data["pricePurchased"];
+            this.amountRehab = data["amountRehab"];
+            this.dateSold = data["dateSold"] ? moment(data["dateSold"].toString()) : <any>undefined;
+            this.amountSold = data["amountSold"];
+            this.id = data["id"];
+        }
+    }
+
+    static fromJS(data: any): CreateOrEditFlipDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new CreateOrEditFlipDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["address"] = this.address;
+        data["datePurchased"] = this.datePurchased ? this.datePurchased.toISOString() : <any>undefined;
+        data["pricePurchased"] = this.pricePurchased;
+        data["amountRehab"] = this.amountRehab;
+        data["dateSold"] = this.dateSold ? this.dateSold.toISOString() : <any>undefined;
+        data["amountSold"] = this.amountSold;
+        data["id"] = this.id;
+        return data; 
+    }
+}
+
+export interface ICreateOrEditFlipDto {
+    address: string | undefined;
+    datePurchased: moment.Moment | undefined;
+    pricePurchased: number | undefined;
+    amountRehab: number | undefined;
+    dateSold: moment.Moment | undefined;
+    amountSold: number | undefined;
+    id: string | undefined;
 }
 
 export class CreateFriendshipRequestInput implements ICreateFriendshipRequestInput {

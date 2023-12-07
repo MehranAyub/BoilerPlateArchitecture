@@ -1119,6 +1119,42 @@ namespace ERP.Migrations
                     b.ToTable("AppChatMessages");
                 });
 
+            modelBuilder.Entity("ERP.Entities.Flip", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address");
+
+                    b.Property<long?>("AmountRehab");
+
+                    b.Property<long>("AmountSold");
+
+                    b.Property<DateTime>("CreationTime");
+
+                    b.Property<long?>("CreatorUserId");
+
+                    b.Property<DateTime?>("DatePurchased");
+
+                    b.Property<DateTime>("DateSold");
+
+                    b.Property<long?>("DeleterUserId");
+
+                    b.Property<DateTime?>("DeletionTime");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<DateTime?>("LastModificationTime");
+
+                    b.Property<long?>("LastModifierUserId");
+
+                    b.Property<long?>("PricePurchased");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Flips");
+                });
+
             modelBuilder.Entity("ERP.Entities.Property", b =>
                 {
                     b.Property<Guid>("Id")

@@ -1,4 +1,4 @@
-﻿using ERP.Entities;
+using ERP.Entities;
 using Abp.IdentityServer4;
 using Abp.Zero.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +16,8 @@ namespace ERP.EntityFrameworkCore
 {
     public class ERPDbContext : AbpZeroDbContext<Tenant, Role, User, ERPDbContext>, IAbpPersistedGrantDbContext
     {
+        public virtual DbSet<Flip> Flips { get; set; }
+
         public virtual DbSet<PropertyType> PropertyTypes { get; set; }
 
         public virtual DbSet<PropertyFiles> PropertyFileses { get; set; }

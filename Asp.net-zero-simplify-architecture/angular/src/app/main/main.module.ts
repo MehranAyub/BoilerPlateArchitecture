@@ -1,7 +1,11 @@
-﻿import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppCommonModule } from '@app/shared/common/app-common.module';
+import { FlipsComponent } from './entities/flips/flips.component';
+import { ViewFlipModalComponent } from './entities/flips/view-flip-modal.component';
+import { CreateOrEditFlipModalComponent } from './entities/flips/create-or-edit-flip-modal.component';
+
 import { ImagesGridComponent } from './entities/propertyFileses/propertyFileses.component';
 import { CreateOrEditPropertyFilesModalComponent } from './entities/propertyFileses/create-or-edit-propertyFiles-modal.component';
 
@@ -56,6 +60,8 @@ NgxBootstrapDatePickerConfigService.registerNgxBootstrapDatePickerLocales();
         FileUploadModule
     ],
     declarations: [
+		FlipsComponent,
+		ViewFlipModalComponent,		CreateOrEditFlipModalComponent,
 		ImagesGridComponent,
 
 		CreateOrEditPropertyFilesModalComponent,
