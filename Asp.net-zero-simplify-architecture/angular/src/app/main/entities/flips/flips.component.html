@@ -7,97 +7,238 @@
             <span
                 class="kt-subheader__separator kt-subheader__separator--v"
             ></span>
-            <span class="kt-subheader__desc"> {{l("FlipsHeaderInfo")}} </span>
+            <span class="kt-subheader__desc"> Flips List </span>
         </div>
         <div class="kt-subheader__toolbar">
             <div class="kt-subheader__wrapper">
-                <button *ngIf="isGranted('Pages.Flips.Create')" (click)="createFlip()" 
-                class="btn btn-primary blue"><i class="fa fa-plus"></i> {{l("CreateNewFlip")}}</button>
+                <button
+                    *ngIf="isGranted('Pages.Flips.Create')"
+                    (click)="createFlip()"
+                    class="btn btn-primary blue"
+                >
+                    <i class="fa fa-plus"></i> Create New Flip
+                </button>
             </div>
         </div>
-
     </div>
     <div class="kt-content">
         <div class="kt-portlet kt-portlet--mobile">
             <div class="kt-portlet__body">
-
-				<form class="horizontal-form" autocomplete="off">
+                <form class="horizontal-form" autocomplete="off">
                     <div class="m-form m-form--label-align-right">
                         <div class="row align-items-center m--margin-bottom-10">
                             <div class="col-xl-12">
-                                <div class="form-group m-form__group align-items-center">
+                                <div
+                                    class="form-group m-form__group align-items-center"
+                                >
                                     <div class="input-group">
-                                        <input [(ngModel)]="filterText" name="filterText" autoFocus class="form-control m-input" [placeholder]="l('SearchWithThreeDot')" type="text">
+                                        <input
+                                            [(ngModel)]="filterText"
+                                            name="filterText"
+                                            autoFocus
+                                            class="form-control m-input"
+                                            [placeholder]="
+                                                l('SearchWithThreeDot')
+                                            "
+                                            type="text"
+                                        />
                                         <span class="input-group-btn">
-                                            <button (click)="getFlips()" class="btn btn-primary" type="submit"><i class="flaticon-search-1"></i></button>
+                                            <button
+                                                (click)="getFlips()"
+                                                class="btn btn-primary"
+                                                type="submit"
+                                            >
+                                                <i
+                                                    class="flaticon-search-1"
+                                                ></i>
+                                            </button>
                                         </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-						 <div class="row m--margin-bottom-10" [hidden]="!advancedFiltersAreShown">
-						 	<div class="col-md-12">
-						         <div class="m-separator m-separator--dashed"></div>
-						     </div>
-
-
-							<div class="col-md-3">
-								<div class="form-group">
-									<label for="AddressFilter">{{l("Address")}}</label>
-									<input type="text" class="form-control" id="AddressFilter" name="addressFilter" [(ngModel)]="addressFilter">
-								</div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-									<label  for="MinDatePurchasedFilter">{{l("MinMax")}} {{l("DatePurchased")}}</label>
-									<div class="input-group">
-                                        <input class="form-control m-input" id="MinDatePurchasedFilter" name="MinDatePurchasedFilter" type="datetime" bsDatepicker  placeholder="{{l('MinValue')}}" [(ngModel)]="minDatePurchasedFilter">
-                                        <input class="form-control m-input" id="MaxDatePurchasedFilter" name="MaxDatePurchasedFilter" type="datetime" bsDatepicker  placeholder="{{l('MaxValue')}}" [(ngModel)]="maxDatePurchasedFilter">
-									</div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-									<label for="MinPricePurchasedFilter">{{l("MinMax")}} {{l("PricePurchased")}}</label>
-									<div class="input-group">
-                                        <input type="number" class="form-control" id="MinPricePurchasedFilter" [(ngModel)]="minPricePurchasedFilter" placeholder="{{l('MinValue')}}" name="minPricePurchasedFilter" />
-                                        <input type="number" class="form-control" [(ngModel)]="maxPricePurchasedFilter" placeholder="{{l('MaxValue')}}" name="maxPricePurchasedFilter" />
-									</div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-									<label for="MinAmountRehabFilter">{{l("MinMax")}} {{l("AmountRehab")}}</label>
-									<div class="input-group">
-                                        <input type="number" class="form-control" id="MinAmountRehabFilter" [(ngModel)]="minAmountRehabFilter" placeholder="{{l('MinValue')}}" name="minAmountRehabFilter" />
-                                        <input type="number" class="form-control" [(ngModel)]="maxAmountRehabFilter" placeholder="{{l('MaxValue')}}" name="maxAmountRehabFilter" />
-									</div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-									<label  for="MinDateSoldFilter">{{l("MinMax")}} {{l("DateSold")}}</label>
-									<div class="input-group">
-                                        <input class="form-control m-input" id="MinDateSoldFilter" name="MinDateSoldFilter" type="datetime" bsDatepicker  placeholder="{{l('MinValue')}}" [(ngModel)]="minDateSoldFilter">
-                                        <input class="form-control m-input" id="MaxDateSoldFilter" name="MaxDateSoldFilter" type="datetime" bsDatepicker  placeholder="{{l('MaxValue')}}" [(ngModel)]="maxDateSoldFilter">
-									</div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
-									<label for="MinAmountSoldFilter">{{l("MinMax")}} {{l("AmountSold")}}</label>
-									<div class="input-group">
-                                        <input type="number" class="form-control" id="MinAmountSoldFilter" [(ngModel)]="minAmountSoldFilter" placeholder="{{l('MinValue')}}" name="minAmountSoldFilter" />
-                                        <input type="number" class="form-control" [(ngModel)]="maxAmountSoldFilter" placeholder="{{l('MaxValue')}}" name="maxAmountSoldFilter" />
-									</div>
-                                </div>
+                        <div
+                            class="row m--margin-bottom-10"
+                            [hidden]="!advancedFiltersAreShown"
+                        >
+                            <div class="col-md-12">
+                                <div
+                                    class="m-separator m-separator--dashed"
+                                ></div>
                             </div>
 
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="AddressFilter">{{
+                                        l("Address")
+                                    }}</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        id="AddressFilter"
+                                        name="addressFilter"
+                                        [(ngModel)]="addressFilter"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="MinDatePurchasedFilter"
+                                        >{{ l("MinMax") }}
+                                        {{ l("DatePurchased") }}</label
+                                    >
+                                    <div class="input-group">
+                                        <input
+                                            class="form-control m-input"
+                                            id="MinDatePurchasedFilter"
+                                            name="MinDatePurchasedFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MinValue') }}"
+                                            [(ngModel)]="minDatePurchasedFilter"
+                                        />
+                                        <input
+                                            class="form-control m-input"
+                                            id="MaxDatePurchasedFilter"
+                                            name="MaxDatePurchasedFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MaxValue') }}"
+                                            [(ngModel)]="maxDatePurchasedFilter"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="MinPricePurchasedFilter"
+                                        >{{ l("MinMax") }}
+                                        {{ l("PricePurchased") }}</label
+                                    >
+                                    <div class="input-group">
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            id="MinPricePurchasedFilter"
+                                            [(ngModel)]="
+                                                minPricePurchasedFilter
+                                            "
+                                            placeholder="{{ l('MinValue') }}"
+                                            name="minPricePurchasedFilter"
+                                        />
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            [(ngModel)]="
+                                                maxPricePurchasedFilter
+                                            "
+                                            placeholder="{{ l('MaxValue') }}"
+                                            name="maxPricePurchasedFilter"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="MinAmountRehabFilter"
+                                        >{{ l("MinMax") }}
+                                        {{ l("AmountRehab") }}</label
+                                    >
+                                    <div class="input-group">
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            id="MinAmountRehabFilter"
+                                            [(ngModel)]="minAmountRehabFilter"
+                                            placeholder="{{ l('MinValue') }}"
+                                            name="minAmountRehabFilter"
+                                        />
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            [(ngModel)]="maxAmountRehabFilter"
+                                            placeholder="{{ l('MaxValue') }}"
+                                            name="maxAmountRehabFilter"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="MinDateSoldFilter"
+                                        >{{ l("MinMax") }}
+                                        {{ l("DateSold") }}</label
+                                    >
+                                    <div class="input-group">
+                                        <input
+                                            class="form-control m-input"
+                                            id="MinDateSoldFilter"
+                                            name="MinDateSoldFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MinValue') }}"
+                                            [(ngModel)]="minDateSoldFilter"
+                                        />
+                                        <input
+                                            class="form-control m-input"
+                                            id="MaxDateSoldFilter"
+                                            name="MaxDateSoldFilter"
+                                            type="datetime"
+                                            bsDatepicker
+                                            placeholder="{{ l('MaxValue') }}"
+                                            [(ngModel)]="maxDateSoldFilter"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="MinAmountSoldFilter"
+                                        >{{ l("MinMax") }}
+                                        {{ l("AmountSold") }}</label
+                                    >
+                                    <div class="input-group">
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            id="MinAmountSoldFilter"
+                                            [(ngModel)]="minAmountSoldFilter"
+                                            placeholder="{{ l('MinValue') }}"
+                                            name="minAmountSoldFilter"
+                                        />
+                                        <input
+                                            type="number"
+                                            class="form-control"
+                                            [(ngModel)]="maxAmountSoldFilter"
+                                            placeholder="{{ l('MaxValue') }}"
+                                            name="maxAmountSoldFilter"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="row margin-bottom-10">
                             <div class="col-sm-12">
-                                <span class="clickable-item text-muted" *ngIf="!advancedFiltersAreShown" (click)="advancedFiltersAreShown=!advancedFiltersAreShown"><i class="fa fa-angle-down"></i> {{l("ShowAdvancedFilters")}}</span>
-                                <span class="clickable-item text-muted" *ngIf="advancedFiltersAreShown" (click)="advancedFiltersAreShown=!advancedFiltersAreShown"><i class="fa fa-angle-up"></i> {{l("HideAdvancedFilters")}}</span>
+                                <span
+                                    class="clickable-item text-muted"
+                                    *ngIf="!advancedFiltersAreShown"
+                                    (click)="
+                                        advancedFiltersAreShown =
+                                            !advancedFiltersAreShown
+                                    "
+                                    ><i class="fa fa-angle-down"></i>
+                                    {{ l("ShowAdvancedFilters") }}</span
+                                >
+                                <span
+                                    class="clickable-item text-muted"
+                                    *ngIf="advancedFiltersAreShown"
+                                    (click)="
+                                        advancedFiltersAreShown =
+                                            !advancedFiltersAreShown
+                                    "
+                                    ><i class="fa fa-angle-up"></i>
+                                    {{ l("HideAdvancedFilters") }}</span
+                                >
                             </div>
                         </div>
                     </div>
@@ -105,118 +246,255 @@
 
                 <div class="row align-items-center">
                     <!--<Primeng-Datatable-Start>-->
-                    <div class="primeng-datatable-container"
-                         [busyIf]="primengTableHelper.isLoading">
-                        <p-table #dataTable
-                                     (onLazyLoad)="getFlips($event)"
-                                     [value]="primengTableHelper.records"
-                                     rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
-                                     [paginator]="false"
-                                     [lazy]="true"
-                                     [scrollable]="true"
-                                     ScrollWidth="100%"
-                                     [responsive]="primengTableHelper.isResponsive"
-                                     [resizableColumns]="primengTableHelper.resizableColumns">
+                    <div
+                        class="primeng-datatable-container"
+                        [busyIf]="primengTableHelper.isLoading"
+                    >
+                        <p-table
+                            #dataTable
+                            (onLazyLoad)="getFlips($event)"
+                            [value]="primengTableHelper.records"
+                            rows="{{
+                                primengTableHelper.defaultRecordsCountPerPage
+                            }}"
+                            [paginator]="false"
+                            [lazy]="true"
+                            [scrollable]="true"
+                            ScrollWidth="100%"
+                            [responsive]="primengTableHelper.isResponsive"
+                            [resizableColumns]="
+                                primengTableHelper.resizableColumns
+                            "
+                        >
                             <ng-template pTemplate="header">
                                 <tr>
-                                    <th style="width: 130px" [hidden]="!isGrantedAny('Pages.Flips.Edit', 'Pages.Flips.Delete')">{{l('Actions')}}</th>
-                                    <th style="width: 150px" pSortableColumn="address">
-                                        {{l('Address')}}
-                                        <p-sortIcon field="flip.address"></p-sortIcon>
+                                    <th
+                                        style="width: 130px"
+                                        [hidden]="
+                                            !isGrantedAny(
+                                                'Pages.Flips.Edit',
+                                                'Pages.Flips.Delete'
+                                            )
+                                        "
+                                    >
+                                        {{ l("Actions") }}
                                     </th>
-                                    <th style="width: 150px" pSortableColumn="datePurchased">
-                                        {{l('DatePurchased')}}
-                                        <p-sortIcon field="flip.datePurchased"></p-sortIcon>
+                                    <th
+                                        style="width: 150px"
+                                        pSortableColumn="address"
+                                    >
+                                        {{ l("Address") }}
+                                        <p-sortIcon
+                                            field="flip.address"
+                                        ></p-sortIcon>
                                     </th>
-                                    <th style="width: 150px" pSortableColumn="pricePurchased">
-                                        {{l('PricePurchased')}}
-                                        <p-sortIcon field="flip.pricePurchased"></p-sortIcon>
+                                    <th
+                                        style="width: 150px"
+                                        pSortableColumn="datePurchased"
+                                    >
+                                        {{ l("DatePurchased") }}
+                                        <p-sortIcon
+                                            field="flip.datePurchased"
+                                        ></p-sortIcon>
                                     </th>
-                                    <th style="width: 150px" pSortableColumn="amountRehab">
-                                        {{l('AmountRehab')}}
-                                        <p-sortIcon field="flip.amountRehab"></p-sortIcon>
+                                    <th
+                                        style="width: 150px"
+                                        pSortableColumn="pricePurchased"
+                                    >
+                                        {{ l("PricePurchased") }}
+                                        <p-sortIcon
+                                            field="flip.pricePurchased"
+                                        ></p-sortIcon>
                                     </th>
-                                    <th style="width: 150px" pSortableColumn="dateSold">
-                                        {{l('DateSold')}}
-                                        <p-sortIcon field="flip.dateSold"></p-sortIcon>
+                                    <th
+                                        style="width: 150px"
+                                        pSortableColumn="amountRehab"
+                                    >
+                                        {{ l("AmountRehab") }}
+                                        <p-sortIcon
+                                            field="flip.amountRehab"
+                                        ></p-sortIcon>
                                     </th>
-                                    <th style="width: 150px" pSortableColumn="amountSold">
-                                        {{l('AmountSold')}}
-                                        <p-sortIcon field="flip.amountSold"></p-sortIcon>
+                                    <th
+                                        style="width: 150px"
+                                        pSortableColumn="dateSold"
+                                    >
+                                        {{ l("DateSold") }}
+                                        <p-sortIcon
+                                            field="flip.dateSold"
+                                        ></p-sortIcon>
                                     </th>
-
+                                    <th
+                                        style="width: 150px"
+                                        pSortableColumn="amountSold"
+                                    >
+                                        {{ l("AmountSold") }}
+                                        <p-sortIcon
+                                            field="flip.amountSold"
+                                        ></p-sortIcon>
+                                    </th>
                                 </tr>
-                            </ng-template>                           
-							<ng-template pTemplate="body" let-record="$implicit">
+                            </ng-template>
+                            <ng-template
+                                pTemplate="body"
+                                let-record="$implicit"
+                            >
                                 <tr>
-                                    <td style="width: 130px"
-                                        [hidden]="!isGrantedAny('Pages.Flips.Edit', 'Pages.Flips.Delete')">
-                                       <div class="btn-group dropdown" dropdown container="body">
-                                            <button class="dropdown-toggle btn btn-sm btn-primary" dropdownToggle>
-                                                <i class="fa fa-cog"></i><span class="caret"></span> {{l("Actions")}}
+                                    <td
+                                        style="width: 130px"
+                                        [hidden]="
+                                            !isGrantedAny(
+                                                'Pages.Flips.Edit',
+                                                'Pages.Flips.Delete'
+                                            )
+                                        "
+                                    >
+                                        <div
+                                            class="btn-group dropdown"
+                                            dropdown
+                                            container="body"
+                                        >
+                                            <button
+                                                class="dropdown-toggle btn btn-sm btn-primary"
+                                                dropdownToggle
+                                            >
+                                                <i class="fa fa-cog"></i
+                                                ><span class="caret"></span>
+                                                {{ l("Actions") }}
                                             </button>
-												<ul class="dropdown-menu"  *dropdownMenu>
-												<li>
-													<a href="javascript:;"
-														(click)="viewFlipModal.show(record)">{{l('View')}}</a>
-												</li>
-												<li>
-													<a href="javascript:;" *ngIf="permission.isGranted('Pages.Flips.Edit')"
-														(click)="createOrEditFlipModal.show(record.flip.id)">{{l('Edit')}}</a>
-												</li>
-												<li>
-											        <a href="javascript:;" *ngIf="permission.isGranted('Pages.Flips.Delete')"
-														(click)="deleteFlip(record.flip)">{{l('Delete')}}</a>
-												</li>
+                                            <ul
+                                                class="dropdown-menu"
+                                                *dropdownMenu
+                                            >
+                                                <li>
+                                                    <a
+                                                        href="javascript:;"
+                                                        (click)="
+                                                            viewFlipModal.show(
+                                                                record
+                                                            )
+                                                        "
+                                                        >{{ l("View") }}</a
+                                                    >
+                                                </li>
+                                                <li>
+                                                    <a
+                                                        href="javascript:;"
+                                                        *ngIf="
+                                                            permission.isGranted(
+                                                                'Pages.Flips.Edit'
+                                                            )
+                                                        "
+                                                        (click)="
+                                                            createOrEditFlipModal.show(
+                                                                record.flip.id
+                                                            )
+                                                        "
+                                                        >{{ l("Edit") }}</a
+                                                    >
+                                                </li>
+                                                <li>
+                                                    <a
+                                                        href="javascript:;"
+                                                        *ngIf="
+                                                            permission.isGranted(
+                                                                'Pages.Flips.Delete'
+                                                            )
+                                                        "
+                                                        (click)="
+                                                            deleteFlip(
+                                                                record.flip
+                                                            )
+                                                        "
+                                                        >{{ l("Delete") }}</a
+                                                    >
+                                                </li>
                                             </ul>
                                         </div>
                                     </td>
-                                    <td style="width:150px">
-											<span class="ui-column-title"> {{l('Address')}}</span>
-											{{record.flip.address}}
-										</td>
-                                    <td style="width:150px">
-										<span class="ui-column-title"> {{l('DatePurchased')}}</span>
+                                    <td style="width: 150px">
+                                        <span class="ui-column-title">
+                                            {{ l("Address") }}</span
+                                        >
+                                        {{ record.flip.address }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="ui-column-title">
+                                            {{ l("DatePurchased") }}</span
+                                        >
                                         <span *ngIf="record.flip.datePurchased">
-											{{record.flip.datePurchased | momentFormat:'L'}}
+                                            {{
+                                                record.flip.datePurchased
+                                                    | momentFormat : "L"
+                                            }}
                                         </span>
-                                        <span *ngIf="!record.flip.datePurchased">-</span>
+                                        <span *ngIf="!record.flip.datePurchased"
+                                            >-</span
+                                        >
                                     </td>
-                                    <td style="width:150px">
-											<span class="ui-column-title"> {{l('PricePurchased')}}</span>
-											{{record.flip.pricePurchased}}
-										</td>
-                                    <td style="width:150px">
-											<span class="ui-column-title"> {{l('AmountRehab')}}</span>
-											{{record.flip.amountRehab}}
-										</td>
-                                    <td style="width:150px">
-										<span class="ui-column-title"> {{l('DateSold')}}</span>
+                                    <td style="width: 150px">
+                                        <span class="ui-column-title">
+                                            {{ l("PricePurchased") }}</span
+                                        >
+                                        {{ record.flip.pricePurchased }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="ui-column-title">
+                                            {{ l("AmountRehab") }}</span
+                                        >
+                                        {{ record.flip.amountRehab }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="ui-column-title">
+                                            {{ l("DateSold") }}</span
+                                        >
                                         <span *ngIf="record.flip.dateSold">
-											{{record.flip.dateSold | momentFormat:'L'}}
+                                            {{
+                                                record.flip.dateSold
+                                                    | momentFormat : "L"
+                                            }}
                                         </span>
-                                        <span *ngIf="!record.flip.dateSold">-</span>
+                                        <span *ngIf="!record.flip.dateSold"
+                                            >-</span
+                                        >
                                     </td>
-                                    <td style="width:150px">
-											<span class="ui-column-title"> {{l('AmountSold')}}</span>
-											{{record.flip.amountSold}}
-										</td>
-
+                                    <td style="width: 150px">
+                                        <span class="ui-column-title">
+                                            {{ l("AmountSold") }}</span
+                                        >
+                                        {{ record.flip.amountSold }}
+                                    </td>
                                 </tr>
                             </ng-template>
                         </p-table>
-						<div class="primeng-no-data" *ngIf="primengTableHelper.totalRecordsCount == 0">
-                            {{l('NoData')}}
+                        <div
+                            class="primeng-no-data"
+                            *ngIf="primengTableHelper.totalRecordsCount == 0"
+                        >
+                            {{ l("NoData") }}
                         </div>
                         <div class="primeng-paging-container">
-                            <p-paginator rows="{{primengTableHelper.defaultRecordsCountPerPage}}"
-                                         #paginator
-                                         (onPageChange)="getFlips($event)"
-                                         [totalRecords]="primengTableHelper.totalRecordsCount"
-                                         [rowsPerPageOptions]="primengTableHelper.predefinedRecordsCountPerPage">
+                            <p-paginator
+                                rows="{{
+                                    primengTableHelper.defaultRecordsCountPerPage
+                                }}"
+                                #paginator
+                                (onPageChange)="getFlips($event)"
+                                [totalRecords]="
+                                    primengTableHelper.totalRecordsCount
+                                "
+                                [rowsPerPageOptions]="
+                                    primengTableHelper.predefinedRecordsCountPerPage
+                                "
+                            >
                             </p-paginator>
                             <span class="total-records-count">
-                                {{l('TotalRecordsCount', primengTableHelper.totalRecordsCount)}}
+                                {{
+                                    l(
+                                        "TotalRecordsCount",
+                                        primengTableHelper.totalRecordsCount
+                                    )
+                                }}
                             </span>
                         </div>
                     </div>
@@ -226,7 +504,9 @@
         </div>
     </div>
 
-    <createOrEditFlipModal #createOrEditFlipModal (modalSave)="getFlips()"></createOrEditFlipModal>
+    <createOrEditFlipModal
+        #createOrEditFlipModal
+        (modalSave)="getFlips()"
+    ></createOrEditFlipModal>
     <viewFlipModal #viewFlipModal></viewFlipModal>
-    
 </div>

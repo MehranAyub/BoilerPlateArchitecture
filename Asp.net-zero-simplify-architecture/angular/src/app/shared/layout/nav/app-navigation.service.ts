@@ -35,7 +35,12 @@ export class AppNavigationService {
                 "fas fa-home",
                 "/app/main/entities/properties"
             ),
-            new AppMenuItem('Flips', 'Pages.Flips', 'flaticon-more', '/app/main/entities/flips'),
+            new AppMenuItem(
+                "Flips",
+                "Pages.Flips",
+                "fas fa-home",
+                "/app/main/entities/flips"
+            ),
             //
 
             //  new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),
