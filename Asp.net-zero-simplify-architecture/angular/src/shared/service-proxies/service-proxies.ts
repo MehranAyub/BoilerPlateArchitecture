@@ -2455,13 +2455,12 @@ export class FlipsServiceProxy {
      * @param minDateSoldFilter (optional) 
      * @param maxAmountSoldFilter (optional) 
      * @param minAmountSoldFilter (optional) 
-     * @param createdById (optional) 
      * @param sorting (optional) 
      * @param skipCount (optional) 
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAll(filter: string | null | undefined, addressFilter: string | null | undefined, maxDatePurchasedFilter: moment.Moment | null | undefined, minDatePurchasedFilter: moment.Moment | null | undefined, maxPricePurchasedFilter: number | null | undefined, minPricePurchasedFilter: number | null | undefined, maxAmountRehabFilter: number | null | undefined, minAmountRehabFilter: number | null | undefined, maxDateSoldFilter: moment.Moment | null | undefined, minDateSoldFilter: moment.Moment | null | undefined, maxAmountSoldFilter: number | null | undefined, minAmountSoldFilter: number | null | undefined, createdById: number | null | undefined, sorting: string | null | undefined, skipCount: number | null | undefined, maxResultCount: number | null | undefined): Observable<PagedResultDtoOfGetFlipForViewDto> {
+    getAll(filter: string | null | undefined, addressFilter: string | null | undefined, maxDatePurchasedFilter: moment.Moment | null | undefined, minDatePurchasedFilter: moment.Moment | null | undefined, maxPricePurchasedFilter: number | null | undefined, minPricePurchasedFilter: number | null | undefined, maxAmountRehabFilter: number | null | undefined, minAmountRehabFilter: number | null | undefined, maxDateSoldFilter: moment.Moment | null | undefined, minDateSoldFilter: moment.Moment | null | undefined, maxAmountSoldFilter: number | null | undefined, minAmountSoldFilter: number | null | undefined, sorting: string | null | undefined, skipCount: number | null | undefined, maxResultCount: number | null | undefined): Observable<PagedResultDtoOfGetFlipForViewDto> {
         let url_ = this.baseUrl + "/api/services/app/Flips/GetAll?";
         if (filter !== undefined)
             url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
@@ -2487,8 +2486,6 @@ export class FlipsServiceProxy {
             url_ += "MaxAmountSoldFilter=" + encodeURIComponent("" + maxAmountSoldFilter) + "&"; 
         if (minAmountSoldFilter !== undefined)
             url_ += "MinAmountSoldFilter=" + encodeURIComponent("" + minAmountSoldFilter) + "&"; 
-        if (createdById !== undefined)
-            url_ += "CreatedById=" + encodeURIComponent("" + createdById) + "&"; 
         if (sorting !== undefined)
             url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount !== undefined)

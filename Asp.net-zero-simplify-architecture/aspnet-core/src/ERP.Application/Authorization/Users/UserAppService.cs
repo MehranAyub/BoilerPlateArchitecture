@@ -32,7 +32,7 @@ using ERP.Organizations.Dto;
 
 namespace ERP.Authorization.Users
 {
-    [AbpAuthorize(AppPermissions.Pages_Administration_Users)]
+    
     public class UserAppService : ERPAppServiceBase, IUserAppService
     {
         public IAppUrlService AppUrlService { get; set; }
@@ -88,7 +88,7 @@ namespace ERP.Authorization.Users
 
             AppUrlService = NullAppUrlService.Instance;
         }
-
+        [AbpAuthorize(AppPermissions.Pages_Administration_Users)]
         public async Task<PagedResultDto<UserListDto>> GetUsers(GetUsersInput input)
         {
             var query = GetUsersFilteredQuery(input);
@@ -108,8 +108,7 @@ namespace ERP.Authorization.Users
                 userListDtos
                 );
         }
-
-
+         
         public async Task<PagedResultDto<UserListDto>> GetReferralUsers(GetUsersInput input)
         {
             var query = GetUsersFilteredQuery(input);
@@ -130,7 +129,7 @@ namespace ERP.Authorization.Users
                 userListDtos
                 );
         }
-
+        [AbpAuthorize(AppPermissions.Pages_Administration_Users)]
         public async Task<FileDto> GetUsersToExcel(GetUsersToExcelInput input)
         {
             var query = GetUsersFilteredQuery(input);
