@@ -41,6 +41,13 @@ export class AppNavigationService {
                 "fas fa-home",
                 "/app/main/entities/flips"
             ),
+            
+            new AppMenuItem(
+                "Referral",
+                "Pages.Referral",
+                "fas fa-link",
+                "/app/admin/referral"
+            ),
             //
 
             //  new AppMenuItem('Editions', 'Pages.Editions', 'flaticon-app', '/app/admin/editions'),

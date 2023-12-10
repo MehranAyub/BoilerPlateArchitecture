@@ -35,7 +35,7 @@ namespace ERP.Authorization
             flips.CreateChildPermission(AppPermissions.Pages_Flips_Edit, L("EditFlip"), multiTenancySides: MultiTenancySides.Host);
             flips.CreateChildPermission(AppPermissions.Pages_Flips_Delete, L("DeleteFlip"), multiTenancySides: MultiTenancySides.Host);
 
-
+            pages.CreateChildPermission(AppPermissions.Pages_Referral, L("Referral"), multiTenancySides: MultiTenancySides.Host);
 
             var propertyTypes = pages.CreateChildPermission(AppPermissions.Pages_PropertyTypes, L("PropertyTypes"), multiTenancySides: MultiTenancySides.Host);
             propertyTypes.CreateChildPermission(AppPermissions.Pages_PropertyTypes_Create, L("CreateNewPropertyType"), multiTenancySides: MultiTenancySides.Host);

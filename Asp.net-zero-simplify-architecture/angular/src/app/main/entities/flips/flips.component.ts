@@ -65,6 +65,7 @@ export class FlipsComponent extends AppComponentBase {
         private _fileDownloadService: FileDownloadService
     ) {
         super(injector);
+        console.log("appSession",this.appSession.user);
     }
 
     getFlips(event?: LazyLoadEvent) {

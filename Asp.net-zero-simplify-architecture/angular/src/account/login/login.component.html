@@ -8,7 +8,7 @@
     <form #loginForm="ngForm" class="kt-form" method="post" novalidate (ngSubmit)="login()">
 
         <div class="form-group">
-            <input #userNameOrEmailAddressInput="ngModel" [(ngModel)]="loginService.authenticateModel.userNameOrEmailAddress" autoFocus class="form-control m-input" type="text" autocomplete="new-password" placeholder="{{'UserNameOrEmail' | localize}} *" name="userNameOrEmailAddress" required />
+            <input #userNameOrEmailAddressInput="ngModel" [(ngModel)]="loginService.authenticateModel.userNameOrEmailAddress" autoFocus class="form-control m-input" type="text" autocomplete="new-password" placeholder="Email *" name="userNameOrEmailAddress" required />
             <validation-messages [formCtrl]="userNameOrEmailAddressInput" *ngIf="!userNameOrEmailAddressInput.touched"></validation-messages>
         </div>
 

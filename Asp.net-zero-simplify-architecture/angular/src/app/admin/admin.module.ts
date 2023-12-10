@@ -77,6 +77,8 @@ import { CountoModule } from 'angular2-counto';
 import { TextMaskModule } from 'angular2-text-mask';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { NgxBootstrapDatePickerConfigService } from 'assets/ngx-bootstrap/ngx-bootstrap-datepicker-config.service';
+import { ReferralLinkComponent } from './referral-link/referral-link.component';
+import { ReferralUsersComponent } from './referral-link/referral-users/referral-users.component';
 
 @NgModule({
     imports: [
@@ -166,7 +168,9 @@ import { NgxBootstrapDatePickerConfigService } from 'assets/ngx-bootstrap/ngx-bo
         Theme9ThemeUiSettingsComponent,
         Theme10ThemeUiSettingsComponent,
         Theme12ThemeUiSettingsComponent,
-        Theme11ThemeUiSettingsComponent
+        Theme11ThemeUiSettingsComponent,
+        ReferralLinkComponent,
+        ReferralUsersComponent
     ],
     exports: [
         AddMemberModalComponent,

@@ -109,6 +109,28 @@ namespace ERP.Authorization.Users
                 );
         }
 
+
+        public async Task<PagedResultDto<UserListDto>> GetReferralUsers(GetUsersInput input)
+        {
+            var query = GetUsersFilteredQuery(input);
+
+
+            var users = await query.Where((x)=>x.ReferId == AbpSession.GetUserId().ToString())
+                .OrderBy(input.Sorting)
+                .PageBy(input)
+                .ToListAsync();
+
+            var userCount = await query.Where((x) => x.ReferId == AbpSession.GetUserId().ToString()).CountAsync();
+
+            var userListDtos = ObjectMapper.Map<List<UserListDto>>(users);
+            await FillRoleNames(userListDtos);
+
+            return new PagedResultDto<UserListDto>(
+                userCount,
+                userListDtos
+                );
+        }
+
         public async Task<FileDto> GetUsersToExcel(GetUsersToExcelInput input)
         {
             var query = GetUsersFilteredQuery(input);

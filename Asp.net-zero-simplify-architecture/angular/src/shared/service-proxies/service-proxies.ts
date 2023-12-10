@@ -2455,12 +2455,13 @@ export class FlipsServiceProxy {
      * @param minDateSoldFilter (optional) 
      * @param maxAmountSoldFilter (optional) 
      * @param minAmountSoldFilter (optional) 
+     * @param createdById (optional) 
      * @param sorting (optional) 
      * @param skipCount (optional) 
      * @param maxResultCount (optional) 
      * @return Success
      */
-    getAll(filter: string | null | undefined, addressFilter: string | null | undefined, maxDatePurchasedFilter: moment.Moment | null | undefined, minDatePurchasedFilter: moment.Moment | null | undefined, maxPricePurchasedFilter: number | null | undefined, minPricePurchasedFilter: number | null | undefined, maxAmountRehabFilter: number | null | undefined, minAmountRehabFilter: number | null | undefined, maxDateSoldFilter: moment.Moment | null | undefined, minDateSoldFilter: moment.Moment | null | undefined, maxAmountSoldFilter: number | null | undefined, minAmountSoldFilter: number | null | undefined, sorting: string | null | undefined, skipCount: number | null | undefined, maxResultCount: number | null | undefined): Observable<PagedResultDtoOfGetFlipForViewDto> {
+    getAll(filter: string | null | undefined, addressFilter: string | null | undefined, maxDatePurchasedFilter: moment.Moment | null | undefined, minDatePurchasedFilter: moment.Moment | null | undefined, maxPricePurchasedFilter: number | null | undefined, minPricePurchasedFilter: number | null | undefined, maxAmountRehabFilter: number | null | undefined, minAmountRehabFilter: number | null | undefined, maxDateSoldFilter: moment.Moment | null | undefined, minDateSoldFilter: moment.Moment | null | undefined, maxAmountSoldFilter: number | null | undefined, minAmountSoldFilter: number | null | undefined, createdById: number | null | undefined, sorting: string | null | undefined, skipCount: number | null | undefined, maxResultCount: number | null | undefined): Observable<PagedResultDtoOfGetFlipForViewDto> {
         let url_ = this.baseUrl + "/api/services/app/Flips/GetAll?";
         if (filter !== undefined)
             url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
@@ -2486,6 +2487,8 @@ export class FlipsServiceProxy {
             url_ += "MaxAmountSoldFilter=" + encodeURIComponent("" + maxAmountSoldFilter) + "&"; 
         if (minAmountSoldFilter !== undefined)
             url_ += "MinAmountSoldFilter=" + encodeURIComponent("" + minAmountSoldFilter) + "&"; 
+        if (createdById !== undefined)
+            url_ += "CreatedById=" + encodeURIComponent("" + createdById) + "&"; 
         if (sorting !== undefined)
             url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
         if (skipCount !== undefined)
@@ -10651,6 +10654,78 @@ export class UserServiceProxy {
      * @param role (optional) 
      * @param onlyLockedUsers (optional) 
      * @param sorting (optional) 
+     * @param maxResultCount (optional) 
+     * @param skipCount (optional) 
+     * @return Success
+     */
+    getReferralUsers(filter: string | null | undefined, permission: string | null | undefined, role: number | null | undefined, onlyLockedUsers: boolean | null | undefined, sorting: string | null | undefined, maxResultCount: number | null | undefined, skipCount: number | null | undefined): Observable<PagedResultDtoOfUserListDto> {
+        let url_ = this.baseUrl + "/api/services/app/User/GetReferralUsers?";
+        if (filter !== undefined)
+            url_ += "Filter=" + encodeURIComponent("" + filter) + "&"; 
+        if (permission !== undefined)
+            url_ += "Permission=" + encodeURIComponent("" + permission) + "&"; 
+        if (role !== undefined)
+            url_ += "Role=" + encodeURIComponent("" + role) + "&"; 
+        if (onlyLockedUsers !== undefined)
+            url_ += "OnlyLockedUsers=" + encodeURIComponent("" + onlyLockedUsers) + "&"; 
+        if (sorting !== undefined)
+            url_ += "Sorting=" + encodeURIComponent("" + sorting) + "&"; 
+        if (maxResultCount !== undefined)
+            url_ += "MaxResultCount=" + encodeURIComponent("" + maxResultCount) + "&"; 
+        if (skipCount !== undefined)
+            url_ += "SkipCount=" + encodeURIComponent("" + skipCount) + "&"; 
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processGetReferralUsers(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetReferralUsers(<any>response_);
+                } catch (e) {
+                    return <Observable<PagedResultDtoOfUserListDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PagedResultDtoOfUserListDto>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetReferralUsers(response: HttpResponseBase): Observable<PagedResultDtoOfUserListDto> {
+        const status = response.status;
+        const responseBlob = 
+            response instanceof HttpResponse ? response.body : 
+            (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            result200 = resultData200 ? PagedResultDtoOfUserListDto.fromJS(resultData200) : new PagedResultDtoOfUserListDto();
+            return _observableOf(result200);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<PagedResultDtoOfUserListDto>(<any>null);
+    }
+
+    /**
+     * @param filter (optional) 
+     * @param permission (optional) 
+     * @param role (optional) 
+     * @param onlyLockedUsers (optional) 
+     * @param sorting (optional) 
      * @return Success
      */
     getUsersToExcel(filter: string | null | undefined, permission: string | null | undefined, role: number | null | undefined, onlyLockedUsers: boolean | null | undefined, sorting: string | null | undefined): Observable<FileDto> {
@@ -11612,6 +11687,8 @@ export class RegisterInput implements IRegisterInput {
     password!: string;
     captchaResponse!: string | undefined;
     roleId!: number | undefined;
+    phoneNumber!: string | undefined;
+    referId!: string | undefined;
 
     constructor(data?: IRegisterInput) {
         if (data) {
@@ -11631,6 +11708,8 @@ export class RegisterInput implements IRegisterInput {
             this.password = data["password"];
             this.captchaResponse = data["captchaResponse"];
             this.roleId = data["roleId"];
+            this.phoneNumber = data["phoneNumber"];
+            this.referId = data["referId"];
         }
     }
 
@@ -11650,6 +11729,8 @@ export class RegisterInput implements IRegisterInput {
         data["password"] = this.password;
         data["captchaResponse"] = this.captchaResponse;
         data["roleId"] = this.roleId;
+        data["phoneNumber"] = this.phoneNumber;
+        data["referId"] = this.referId;
         return data; 
     }
 }
@@ -11662,6 +11743,8 @@ export interface IRegisterInput {
     password: string;
     captchaResponse: string | undefined;
     roleId: number | undefined;
+    phoneNumber: string | undefined;
+    referId: string | undefined;
 }
 
 export class RegisterOutput implements IRegisterOutput {

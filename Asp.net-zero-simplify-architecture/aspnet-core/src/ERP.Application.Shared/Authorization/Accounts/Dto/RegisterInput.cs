@@ -36,7 +36,8 @@ namespace ERP.Authorization.Accounts.Dto
         public string CaptchaResponse { get; set; } 
 
         public int? RoleId { get; set; }
-
+        public  string PhoneNumber { get; set; }
+        public  string ReferId { get; set; }
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (!UserName.IsNullOrEmpty())

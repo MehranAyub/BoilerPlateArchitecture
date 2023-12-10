@@ -25,5 +25,6 @@ namespace ERP.Authorization.Users
         Task DeleteUser(EntityDto<long> input);
 
         Task UnlockUser(EntityDto<long> input);
+        Task<PagedResultDto<UserListDto>> GetReferralUsers(GetUsersInput input);
     }
 }

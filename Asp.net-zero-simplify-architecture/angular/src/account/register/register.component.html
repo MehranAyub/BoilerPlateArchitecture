@@ -6,24 +6,34 @@
 
         <form #registerForm="ngForm" class="kt-form" method="post" novalidate (ngSubmit)="save()">
             <div class="form-group">
-                <input #nameInput="ngModel" class="form-control" autoFocus type="text" placeholder="{{'Name' | localize}} *" [(ngModel)]="model.name" name="Name" required maxlength="32" />
+                <input #nameInput="ngModel" class="form-control" autoFocus type="text" placeholder="{{'Name' | localize}} *" [(ngModel)]="model.name" name="Name" required maxlength="32" (keyup)="onInputChange($event)"/>
                 <validation-messages [formCtrl]="nameInput"></validation-messages>
             </div>
 
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <input #surnameInput="ngModel" class="form-control" type="text" placeholder="{{'Surname' | localize}} *" [(ngModel)]="model.surname" name="Surname" required maxlength="32" />
                 <validation-messages [formCtrl]="surnameInput"></validation-messages>
-            </div>
+            </div> -->
 
             <div class="form-group">
-                <input #emailAddressInput="ngModel" class="form-control" type="email" placeholder="{{'EmailAddress' | localize}} *" [(ngModel)]="model.emailAddress" name="EmailAddress" required maxlength="256" pattern="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" />
+                <input #emailAddressInput="ngModel" (keyup)="onInputChange($event)" class="form-control" type="email" placeholder="{{'EmailAddress' | localize}} *" [(ngModel)]="model.emailAddress" name="EmailAddress" required maxlength="256" pattern="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" />
                 <validation-messages [formCtrl]="emailAddressInput"></validation-messages>
             </div>
 
-            <div class="form-group">
+            <div class="form-group"> 
+                <input #phoneNumberInput="ngModel" id="PhoneNumber" type="text" name="PhoneNumber" class="form-control" [(ngModel)]="model.phoneNumber" placeholder="{{'PhoneNumber' | localize}} *" maxlength="24" required>
+                <validation-messages [formCtrl]="phoneNumberInput"></validation-messages>
+            </div>
+
+            <div class="form-group" *ngIf="referralId"> 
+                <input #referralIdInput="ngModel" id="ReferralId" type="text" name="ReferralId" class="form-control" [(ngModel)]="referralId" placeholder="Referral Id *" maxlength="24" disabled required>
+            </div>
+
+
+            <!-- <div class="form-group">
                 <input #userNameInput="ngModel" class="form-control" type="text" autocomplete="new-password" placeholder="{{'UserName' | localize}} *" name="UserName" [(ngModel)]="model.userName" required maxlength="32" />
                 <validation-messages [formCtrl]="userNameInput"></validation-messages>
-            </div>
+            </div> -->
 
             <div class="form-group">
                 <input type="password" name="Password" class="form-control" [(ngModel)]="model.password" #Password="ngModel" placeholder="{{'Password' | localize}}" validateEqual="PasswordRepeat"

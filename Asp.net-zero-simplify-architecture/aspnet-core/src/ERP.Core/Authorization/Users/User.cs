@@ -20,6 +20,7 @@ namespace ERP.Authorization.Users
         public string SignInToken { get; set; }
 
         public string GoogleAuthenticatorKey { get; set; }
+        public string ReferId { get; set; }
 
         public List<UserOrganizationUnit> OrganizationUnits { get; set; }
 

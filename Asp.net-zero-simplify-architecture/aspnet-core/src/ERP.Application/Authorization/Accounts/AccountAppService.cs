@@ -104,6 +104,8 @@ namespace ERP.Authorization.Accounts
                 input.Password,
                 true,
                 AppUrlService.CreateEmailActivationUrlFormat(AbpSession.TenantId),
+                input.PhoneNumber,
+                input.ReferId,
                 input.RoleId
             );
 

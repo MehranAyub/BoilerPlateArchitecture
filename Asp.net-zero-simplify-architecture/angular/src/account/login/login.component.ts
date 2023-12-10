@@ -1,6 +1,6 @@
 import { AbpSessionService } from '@abp/session/abp-session.service';
 import { Component, Injector, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { accountModuleAnimation } from '@shared/animations/routerTransition';
 import { AppComponentBase } from '@shared/common/app-component-base';
 import { SessionServiceProxy, UpdateUserSignInTokenOutput } from '@shared/service-proxies/service-proxies';
@@ -21,7 +21,8 @@ export class LoginComponent extends AppComponentBase implements OnInit {
         public loginService: LoginService,
         private _router: Router,
         private _sessionService: AbpSessionService,
-        private _sessionAppService: SessionServiceProxy
+        private _sessionAppService: SessionServiceProxy,
+        private _activatedRoute:ActivatedRoute
     ) {
         super(injector);
     }
@@ -60,6 +61,7 @@ export class LoginComponent extends AppComponentBase implements OnInit {
         if (state && state.indexOf('openIdConnect') >= 0) {
             this.loginService.openIdConnectLoginCallback({});
         }
+        
     }
 
     login(): void {

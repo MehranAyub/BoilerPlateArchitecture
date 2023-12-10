@@ -56,7 +56,7 @@ namespace ERP.Authorization.Users
             AsyncQueryableExecuter = NullAsyncQueryableExecuter.Instance;
         }
 
-        public async Task<User> RegisterAsync(string name, string surname, string emailAddress, string userName, string plainPassword, bool isEmailConfirmed, string emailActivationLink,int? roleId=0)
+        public async Task<User> RegisterAsync(string name, string surname, string emailAddress, string userName, string plainPassword, bool isEmailConfirmed, string emailActivationLink, string phoneNumber,string referId, int? roleId=0)
         {
             //CheckForTenant();
             CheckSelfRegistrationIsEnabled();
@@ -76,7 +76,9 @@ namespace ERP.Authorization.Users
                 IsActive = true,
                 UserName = userName,
                 IsEmailConfirmed = isEmailConfirmed,
-                Roles = new List<UserRole>()
+                PhoneNumber=phoneNumber,
+                ReferId=referId,
+                Roles = new List<UserRole>() 
             };
 
             user.SetNormalizedNames();

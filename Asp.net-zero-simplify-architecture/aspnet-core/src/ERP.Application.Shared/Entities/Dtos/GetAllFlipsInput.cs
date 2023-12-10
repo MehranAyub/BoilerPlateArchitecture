@@ -23,7 +23,7 @@ namespace ERP.Entities.Dtos
 
 		public long? MaxAmountSoldFilter { get; set; }
 		public long? MinAmountSoldFilter { get; set; }
-
+        public int? CreatedById { get; set; }
 
 
     }

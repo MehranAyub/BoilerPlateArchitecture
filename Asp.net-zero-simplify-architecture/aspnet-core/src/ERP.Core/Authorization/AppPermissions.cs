@@ -11,6 +11,9 @@ namespace ERP.Authorization
         public const string Pages_Flips_Edit = "Pages.Flips.Edit";
         public const string Pages_Flips_Delete = "Pages.Flips.Delete";
 
+
+        public const string Pages_Referral = "Pages.Referral";
+
         public const string Pages_PropertyTypes = "Pages.PropertyTypes";
         public const string Pages_PropertyTypes_Create = "Pages.PropertyTypes.Create";
         public const string Pages_PropertyTypes_Edit = "Pages.PropertyTypes.Edit";

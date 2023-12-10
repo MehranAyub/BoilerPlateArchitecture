@@ -82,6 +82,11 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
         });
     }
 
+    onInputChange(event:any){ 
+        this.user.surname=this.user.name;
+        this.user.userName=this.user.emailAddress;
+        console.log("user",this.user);
+    }
     setPasswordComplexityInfo(): void {
 
         this.passwordComplexityInfo = '<ul>';

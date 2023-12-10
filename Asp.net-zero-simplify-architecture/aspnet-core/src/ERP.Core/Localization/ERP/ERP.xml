@@ -11,6 +11,7 @@
     <text name="EditFlip">Edit flip</text>
     <text name="DeleteFlip">Delete flip</text>
     <text name="Flips">Flips</text>
+    <text name="Referral">Referral</text>
     <text name="MinMax">Min-Max</text>
     <text name="PropertyType">Property type</text>
     <text name="CreateNewPropertyType">Create new property type</text>

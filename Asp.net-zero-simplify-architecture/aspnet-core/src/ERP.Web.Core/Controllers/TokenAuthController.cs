@@ -432,7 +432,7 @@ namespace ERP.Web.Controllers
                 username,
                 await _userManager.CreateRandomPassword(),
                 true,
-                null
+                null,null,null
             );
 
             user.Logins = new List<UserLogin>

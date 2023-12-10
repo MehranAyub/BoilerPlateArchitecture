@@ -17,6 +17,7 @@ import { SubscriptionManagementComponent } from './subscription-management/subsc
 import { TenantsComponent } from './tenants/tenants.component';
 import { UiCustomizationComponent } from './ui-customization/ui-customization.component';
 import { UsersComponent } from './users/users.component';
+import { ReferralLinkComponent } from './referral-link/referral-link.component';
 
 @NgModule({
     imports: [
@@ -38,9 +39,10 @@ import { UsersComponent } from './users/users.component';
                     { path: 'invoice/:paymentId', component: InvoiceComponent, data: { permission: 'Pages.Administration.Tenant.SubscriptionManagement' } },
                     { path: 'tenantSettings', component: TenantSettingsComponent, data: { permission: 'Pages.Administration.Tenant.Settings' } },
                     { path: 'hostDashboard', component: HostDashboardComponent, data: { permission: 'Pages.Administration.Host.Dashboard' } },
-                    { path: 'demo-ui-components', component: DemoUiComponentsComponent, data: { permission: 'Pages.DemoUiComponents' } },
+                    { path: 'demo-ui-components', component: DemoUiComponentsComponent },
                     { path: 'install', component: InstallComponent },
-                    { path: 'ui-customization', component: UiCustomizationComponent }
+                    { path: 'ui-customization', component: UiCustomizationComponent },
+                    { path: 'referral', component: ReferralLinkComponent }
                 ]
             }
         ])

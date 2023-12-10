@@ -1,0 +1,63 @@
+<div [@routerTransition] class="referral-link">
+    <div class="kt-subheader kt-grid__item">
+        <div class="kt-subheader__main">
+            <h3 class="kt-subheader__title">
+                <span>Referral Link</span>
+            </h3>
+        </div>
+    </div>
+
+    <div class="kt-content">
+
+
+        <div class="kt-portlet">
+            <!-- <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">
+                        {{"DateAndTimePickers" | localize}}
+                    </h3>
+                </div>
+            </div> -->
+            <div class="kt-portlet__body">
+              
+                <div class="col-lg-12 alert-wrapper"> 
+                    <div class="alert alert-success">
+                        <div class="one">Help a friend earn cashback with their mortgage and get </div>
+                        <div class="two">$25 bonus payment on us!</div>
+                    </div>
+                   
+                </div>   
+        
+                <div class="col-lg-12 alert-wrapper"> 
+                    <div class="alert alert-danger">
+                        <div class="one">Paste and share link - Earn $25 </div> 
+                    </div> 
+                </div>    
+
+                <form role="form" class="kt-form"> 
+                    <div class="form-group row">
+                        <label for="ReferralPicker" class="col-md-12">Copy and paste your personal referral link into a message to your friends</label>
+                        <div class="col-lg-11 col-md-11 col-sm-11" style="padding-right: 0 !important;">
+                            <input id="ReferralPicker"
+                                   type="text"
+                                   #ReferralPicker
+                                   name="ReferralPicker"
+                                   class="form-control" 
+                                   [value]="referralUrl"
+                                   disabled
+                                   >
+                        </div>
+                        <div>
+                            <button class="btn btn-primary" type="button" (click)="copyTextToClipboard()"><i class="fa fa-copy"></i></button>
+                        </div>
+                    </div> 
+                </form>
+            </div>
+        </div>
+        
+
+        <app-referral-users></app-referral-users>
+
+    </div>
+</div>
+
