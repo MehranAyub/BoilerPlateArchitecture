@@ -29,6 +29,7 @@ using ERP.Dto;
 using ERP.Notifications;
 using ERP.Url;
 using ERP.Organizations.Dto;
+using ERP.Entities;
 
 namespace ERP.Authorization.Users
 {
@@ -52,7 +53,7 @@ namespace ERP.Authorization.Users
         private readonly IRepository<OrganizationUnit, long> _organizationUnitRepository;
         private readonly IRoleManagementConfig _roleManagementConfig;
         private readonly UserManager _userManager;
-
+        private readonly IRepository<Flip, Guid> _flipRepository;
         public UserAppService(
             RoleManager roleManager,
             IUserEmailer userEmailer,
@@ -68,7 +69,8 @@ namespace ERP.Authorization.Users
             IPasswordHasher<User> passwordHasher,
             IRepository<OrganizationUnit, long> organizationUnitRepository,
             IRoleManagementConfig roleManagementConfig,
-            UserManager userManager)
+            UserManager userManager,
+            IRepository<Flip, Guid> flipRepository)
         {
             _roleManager = roleManager;
             _userEmailer = userEmailer;
@@ -85,7 +87,7 @@ namespace ERP.Authorization.Users
             _roleManagementConfig = roleManagementConfig;
             _userManager = userManager;
             _roleRepository = roleRepository;
-
+            _flipRepository = flipRepository;
             AppUrlService = NullAppUrlService.Instance;
         }
         [AbpAuthorize(AppPermissions.Pages_Administration_Users)]
@@ -102,6 +104,7 @@ namespace ERP.Authorization.Users
 
             var userListDtos = ObjectMapper.Map<List<UserListDto>>(users);
             await FillRoleNames(userListDtos);
+            await FillFlipCount(userListDtos);
 
             return new PagedResultDto<UserListDto>(
                 userCount,
@@ -407,6 +410,24 @@ namespace ERP.Authorization.Users
                 userListDto.Roles = userListDto.Roles.Where(r => r.RoleName != null).OrderBy(r => r.RoleName).ToList();
             }
         }
+
+        private async Task FillFlipCount(IReadOnlyCollection<UserListDto> userListDtos)
+        {
+            /* This method is optimized to fill role names to given list. */
+
+            var userFlips = await _flipRepository.GetAll()
+                .Where(userFlip => userListDtos.Any(user => user.Id == userFlip.CreatorUserId))
+                .Select(userFlip => userFlip).ToListAsync();
+             
+
+            foreach (var user in userListDtos)
+            {
+                var flipsCountOfUser = userFlips.Where(userRole => userRole.CreatorUserId == user.Id).Count();
+                user.FlipsCount = flipsCountOfUser;
+            }
+             
+        }
+
 
         private IQueryable<User> GetUsersFilteredQuery(IGetUsersInput input)
         {

@@ -22595,6 +22595,7 @@ export class UserListDto implements IUserListDto {
     roles!: UserListRoleDto[] | undefined;
     isActive!: boolean | undefined;
     creationTime!: moment.Moment | undefined;
+    flipsCount!: number | undefined;
     id!: number | undefined;
 
     constructor(data?: IUserListDto) {
@@ -22622,6 +22623,7 @@ export class UserListDto implements IUserListDto {
             }
             this.isActive = data["isActive"];
             this.creationTime = data["creationTime"] ? moment(data["creationTime"].toString()) : <any>undefined;
+            this.flipsCount = data["flipsCount"];
             this.id = data["id"];
         }
     }
@@ -22649,6 +22651,7 @@ export class UserListDto implements IUserListDto {
         }
         data["isActive"] = this.isActive;
         data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
+        data["flipsCount"] = this.flipsCount;
         data["id"] = this.id;
         return data; 
     }
@@ -22665,6 +22668,7 @@ export interface IUserListDto {
     roles: UserListRoleDto[] | undefined;
     isActive: boolean | undefined;
     creationTime: moment.Moment | undefined;
+    flipsCount: number | undefined;
     id: number | undefined;
 }
 

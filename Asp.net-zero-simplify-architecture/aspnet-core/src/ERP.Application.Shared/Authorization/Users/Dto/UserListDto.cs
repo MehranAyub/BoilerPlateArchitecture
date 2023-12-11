@@ -27,5 +27,6 @@ namespace ERP.Authorization.Users.Dto
         public bool IsActive { get; set; }
 
         public DateTime CreationTime { get; set; }
+        public int? FlipsCount { get; set; }
     }
 }

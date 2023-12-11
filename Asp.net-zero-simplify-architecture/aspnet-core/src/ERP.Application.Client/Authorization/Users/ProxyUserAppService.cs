@@ -51,5 +51,10 @@ namespace ERP.Authorization.Users
         {
             await ApiClient.PostAsync(GetEndpoint(nameof(UnlockUser)), input);
         }
+
+        public async Task<PagedResultDto<UserListDto>> GetReferralUsers(GetUsersInput input)
+        {
+            return await ApiClient.GetAsync<PagedResultDto<UserListDto>>(GetEndpoint(nameof(GetReferralUsers)), input);
+        }
     }
 }

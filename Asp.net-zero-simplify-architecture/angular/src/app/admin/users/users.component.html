@@ -187,7 +187,8 @@
                                     </td> -->
                                     <td style="width: 150px">
                                         <span class="ui-column-title"> {{'Name' | localize}}</span>
-                                        {{record.name}}
+                                        {{record.name}} 
+                                        <span *ngIf="getRolesAsString(record.roles)=='Flipper'" class="kt-badge kt-badge--bold kt-badge--primary kt-badge--inline">{{record.flipsCount==0?'Silver':record.flipsCount>0 && record.flipsCount<=5?'Gold':'Platinum'}}</span>
                                     </td>
                                     <!-- <td style="width: 150px">
                                         <span class="ui-column-title"> {{'Surname' | localize}}</span>
