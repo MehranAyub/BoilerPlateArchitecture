@@ -50,13 +50,13 @@
                                 <validation-messages [formCtrl]="userNameInput"></validation-messages>
                             </div> -->
 
-                            <div class="kt-checkbox-list">
+                            <!-- <div class="kt-checkbox-list">
                                 <label for="EditUser_SetRandomPassword" class="kt-checkbox">
                                     <input id="EditUser_SetRandomPassword" type="checkbox" name="SetRandomPassword" [(ngModel)]="setRandomPassword">
                                     {{"SetRandomPassword" | localize}}
                                     <span></span>
                                 </label>
-                            </div>
+                            </div> -->
                             <div class="form-group" *ngIf="!setRandomPassword">
                                 <div class="right">
                                     <label for="Password">{{"Password" | localize}}</label>
@@ -101,11 +101,11 @@
                                     <span></span>
                                 </label>
 
-                                <label for="EditUser_SendActivationEmail" class="kt-checkbox">
+                                <!-- <label for="EditUser_SendActivationEmail" class="kt-checkbox">
                                     <input id="EditUser_SendActivationEmail" type="checkbox" name="SendActivationEmail" [(ngModel)]="sendActivationEmail">
                                     {{"SendActivationEmail" | localize}}
                                     <span></span>
-                                </label>
+                                </label> -->
 
                                 <label for="EditUser_IsActive" class="kt-checkbox">
                                     <input id="EditUser_IsActive" type="checkbox" name="IsActive" [(ngModel)]="user.isActive">
@@ -119,11 +119,11 @@
                                     <span></span>
                                 </label>
 
-                                <label *ngIf="isLockoutEnabled" for="EditUser_IsLockoutEnabled" class="kt-checkbox">
+                                <!-- <label *ngIf="isLockoutEnabled" for="EditUser_IsLockoutEnabled" class="kt-checkbox">
                                     <input id="EditUser_IsLockoutEnabled" type="checkbox" name="IsLockoutEnabled" [(ngModel)]="user.isLockoutEnabled">
                                     {{"IsLockoutEnabled" | localize}}
                                     <span></span>
-                                </label>
+                                </label> -->
                             </div>
                         </tab>
                         <tab heading="{{'Roles' | localize}}">

@@ -69,7 +69,7 @@ export class RegisterComponent extends AppComponentBase implements OnInit {
             this.message.warn("Please select role");
             return;
         }
-        if(this.referralId.length>0){
+        if(this.referralId && this.referralId.length>0){
             let splitId=this.referralId.split('-')[0];
             this.model.referId=splitId;
         }

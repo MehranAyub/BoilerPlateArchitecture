@@ -46,6 +46,11 @@ namespace ERP.Entities
 						.WhereIf(input.MinAmountSoldFilter != null, e => e.AmountSold >= input.MinAmountSoldFilter)
 						.WhereIf(input.MaxAmountSoldFilter != null, e => e.AmountSold <= input.MaxAmountSoldFilter);
 
+			if (!(await UserManager.IsInRoleAsync(GetCurrentUser(), "Admin")))
+			{
+				filteredFlips = filteredFlips.Where(x => x.CreatorUserId == AbpSession.UserId);
+			}
+
 			var pagedAndFilteredFlips = filteredFlips
                 .OrderBy(input.Sorting ?? "id asc")
                 .PageBy(input);

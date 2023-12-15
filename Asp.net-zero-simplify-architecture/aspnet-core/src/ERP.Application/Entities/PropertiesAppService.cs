@@ -32,9 +32,8 @@ namespace ERP.Entities
         }
 
         public virtual async Task<PagedResultDto<GetPropertyForViewDto>> GetAll(GetAllPropertiesInput input)
-        {
-
-            var filteredProperties = _propertyRepository.GetAll().Include(x=>x.PropertyTypeFk)
+        { 
+                var filteredProperties = _propertyRepository.GetAll().Include(x=>x.PropertyTypeFk)
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.Address.Contains(input.Filter) || e.PropertySpecs.Contains(input.Filter) || e.Description.Contains(input.Filter) || e.ViewingDescription.Contains(input.Filter) || e.ViewingContact.Contains(input.Filter) || e.OfferContact.Contains(input.Filter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.AddressFilter), e => e.Address.Contains(input.AddressFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PropertySpecsFilter), e => e.PropertySpecs.Contains(input.PropertySpecsFilter))
@@ -52,8 +51,12 @@ namespace ERP.Entities
                         .WhereIf(!string.IsNullOrWhiteSpace(input.OfferContactFilter), e => e.OfferContact.Contains(input.OfferContactFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PropertyTypeNameFilter), e => e.PropertyTypeFk != null && e.PropertyTypeFk.Name == input.PropertyTypeNameFilter);
 
+            if (!(await UserManager.IsInRoleAsync(GetCurrentUser(), "Admin")))
+            {
+                filteredProperties = filteredProperties.Where(x => x.CreatorUserId == AbpSession.UserId);
+            }
             var pagedAndFilteredProperties = filteredProperties
-                .OrderBy(input.Sorting ?? "id asc")
+                .OrderBy(input.Sorting ?? "id desc")
                 .PageBy(input);
              
 

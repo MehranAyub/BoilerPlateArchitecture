@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div class="kt-content">
+    <div class="kt-content" style="padding-bottom: 75px;">
         <div class="kt-portlet kt-portlet--mobile">
             <div class="kt-portlet__body">
                 <form class="kt-form" autocomplete="off">
@@ -553,7 +553,7 @@
                                                     >
                                                 </li>
                                                 <li>
-                                                    <a 
+                                                    <a
                                                         [routerLink]="[
                                                             '/app/main/entities/properties/upload'
                                                         ]"
@@ -570,34 +570,29 @@
                                     </td>
                                     <td style="width: 150px">
                                         {{
-                                            record.property.address
-                                                | slice : 0 : 20
-                                        }}{{
-                                            record.property.address.length > 20
-                                                ? "..."
-                                                : ""
-                                        }}
-                                    </td>
-                                    <td style="width: 150px">
-                                        {{
-                                            record.property.propertySpecs
-                                                | slice : 0 : 20
-                                        }}{{
-                                            record.property.propertySpecs
-                                                .length > 20
-                                                ? "..."
-                                                : ""
-                                        }}
-                                    </td>
-                                    <td style="width: 150px">
-                                        {{
-                                            record.property.description
-                                                | slice : 0 : 20
-                                        }}{{
-                                            record.property.description.length >
+                                            record.property?.address?.length >
                                             20
-                                                ? "..."
-                                                : ""
+                                                ? (record.property.address
+                                                      | slice : 0 : 20) + "..."
+                                                : record.property?.address
+                                        }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        {{
+                                            record.property?.propertySpecs
+                                                ?.length > 20
+                                                ? (record.property.propertySpecs
+                                                      | slice : 0 : 20) + "..."
+                                                : record.property?.propertySpecs
+                                        }}
+                                    </td>
+                                    <td style="width: 150px">
+                                        {{
+                                            record.property?.description
+                                                ?.length > 20
+                                                ? (record.property.description
+                                                      | slice : 0 : 20) + "..."
+                                                : record.property?.description
                                         }}
                                     </td>
                                     <td style="width: 150px">
@@ -611,13 +606,13 @@
                                     </td>
                                     <td style="width: 150px">
                                         {{
-                                            record.property.viewingDescription
-                                                | slice : 0 : 20
-                                        }}{{
-                                            record.property.viewingDescription
-                                                .length > 20
-                                                ? "..."
-                                                : ""
+                                            record.property?.viewingDescription
+                                                ?.length > 20
+                                                ? (record.property
+                                                      .viewingDescription
+                                                  | slice : 0 : 20)
+                                                : record.property
+                                                      ?.viewingDescription
                                         }}
                                     </td>
                                     <td style="width: 150px">

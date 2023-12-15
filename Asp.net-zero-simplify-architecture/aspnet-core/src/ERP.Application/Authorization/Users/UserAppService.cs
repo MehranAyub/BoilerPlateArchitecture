@@ -181,13 +181,19 @@ namespace ERP.Authorization.Users
                     IsLockoutEnabled = await SettingManager.GetSettingValueAsync<bool>(AbpZeroSettingNames.UserManagement.UserLockOut.IsEnabled)
                 };
 
-                foreach (var defaultRole in await _roleManager.Roles.Where(r => r.IsDefault).ToListAsync())
+                //foreach (var defaultRole in await _roleManager.Roles.Where(r => r.IsDefault).ToListAsync())
+                //{
+                //    var defaultUserRole = userRoleDtos.FirstOrDefault(ur => ur.RoleName == defaultRole.Name);
+                //    if (defaultUserRole != null)
+                //    {
+                //        defaultUserRole.IsAssigned = true;
+                //    }
+                //}
+            var defaultRole = await _roleManager.Roles.FirstOrDefaultAsync(r => r.IsDefault);
+                var defaultUserRole = userRoleDtos.FirstOrDefault(ur => ur.RoleName == defaultRole.Name);
+                if (defaultUserRole != null)
                 {
-                    var defaultUserRole = userRoleDtos.FirstOrDefault(ur => ur.RoleName == defaultRole.Name);
-                    if (defaultUserRole != null)
-                    {
-                        defaultUserRole.IsAssigned = true;
-                    }
+                    defaultUserRole.IsAssigned = true;
                 }
             }
             else
