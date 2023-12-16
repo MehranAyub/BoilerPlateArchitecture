@@ -9,7 +9,10 @@ using Abp.Timing;
 using Microsoft.EntityFrameworkCore;
 using ERP.Authorization;
 using ERP.MultiTenancy.HostDashboard.Dto;
-using ERP.MultiTenancy.Payments;
+using ERP.MultiTenancy.Payments; 
+using ERP.Entities;
+using ERP.Authorization.Roles;
+using Abp.Authorization.Users;
 
 namespace ERP.MultiTenancy.HostDashboard
 {
@@ -25,15 +28,27 @@ namespace ERP.MultiTenancy.HostDashboard
         private readonly ISubscriptionPaymentRepository _subscriptionPaymentRepository;
         private readonly IRepository<Tenant> _tenantRepository;
         private readonly IIncomeStatisticsService _incomeStatisticsService;
-
+        private readonly IRepository<Property, Guid> _propertyRepository;
+        private readonly IRepository<Flip, Guid> _flipRepository;
+        private readonly RoleManager _roleManager;
+        private readonly IRepository<UserRole, long> _userRoleRepository;
         public HostDashboardAppService(
             ISubscriptionPaymentRepository subscriptionPaymentRepository,
             IRepository<Tenant> tenantRepository,
-            IIncomeStatisticsService incomeStatisticsService)
+            IIncomeStatisticsService incomeStatisticsService,
+            IRepository<Property, Guid> propertyRepository,
+            IRepository<Flip, Guid> flipRepository,
+            RoleManager roleManager,
+            IRepository<UserRole, long> userRoleRepository
+            )
         {
             _subscriptionPaymentRepository = subscriptionPaymentRepository;
             _tenantRepository = tenantRepository;
             _incomeStatisticsService = incomeStatisticsService;
+            _propertyRepository = propertyRepository;
+            _flipRepository = flipRepository;
+            _roleManager = roleManager;
+            _userRoleRepository = userRoleRepository;
         }
 
         public async Task<HostDashboardData> GetDashboardStatisticsData(GetDashboardDataInput input)
@@ -41,24 +56,36 @@ namespace ERP.MultiTenancy.HostDashboard
             var subscriptionEndDateEndUtc = Clock.Now.ToUniversalTime().AddDays(SubscriptionEndAlertDayCount);
             var subscriptionEndDateStartUtc = Clock.Now.ToUniversalTime();
             var tenantCreationStartDate = Clock.Now.ToUniversalTime().AddDays(-RecentTenantsDayCount);
-
+            var masterWholeSalerRole =  _roleManager.Roles.FirstOrDefault(x=>x.DisplayName.ToLower()== "Master Wholesaler".ToLower()); 
             return new HostDashboardData
             {
                 DashboardPlaceholder1 = 125,
                 DashboardPlaceholder2 = 830,
-                NewTenantsCount = await GetTenantsCountByDate(input.StartDate, input.EndDate),
-                NewSubscriptionAmount = await GetNewSubscriptionAmount(input.StartDate, input.EndDate),
-                IncomeStatistics = await _incomeStatisticsService.GetIncomeStatisticsData(input.StartDate, input.EndDate, input.IncomeStatisticsDateInterval),
-                EditionStatistics = await GetEditionTenantStatisticsData(input.StartDate, input.EndDate),
-                ExpiringTenants = await GetExpiringTenantsData(subscriptionEndDateStartUtc, subscriptionEndDateEndUtc, MaxExpiringTenantsShownCount),
-                RecentTenants = await GetRecentTenantsData(tenantCreationStartDate, MaxRecentTenantsShownCount),
+                //NewTenantsCount = await GetTenantsCountByDate(input.StartDate, input.EndDate),
+                //NewSubscriptionAmount = await GetNewSubscriptionAmount(input.StartDate, input.EndDate),
+                //IncomeStatistics = await _incomeStatisticsService.GetIncomeStatisticsData(input.StartDate, input.EndDate, input.IncomeStatisticsDateInterval),
+                //EditionStatistics = await GetEditionTenantStatisticsData(input.StartDate, input.EndDate),
+                //ExpiringTenants = await GetExpiringTenantsData(subscriptionEndDateStartUtc, subscriptionEndDateEndUtc, MaxExpiringTenantsShownCount),
+                //RecentTenants = await GetRecentTenantsData(tenantCreationStartDate, MaxRecentTenantsShownCount),
+                NewTenantsCount = 0,
+                NewSubscriptionAmount = 0,
+                IncomeStatistics = null,
+                EditionStatistics = null,
+                ExpiringTenants = null,
+                RecentTenants = null,
                 MaxExpiringTenantsShownCount = MaxExpiringTenantsShownCount,
                 MaxRecentTenantsShownCount = MaxRecentTenantsShownCount,
                 SubscriptionEndAlertDayCount = SubscriptionEndAlertDayCount,
                 RecentTenantsDayCount = RecentTenantsDayCount,
                 SubscriptionEndDateStart = subscriptionEndDateStartUtc,
                 SubscriptionEndDateEnd = subscriptionEndDateEndUtc,
-                TenantCreationStartDate = tenantCreationStartDate
+                TenantCreationStartDate = tenantCreationStartDate,
+                UserCounts = UserManager.Users.Count(x => x.IsDeleted == false),
+                PropertyCounts = _propertyRepository.GetAll().Count(x => x.IsDeleted == false),
+                FlipsCounts = _flipRepository.GetAll().Count(x => x.IsDeleted == false),
+                MasterWholeSalerCounts = _userRoleRepository.GetAll()
+                .Count(userRole => userRole.RoleId == masterWholeSalerRole.Id)
+
             };
         }
 

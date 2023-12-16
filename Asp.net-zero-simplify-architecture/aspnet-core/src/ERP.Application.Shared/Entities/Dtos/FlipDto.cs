@@ -17,7 +17,8 @@ namespace ERP.Entities.Dtos
 		public DateTime DateSold { get; set; }
 
 		public long AmountSold { get; set; }
-
+        public string CreatedBy { get; set; }
+        public int? CreatedByFlipsCount { get; set; }
 
 
     }

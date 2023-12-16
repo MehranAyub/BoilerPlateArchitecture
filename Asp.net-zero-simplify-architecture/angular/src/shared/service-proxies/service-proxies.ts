@@ -14152,6 +14152,8 @@ export class FlipDto implements IFlipDto {
     amountRehab!: number | undefined;
     dateSold!: moment.Moment | undefined;
     amountSold!: number | undefined;
+    createdBy!: string | undefined;
+    createdByFlipsCount!: number | undefined;
     id!: string | undefined;
 
     constructor(data?: IFlipDto) {
@@ -14171,6 +14173,8 @@ export class FlipDto implements IFlipDto {
             this.amountRehab = data["amountRehab"];
             this.dateSold = data["dateSold"] ? moment(data["dateSold"].toString()) : <any>undefined;
             this.amountSold = data["amountSold"];
+            this.createdBy = data["createdBy"];
+            this.createdByFlipsCount = data["createdByFlipsCount"];
             this.id = data["id"];
         }
     }
@@ -14190,6 +14194,8 @@ export class FlipDto implements IFlipDto {
         data["amountRehab"] = this.amountRehab;
         data["dateSold"] = this.dateSold ? this.dateSold.toISOString() : <any>undefined;
         data["amountSold"] = this.amountSold;
+        data["createdBy"] = this.createdBy;
+        data["createdByFlipsCount"] = this.createdByFlipsCount;
         data["id"] = this.id;
         return data; 
     }
@@ -14202,6 +14208,8 @@ export interface IFlipDto {
     amountRehab: number | undefined;
     dateSold: moment.Moment | undefined;
     amountSold: number | undefined;
+    createdBy: string | undefined;
+    createdByFlipsCount: number | undefined;
     id: string | undefined;
 }
 
@@ -14523,6 +14531,10 @@ export class HostDashboardData implements IHostDashboardData {
     subscriptionEndDateStart!: moment.Moment | undefined;
     subscriptionEndDateEnd!: moment.Moment | undefined;
     tenantCreationStartDate!: moment.Moment | undefined;
+    userCounts!: number | undefined;
+    propertyCounts!: number | undefined;
+    flipsCounts!: number | undefined;
+    masterWholeSalerCounts!: number | undefined;
 
     constructor(data?: IHostDashboardData) {
         if (data) {
@@ -14566,6 +14578,10 @@ export class HostDashboardData implements IHostDashboardData {
             this.subscriptionEndDateStart = data["subscriptionEndDateStart"] ? moment(data["subscriptionEndDateStart"].toString()) : <any>undefined;
             this.subscriptionEndDateEnd = data["subscriptionEndDateEnd"] ? moment(data["subscriptionEndDateEnd"].toString()) : <any>undefined;
             this.tenantCreationStartDate = data["tenantCreationStartDate"] ? moment(data["tenantCreationStartDate"].toString()) : <any>undefined;
+            this.userCounts = data["userCounts"];
+            this.propertyCounts = data["propertyCounts"];
+            this.flipsCounts = data["flipsCounts"];
+            this.masterWholeSalerCounts = data["masterWholeSalerCounts"];
         }
     }
 
@@ -14609,6 +14625,10 @@ export class HostDashboardData implements IHostDashboardData {
         data["subscriptionEndDateStart"] = this.subscriptionEndDateStart ? this.subscriptionEndDateStart.toISOString() : <any>undefined;
         data["subscriptionEndDateEnd"] = this.subscriptionEndDateEnd ? this.subscriptionEndDateEnd.toISOString() : <any>undefined;
         data["tenantCreationStartDate"] = this.tenantCreationStartDate ? this.tenantCreationStartDate.toISOString() : <any>undefined;
+        data["userCounts"] = this.userCounts;
+        data["propertyCounts"] = this.propertyCounts;
+        data["flipsCounts"] = this.flipsCounts;
+        data["masterWholeSalerCounts"] = this.masterWholeSalerCounts;
         return data; 
     }
 }
@@ -14629,6 +14649,10 @@ export interface IHostDashboardData {
     subscriptionEndDateStart: moment.Moment | undefined;
     subscriptionEndDateEnd: moment.Moment | undefined;
     tenantCreationStartDate: moment.Moment | undefined;
+    userCounts: number | undefined;
+    propertyCounts: number | undefined;
+    flipsCounts: number | undefined;
+    masterWholeSalerCounts: number | undefined;
 }
 
 export class IncomeStastistic implements IIncomeStastistic {

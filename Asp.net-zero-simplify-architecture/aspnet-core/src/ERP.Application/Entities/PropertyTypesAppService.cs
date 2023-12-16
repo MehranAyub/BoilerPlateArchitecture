@@ -36,7 +36,7 @@ namespace ERP.Entities
                         .WhereIf(!string.IsNullOrWhiteSpace(input.NameFilter), e => e.Name.Contains(input.NameFilter));
 
             var pagedAndFilteredPropertyTypes = filteredPropertyTypes
-                .OrderBy(input.Sorting ?? "id asc")
+                .OrderBy(input.Sorting ?? "id desc")
                 .PageBy(input);
 
             var propertyTypes = from o in pagedAndFilteredPropertyTypes

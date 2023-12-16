@@ -46,17 +46,19 @@ namespace ERP.Entities
 						.WhereIf(input.MinAmountSoldFilter != null, e => e.AmountSold >= input.MinAmountSoldFilter)
 						.WhereIf(input.MaxAmountSoldFilter != null, e => e.AmountSold <= input.MaxAmountSoldFilter);
 
-			if (!(await UserManager.IsInRoleAsync(GetCurrentUser(), "Admin")))
+			if (!((await UserManager.IsInRoleAsync(GetCurrentUser(), "Admin")) || (await UserManager.IsInRoleAsync(GetCurrentUser(), "Wholesaler"))))
 			{
 				filteredFlips = filteredFlips.Where(x => x.CreatorUserId == AbpSession.UserId);
 			}
 
 			var pagedAndFilteredFlips = filteredFlips
-                .OrderBy(input.Sorting ?? "id asc")
+                .OrderBy(input.Sorting ?? "id desc")
                 .PageBy(input);
 
 			var flips = from o in pagedAndFilteredFlips
-                         select new GetFlipForViewDto() {
+						join o1 in UserManager.Users on o.CreatorUserId equals o1.Id into j1
+						from s1 in j1.DefaultIfEmpty()
+						select new GetFlipForViewDto() {
 							Flip = new FlipDto
 							{
                                 Address = o.Address,
@@ -65,7 +67,9 @@ namespace ERP.Entities
                                 AmountRehab = o.AmountRehab,
                                 DateSold = o.DateSold,
                                 AmountSold = o.AmountSold,
-                                Id = o.Id
+                                Id = o.Id,
+								CreatedBy= s1.Name,
+								CreatedByFlipsCount=pagedAndFilteredFlips.Count(x=>x.CreatorUserId==s1.Id)
 							}
 						};
 

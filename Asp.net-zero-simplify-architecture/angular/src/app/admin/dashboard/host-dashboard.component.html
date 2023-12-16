@@ -12,7 +12,7 @@
                     {{ "HostDashboardHeaderInfo" | localize }}
                 </span>
             </div>
-            <div class="kt-subheader__toolbar">
+            <!-- <div class="kt-subheader__toolbar">
                 <div class="kt-subheader__wrapper">
                     <button
                         name="RefreshButton"
@@ -51,7 +51,7 @@
                         bsDaterangepicker
                     />
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="kt-content kt-grid__item kt-grid__item--fluid">
             <div class="kt-portlet kt-portlet--height-fluid">
@@ -64,10 +64,10 @@
                                 <div class="kt-widget24__details">
                                     <div class="kt-widget24__info">
                                         <h4 class="kt-widget24__title">
-                                            Amount From Sold
+                                             Users
                                         </h4>
                                         <span class="kt-widget24__desc">
-                                            {{ "Subscriptions" }}
+                                            Users
                                         </span>
                                     </div>
                                     <span
@@ -76,55 +76,11 @@
                                         <span *ngIf="!hostDashboardData"
                                             >...</span
                                         >
-                                        <span
-                                            *ngIf="hostDashboardData"
-                                            counto
-                                            [step]="30"
-                                            [countTo]="
-                                                hostDashboardData.newSubscriptionAmount
-                                            "
-                                            [countFrom]="0"
-                                            [duration]="5"
-                                            (countoChange)="
-                                                countoNewSubscriptionAmount =
-                                                    $event
-                                            "
-                                            >{{
-                                                countoNewSubscriptionAmount
-                                                    | currency
-                                                        : "USD"
-                                                        : "symbol"
-                                                        : "1.0-0"
-                                            }}</span
-                                        >
+                                        <span *ngIf="hostDashboardData">{{hostDashboardData?.userCounts}}</span>
                                     </span>
                                 </div>
-                                <div class="progress progress--sm">
-                                    <div
-                                        class="progress-bar kt-bg-brand"
-                                        role="progressbar"
-                                        style="width: 100%"
-                                        aria-valuenow="50"
-                                        aria-valuemin="0"
-                                        aria-valuemax="100"
-                                    ></div>
-                                </div>
-                                <div class="kt-widget24__action">
-                                    <span class="kt-widget24__change">
-                                        <div class="status-title">
-                                            {{
-                                                selectedDateRange[0]
-                                                    | momentFormat : "L"
-                                            }}
-                                            -
-                                            {{
-                                                selectedDateRange[1]
-                                                    | momentFormat : "L"
-                                            }}
-                                        </div>
-                                    </span>
-                                    <span class="kt-widget24__number"> </span>
-                                </div>
+                              
+                               
                             </div>
                         </div>
                         <div class="col-md-12 col-lg-6 col-xl-3">
@@ -132,7 +88,7 @@
                                 <div class="kt-widget24__details">
                                     <div class="kt-widget24__info">
                                         <h4 class="kt-widget24__title">
-                                            New Users
+                                            Master wholesaler
                                         </h4>
                                         <span class="kt-widget24__desc">
                                             Users
@@ -144,51 +100,10 @@
                                         <span *ngIf="!hostDashboardData"
                                             >...</span
                                         >
-                                        <span
-                                            *ngIf="hostDashboardData"
-                                            counto
-                                            [step]="10"
-                                            [countTo]="
-                                                hostDashboardData.newTenantsCount
-                                            "
-                                            [countFrom]="0"
-                                            [duration]="5"
-                                            (countoChange)="
-                                                countoNewTenantsCount = $event
-                                            "
-                                            >{{
-                                                countoNewTenantsCount
-                                                    | number : "1.0-0"
-                                            }}</span
-                                        >
+                                       
+                                        <span *ngIf="hostDashboardData">{{hostDashboardData?.masterWholeSalerCounts}}</span>
                                     </span>
-                                </div>
-                                <div class="progress progress--sm">
-                                    <div
-                                        class="progress-bar kt-bg-info"
-                                        role="progressbar"
-                                        style="width: 100%"
-                                        aria-valuenow="50"
-                                        aria-valuemin="0"
-                                        aria-valuemax="100"
-                                    ></div>
-                                </div>
-                                <div class="kt-widget24__action">
-                                    <span class="kt-widget24__change">
-                                        <div class="status-title">
-                                            {{
-                                                selectedDateRange[0]
-                                                    | momentFormat : "L"
-                                            }}
-                                            -
-                                            {{
-                                                selectedDateRange[1]
-                                                    | momentFormat : "L"
-                                            }}
-                                        </div>
-                                    </span>
-                                    <span class="kt-widget24__number"> </span>
-                                </div>
+                                </div> 
                             </div>
                         </div>
                         <div class="col-md-12 col-lg-6 col-xl-3">
@@ -196,7 +111,7 @@
                                 <div class="kt-widget24__details">
                                     <div class="kt-widget24__info">
                                         <h4 class="kt-widget24__title">
-                                            New Properties
+                                             Properties
                                         </h4>
                                         <span class="kt-widget24__desc">
                                             Properties
@@ -208,47 +123,10 @@
                                         <span *ngIf="!hostDashboardData"
                                             >...</span
                                         >
-                                        <span
-                                            *ngIf="hostDashboardData"
-                                            counto
-                                            [step]="100"
-                                            [countTo]="
-                                                hostDashboardData.dashboardPlaceholder1
-                                            "
-                                            [countFrom]="0"
-                                            [duration]="5"
-                                            (countoChange)="
-                                                countoDashboardPlaceholder1 =
-                                                    $event
-                                            "
-                                            >{{
-                                                countoDashboardPlaceholder1
-                                                    | number : "1.0-0"
-                                            }}</span
-                                        >
+                                        <span *ngIf="hostDashboardData">{{hostDashboardData?.propertyCounts}}</span>
                                     </span>
                                 </div>
-                                <div class="progress progress--sm">
-                                    <div
-                                        class="progress-bar kt-bg-danger"
-                                        role="progressbar"
-                                        style="width: 45%"
-                                        aria-valuenow="50"
-                                        aria-valuemin="0"
-                                        aria-valuemax="100"
-                                    ></div>
-                                </div>
-                                <div class="kt-widget24__action">
-                                    <span class="kt-widget24__change">
-                                        {{
-                                            "DashboardSampleStatisticsHelpText"
-                                                | localize
-                                        }}
-                                    </span>
-                                    <span class="kt-widget24__number">
-                                        <span class="counterup">45</span>%
-                                    </span>
-                                </div>
+                               
                             </div>
                         </div>
                         <div class="col-md-12 col-lg-6 col-xl-3">
@@ -256,10 +134,10 @@
                                 <div class="kt-widget24__details">
                                     <div class="kt-widget24__info">
                                         <h4 class="kt-widget24__title">
-                                            Properties On Sale
+                                            Flips
                                         </h4>
                                         <span class="kt-widget24__desc">
-                                            Properties
+                                            Flips
                                         </span>
                                     </div>
                                     <span
@@ -268,53 +146,17 @@
                                         <span *ngIf="!hostDashboardData"
                                             >...</span
                                         >
-                                        <span
-                                            *ngIf="hostDashboardData"
-                                            counto
-                                            [step]="100"
-                                            [countTo]="
-                                                hostDashboardData.dashboardPlaceholder2
-                                            "
-                                            [countFrom]="0"
-                                            [duration]="5"
-                                            (countoChange)="
-                                                countoDashboardPlaceholder2 =
-                                                    $event
-                                            "
-                                            >{{
-                                                countoDashboardPlaceholder2
-                                                    | number : "1.0-0"
-                                            }}</span
-                                        >
+                                        <span *ngIf="hostDashboardData">{{hostDashboardData?.flipsCounts}}</span>
                                     </span>
                                 </div>
-                                <div class="progress progress--sm">
-                                    <div
-                                        class="progress-bar kt-bg-success"
-                                        role="progressbar"
-                                        style="width: 65%"
-                                        aria-valuenow="50"
-                                        aria-valuemin="0"
-                                        aria-valuemax="100"
-                                    ></div>
-                                </div>
-                                <div class="kt-widget24__action">
-                                    <span class="kt-widget24__change">
-                                        {{
-                                            "DashboardSampleStatisticsHelpText"
-                                                | localize
-                                        }}
-                                    </span>
-                                    <span class="kt-widget24__number">
-                                        <span class="counterup">65</span>%
-                                    </span>
-                                </div>
+                               
+                                
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div
                         class="kt-portlet kt-portlet--height-fluid income-statistics"
@@ -503,7 +345,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

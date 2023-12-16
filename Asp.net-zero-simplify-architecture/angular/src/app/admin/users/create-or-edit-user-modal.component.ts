@@ -143,7 +143,8 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
 
         input.user = this.user;
         input.setRandomPassword = this.setRandomPassword;
-        input.sendActivationEmail = this.sendActivationEmail;
+        // input.sendActivationEmail = this.sendActivationEmail;
+        input.sendActivationEmail = false;
         input.assignedRoleNames =
             _.map(
                 _.filter(this.roles, { isAssigned: true }), role => role.roleName

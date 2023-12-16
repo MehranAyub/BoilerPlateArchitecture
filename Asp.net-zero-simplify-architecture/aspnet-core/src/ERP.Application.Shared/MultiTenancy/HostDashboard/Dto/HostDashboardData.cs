@@ -20,6 +20,10 @@ namespace ERP.MultiTenancy.HostDashboard.Dto
         public DateTime SubscriptionEndDateStart { get; set; }
         public DateTime SubscriptionEndDateEnd { get; set; }
         public DateTime TenantCreationStartDate { get; set; }
+        public int? UserCounts { get; set; }
+        public int? PropertyCounts { get; set; }
+        public int? FlipsCounts { get; set; }
+        public int? MasterWholeSalerCounts { get; set; }
     }
 }
 

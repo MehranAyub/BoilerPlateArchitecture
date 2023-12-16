@@ -51,7 +51,7 @@ namespace ERP.Entities
                         .WhereIf(!string.IsNullOrWhiteSpace(input.OfferContactFilter), e => e.OfferContact.Contains(input.OfferContactFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PropertyTypeNameFilter), e => e.PropertyTypeFk != null && e.PropertyTypeFk.Name == input.PropertyTypeNameFilter);
 
-            if (!(await UserManager.IsInRoleAsync(GetCurrentUser(), "Admin")))
+            if (!(await UserManager.IsInRoleAsync(GetCurrentUser(), "Admin")) || !(await UserManager.IsInRoleAsync(GetCurrentUser(), "Flipper")))
             {
                 filteredProperties = filteredProperties.Where(x => x.CreatorUserId == AbpSession.UserId);
             }

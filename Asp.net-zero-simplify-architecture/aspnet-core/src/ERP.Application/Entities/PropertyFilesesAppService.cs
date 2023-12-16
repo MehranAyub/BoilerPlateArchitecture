@@ -40,7 +40,7 @@ namespace ERP.Entities
                         .WhereIf(!string.IsNullOrWhiteSpace(input.Filter), e => false || e.FileName.Contains(input.Filter) || e.FileType.Contains(input.Filter));
 
             var pagedAndFilteredPropertyFileses = filteredPropertyFileses
-                .OrderBy(input.Sorting ?? "id asc")
+                .OrderBy(input.Sorting ?? "id desc")
                 .PageBy(input);
 
             var propertyFileses = from o in pagedAndFilteredPropertyFileses

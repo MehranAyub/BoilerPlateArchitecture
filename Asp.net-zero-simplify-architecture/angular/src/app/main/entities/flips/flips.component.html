@@ -280,14 +280,22 @@
                                         {{ l("Actions") }}
                                     </th>
                                     <th
-                                        style="width: 150px"
-                                        pSortableColumn="address"
+                                        style="width: 150px" 
                                     >
-                                        {{ l("Address") }}
-                                        <p-sortIcon
-                                            field="flip.address"
-                                        ></p-sortIcon>
+                                        Flip By
+                                        
                                     </th>
+
+                                    <th
+                                    style="width: 150px"
+                                    pSortableColumn="address"
+                                >
+                                    {{ l("Address") }}
+                                    <p-sortIcon
+                                        field="flip.address"
+                                    ></p-sortIcon>
+                                </th>
+                                    
                                     <th
                                         style="width: 150px"
                                         pSortableColumn="datePurchased"
@@ -411,6 +419,13 @@
                                                 </li>
                                             </ul>
                                         </div>
+                                    </td>
+                                    <td style="width: 150px">
+                                        <span class="ui-column-title">
+                                            {{ l("Address") }}</span
+                                        >
+                                        {{ record.flip?.createdBy }}
+                                        <span class="kt-badge kt-badge--bold kt-badge--primary kt-badge--inline">{{record.flip?.createdByFlipsCount==0?'Silver':record.flip?.createdByFlipsCount>0 && record.flip?.createdByFlipsCount<=5?'Gold':'Platinum'}}</span>
                                     </td>
                                     <td style="width: 150px">
                                         <span class="ui-column-title">
