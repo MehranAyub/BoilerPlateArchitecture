@@ -16,7 +16,7 @@ namespace ERP.Authorization.Users.Dto
         {
             if (string.IsNullOrEmpty(Sorting))
             {
-                Sorting = "Name,Surname";
+                Sorting = "CreationTime desc";
             }
 
             Filter = Filter?.Trim();

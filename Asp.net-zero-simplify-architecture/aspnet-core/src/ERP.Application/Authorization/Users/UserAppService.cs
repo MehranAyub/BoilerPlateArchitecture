@@ -98,7 +98,7 @@ namespace ERP.Authorization.Users
             var userCount = await query.CountAsync();
 
             var users = await query
-                .OrderBy(input.Sorting ?? "id desc")
+                .OrderBy(input.Sorting)
                 .PageBy(input)
                 .ToListAsync();
 
