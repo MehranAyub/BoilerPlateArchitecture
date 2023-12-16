@@ -55,7 +55,7 @@ namespace ERP.Entities
 					   from s1 in j1.DefaultIfEmpty()
 					   where (ur.UserId == AbpSession.UserId)
 					   select s1;
-			var isAdminOrWholesaler = currentSessionRoles.FirstOrDefault(x => x.DisplayName == "Admin" || x.DisplayName == "Wholesaler");
+			var isAdminOrWholesaler = currentSessionRoles.FirstOrDefault(x => x.DisplayName == "Admin" || x.DisplayName == "Wholesaler" || x.DisplayName== "Master Wholesaler");
              
             if (isAdminOrWholesaler == null)
             {
