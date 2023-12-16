@@ -14,6 +14,8 @@ using ERP.Authorization;
 using Abp.Extensions;
 using Abp.Authorization;
 using Microsoft.EntityFrameworkCore;
+using ERP.Authorization.Roles;
+using Abp.Authorization.Users;
 
 namespace ERP.Entities
 {
@@ -21,12 +23,13 @@ namespace ERP.Entities
     public class FlipsAppService : ERPAppServiceBase, IFlipsAppService
     {
 		 private readonly IRepository<Flip, Guid> _flipRepository;
-		 
-
-		  public FlipsAppService(IRepository<Flip, Guid> flipRepository ) 
+		private readonly RoleManager _roleManager;
+		private readonly IRepository<UserRole, long> _userRoleRepository;
+		public FlipsAppService(IRepository<Flip, Guid> flipRepository, RoleManager roleManager, IRepository<UserRole, long> userRoleRepository) 
 		  {
 			_flipRepository = flipRepository;
-			
+			_roleManager = roleManager;
+			_userRoleRepository = userRoleRepository;
 		  }
 
 		 public async Task<PagedResultDto<GetFlipForViewDto>> GetAll(GetAllFlipsInput input)
@@ -46,12 +49,20 @@ namespace ERP.Entities
 						.WhereIf(input.MinAmountSoldFilter != null, e => e.AmountSold >= input.MinAmountSoldFilter)
 						.WhereIf(input.MaxAmountSoldFilter != null, e => e.AmountSold <= input.MaxAmountSoldFilter);
 
-			if (!((await UserManager.IsInRoleAsync(GetCurrentUser(), "Admin")) || (await UserManager.IsInRoleAsync(GetCurrentUser(), "Wholesaler"))))
-			{
-				filteredFlips = filteredFlips.Where(x => x.CreatorUserId == AbpSession.UserId);
-			}
 
-			var pagedAndFilteredFlips = filteredFlips
+			var currentSessionRoles = from ur in _userRoleRepository.GetAll()
+					   join r in _roleManager.Roles on ur.RoleId equals r.Id into j1
+					   from s1 in j1.DefaultIfEmpty()
+					   where (ur.UserId == AbpSession.UserId)
+					   select s1;
+			var isAdminOrWholesaler = currentSessionRoles.FirstOrDefault(x => x.DisplayName == "Admin" || x.DisplayName == "Wholesaler");
+             
+            if (isAdminOrWholesaler == null)
+            {
+                filteredFlips = filteredFlips.Where(x => x.CreatorUserId == AbpSession.UserId);
+            }
+
+            var pagedAndFilteredFlips = filteredFlips
                 .OrderBy(input.Sorting ?? "id desc")
                 .PageBy(input);
 

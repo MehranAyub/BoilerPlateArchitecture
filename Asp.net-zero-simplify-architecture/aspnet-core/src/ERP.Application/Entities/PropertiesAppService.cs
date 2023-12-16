@@ -15,6 +15,8 @@ using Microsoft.EntityFrameworkCore;
 using Abp.UI;
 using ERP.Storage;
 using static ERP.Entities.Dtos.Enums;
+using ERP.Authorization.Roles;
+using Abp.Authorization.Users;
 
 namespace ERP.Entities
 { 
@@ -23,12 +25,16 @@ namespace ERP.Entities
         private readonly IRepository<Property, Guid> _propertyRepository;
         private readonly IRepository<PropertyFiles> _propertyFilesRepository;
         private readonly IRepository<PropertyType, int> _lookup_propertyTypeRepository;
-
-        public PropertiesAppService(IRepository<Property, Guid> propertyRepository, IRepository<PropertyFiles> propertyFilesRepository, IRepository<PropertyType, int> lookup_propertyTypeRepository)
+        private readonly RoleManager _roleManager;
+        private readonly IRepository<UserRole, long> _userRoleRepository;
+        public PropertiesAppService(IRepository<Property, Guid> propertyRepository, IRepository<PropertyFiles> propertyFilesRepository, IRepository<PropertyType, int> lookup_propertyTypeRepository,
+            RoleManager roleManager, IRepository<UserRole, long> userRoleRepository)
         {
             _propertyRepository = propertyRepository;
             _propertyFilesRepository = propertyFilesRepository;
             _lookup_propertyTypeRepository = lookup_propertyTypeRepository;
+            _roleManager = roleManager;
+            _userRoleRepository = userRoleRepository;
         }
 
         public virtual async Task<PagedResultDto<GetPropertyForViewDto>> GetAll(GetAllPropertiesInput input)
@@ -51,7 +57,15 @@ namespace ERP.Entities
                         .WhereIf(!string.IsNullOrWhiteSpace(input.OfferContactFilter), e => e.OfferContact.Contains(input.OfferContactFilter))
                         .WhereIf(!string.IsNullOrWhiteSpace(input.PropertyTypeNameFilter), e => e.PropertyTypeFk != null && e.PropertyTypeFk.Name == input.PropertyTypeNameFilter);
 
-            if (!(await UserManager.IsInRoleAsync(GetCurrentUser(), "Admin")) || !(await UserManager.IsInRoleAsync(GetCurrentUser(), "Flipper")))
+            var currentSessionRoles = from ur in _userRoleRepository.GetAll()
+                                      join r in _roleManager.Roles on ur.RoleId equals r.Id into j1
+                                      from s1 in j1.DefaultIfEmpty()
+                                      where (ur.UserId == AbpSession.UserId)
+                                      select s1;
+            var isAdminOrFlipper = currentSessionRoles.FirstOrDefault(x => x.DisplayName == "Admin" || x.DisplayName == "Flipper");
+
+
+            if (isAdminOrFlipper==null)
             {
                 filteredProperties = filteredProperties.Where(x => x.CreatorUserId == AbpSession.UserId);
             }

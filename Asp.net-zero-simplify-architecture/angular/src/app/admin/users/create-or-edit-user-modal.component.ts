@@ -32,7 +32,7 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
     user: UserEditDto = new UserEditDto();
     roles: UserRoleDto[];
     sendActivationEmail = true;
-    setRandomPassword = true;
+    setRandomPassword = false;
     passwordComplexityInfo = '';
     profilePicture: string;
 
@@ -50,7 +50,7 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
     show(userId?: number): void {
         if (!userId) {
             this.active = true;
-            this.setRandomPassword = true;
+            this.setRandomPassword = false;
             this.sendActivationEmail = true;
         }
 
@@ -142,7 +142,7 @@ export class CreateOrEditUserModalComponent extends AppComponentBase {
         let input = new CreateOrUpdateUserInput();
 
         input.user = this.user;
-        input.setRandomPassword = this.setRandomPassword;
+        input.setRandomPassword = false;
         // input.sendActivationEmail = this.sendActivationEmail;
         input.sendActivationEmail = false;
         input.assignedRoleNames =
